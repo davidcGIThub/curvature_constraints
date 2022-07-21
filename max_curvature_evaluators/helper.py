@@ -21,9 +21,12 @@ def calculate_curvature(t,M,control_points):
     dT = get_T_derivative_vector(order,t,0,1,1)
     d2T = get_T_derivative_vector(order,t,0,2,1)
     velocity = np.dot(control_points,np.dot(M,dT)).flatten()
+    velocity_norm = np.linalg.norm(velocity)
+    if velocity_norm < 1e-8:
+        return np.inf
     acceleration = np.dot(control_points,np.dot(M,d2T)).flatten()
     numerator = np.linalg.norm(np.cross(velocity,acceleration))
-    denominator = np.linalg.norm(velocity)**3
+    denominator = velocity_norm**3
     curvature = numerator/denominator
     return curvature
 
