@@ -1,3 +1,5 @@
+import numpy as np
+
 def create_random_control_points_greater_than_angles(num_control_points,angle):
     control_points = np.zeros((2,num_control_points))
     len_ave = 3
