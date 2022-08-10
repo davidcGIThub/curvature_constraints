@@ -1,7 +1,6 @@
 import numpy as np
-from mpl_toolkits import mplot3d
-import matplotlib.pyplot as plt
 from scipy.spatial import ConvexHull
+from bsplinegenerator.helper_functions import count_number_of_control_points
 
 class MDM(object):
     __class__ = 'MDM'
@@ -27,7 +26,7 @@ class MDM(object):
             
         max_iter: int (default value is 500)
             Maximum iterations we can evaluate on
-            
+
         init_approx_index: int (default is 1)
             Index of element of convex hull, which forms first approximation of v vector.
             It can be changed for lowering iterations sake
@@ -39,20 +38,40 @@ class MDM(object):
 
     def __init__(self, points, dim, accel, max_iter = 500, init_approx_index = 1):
         self._dim = dim
-        self._points = points.copy()
-        self._hull = ConvexHull(points)
-        self._A_matrix = points.copy().transpose()
+        self._num_points = count_number_of_control_points(points)
+        self._points = np.transpose(points).copy()
+        self._A_matrix = points.copy()
         self.is_accelerated = accel
-        self.iterations = None
-        self.delta_p = None
-        self.p_vector = None
-        self.vector_current = None
-        self.supp_vector = None
         self.max_iter = max_iter
         self.init_approx_index = init_approx_index
 
-
     def solve(self):
+        if self._num_points == 1:
+            closest_point = self._points[0,:]
+            return closest_point
+        elif self._num_points == 2:
+            closest_point = self.solve_two_points()
+            return closest_point
+        else:
+            return self.solve_three_or_more_points()
+
+    def solve_two_points(self):
+        point1 = self._points[0,:]
+        point2 = self._points[1,:]
+        if np.array_equal(point1,point2):
+            closest_point = point1
+            return closest_point
+        point_difference = point1 - point2
+        alpha = np.dot(point1,point_difference)/np.dot(point_difference,point_difference)
+        if alpha > 1:
+            closest_point = point2 
+        elif alpha < 0:
+            closest_point = point1
+        else:
+            closest_point = alpha*point2 + (1-alpha)*point1
+        return closest_point
+
+    def solve_three_or_more_points(self):
         V = 0
         iterations = 0
         delta_p = 1
@@ -68,9 +87,10 @@ class MDM(object):
         cycle_is_constructing = False
         special_upd_done = False                    #whether special update Wn = W + lambdaV is done
         cycle_current_size = 0                      #we will search actual size of cycle
-        vector_current = self._points[self._hull.vertices[self.init_approx_index]].copy()    #need copy() there for non-changing _points
-        supp_vector.append(self._hull.vertices[self.init_approx_index])  # approximation => get vect_0
-        p_vector[self._hull.vertices[self.init_approx_index]] = 1                         # working right concat
+        index = 0
+        vector_current = self._points[index,:]
+        supp_vector.append(index)
+        p_vector[index] = 1
         #then we need to find vect_{k+1} iteratively
         while delta_p > 0.000001 and iterations < self.max_iter and len(supp_vector) != 0:
             if self.is_accelerated is True and cycle_constructed is True and special_upd_done is False:
@@ -82,8 +102,7 @@ class MDM(object):
                 for i in range(len(p_vector)):          #returning
                     if p_vector[i] > 0.0000001:
                         supp_vector.append(i)
-
-                lambda_t = -np.dot(vector_current, V) / np.linalg.norm(V) ** 2
+                lambda_t = -np.dot(vector_current, V) / np.linalg.norm(V)**2
                 for i in range(cycle_size):
                     if t_param_vector[i] > 0:
                         if lambda_t > (1 - p_vector[MIN_set[i]]) / t_param_vector[i]:
@@ -147,4 +166,5 @@ class MDM(object):
                     if p_vector[i] > 0.0000001:
                         supp_vector.append(i)
             iterations += 1
-        return vector_current
+            closest_point = vector_current
+        return closest_point
