@@ -45,7 +45,12 @@ class MDM(object):
         self.max_iter = max_iter
         self.init_approx_index = init_approx_index
 
-    def solve(self):
+    def get_min_distance(self):
+        closest_point = self.get_closest_point(self)
+        min_distance = np.linalg.norm(closest_point)
+        return min_distance
+
+    def get_closest_point(self):
         if self._num_points == 1:
             closest_point = self._points[0,:]
             return closest_point
@@ -88,6 +93,10 @@ class MDM(object):
         special_upd_done = False                    #whether special update Wn = W + lambdaV is done
         cycle_current_size = 0                      #we will search actual size of cycle
         index = 0
+        # hull = ConvexHull(self._points)
+        # index = hull.vertices[self.init_approx_index]
+        # index = 0
+        index = np.argmin(np.linalg.norm(self._points,2,1))
         vector_current = self._points[index,:]
         supp_vector.append(index)
         p_vector[index] = 1
