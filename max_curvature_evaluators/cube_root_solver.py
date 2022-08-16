@@ -2,25 +2,25 @@ import numpy as np
 import cmath
 import matplotlib.pyplot as plt
 
-def analytical_solver(a,b,c,d):
+def solver(a,b,c,d):
     if a == 0:
         if b == 0:
             if c == 0:
                 roots = []
             else:
-                roots = __analytic_linear_solver(c,d)
+                roots = __linear_solver(c,d)
         else:
-            roots = __analytic_quadratic_solver(b,c,d)
+            roots = __quadratic_solver(b,c,d)
     else:
-        roots = __analytic_cubic_solver(a,b,c,d)
+        roots = __cubic_solver(a,b,c,d)
     return roots
 
-def __analytic_linear_solver(c,d):
+def __linear_solver(c,d):
     root = -d/c
     roots = [root]
     return roots
 
-def __analytic_quadratic_solver(b,c,d):
+def __quadratic_solver(b,c,d):
     if c*c - 4*b*d == 0:
         root = -c/(2*b)
         roots = [root]
@@ -32,7 +32,7 @@ def __analytic_quadratic_solver(b,c,d):
         roots = [root1, root2]
     return roots
 
-def __analytic_cubic_solver(A,B,C,D):
+def __cubic_solver(A,B,C,D):
     d = 18*A*B*C*D - 4*(B**3)*D + (B**2)*(C**2) - 4*A*(C**3) - 27*(A**2)*(D**2)
     if d > 0:
         Q_ = (3*(C/A) - (B/A)**2)/9

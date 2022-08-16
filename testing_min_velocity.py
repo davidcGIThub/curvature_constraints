@@ -65,7 +65,7 @@ sqp_time = end_time - start_time
 ### mdm bound ###
 start_time = time.time()
 mdm = MDM(np.transpose(control_points), dimension, True)
-mdm_min = np.linalg.norm(mdm.solve())
+mdm_min = np.linalg.norm(mdm.get_closest_point())
 end_time = time.time()
 mdm_time = end_time - start_time
 

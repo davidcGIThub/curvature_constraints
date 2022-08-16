@@ -46,7 +46,7 @@ class MDM(object):
         self.init_approx_index = init_approx_index
 
     def get_min_distance(self):
-        closest_point = self.get_closest_point(self)
+        closest_point = self.get_closest_point()
         min_distance = np.linalg.norm(closest_point)
         return min_distance
 
