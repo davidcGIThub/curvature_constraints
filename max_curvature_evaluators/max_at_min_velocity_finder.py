@@ -1,5 +1,5 @@
 import numpy as np
-from cube_root_solver import analytical_solver, cube_root_plotter
+from cube_root_solver import solver, cube_root_plotter
 from bsplinegenerator.bsplines import BsplineEvaluation
 from bsplinegenerator.helper_functions import count_number_of_control_points
 from helper import calculate_velocity_magnitude, calculate_curvature, get_matrix
@@ -43,7 +43,7 @@ def find_time_at_min_velocity(control_points):
     else:
         raise Exception("Function only capable of 1-3rd order splines")
     # cube_root_plotter(A,B,C,D)
-    roots = analytical_solver(A,B,C,D)
+    roots = solver(A,B,C,D)
     t_array = roots + [0, 1]
     t_min_velocity = 0
     min_velocity = np.inf
@@ -112,7 +112,7 @@ def find_curvature_at_min_velocity_magnitude(control_points):
     else:
         raise Exception("Function only capable of 1-3rd order splines")
     # cube_root_plotter(A,B,C,D)
-    roots = analytical_solver(A,B,C,D)
+    roots = solver(A,B,C,D)
     times_to_check = roots
     t_min_velocity = 0
     min_velocity = np.inf
@@ -129,38 +129,7 @@ def find_curvature_at_min_velocity_magnitude(control_points):
     max_curvature = np.max((curv_end,curv_start,max_curvature))
     return max_curvature, t_min_velocity
 
-total_time = 0
-iterations = 100
-average_accuracy = 0
-# for i in range(iterations):
-#     control_points = np.random.randint(10, size=(2,order+1)) # random
-#     start_time = time.time()
-#     max_curvature, t_min_velocity = find_curvature_at_min_velocity_magnitude(control_points)
-#     end_time = time.time()
-#     total_time += end_time - start_time
-#     bspline = BsplineEvaluation(control_points,order,0,1)
-#     curvature_data, time_data = bspline.get_spline_curvature_data(10000)
-#     true_max = np.max(curvature_data)
-#     if true_max < 1e-10 and max_curvature < 1e-10:
-#         accuracy = 1
-#     elif true_max < 1e-10:
-#         accuracy = 0
-#     elif true_max == np.inf and max_curvature == np.inf:
-#         accuracy = 1
-#     elif true_max == np.inf:
-#         accuracy = 0
-#     else:
-#         accuracy = max_curvature/true_max
-#     average_accuracy += accuracy/iterations
-#     print("average_accuracy: " , average_accuracy)
-# ave_time = total_time/iterations
-# print("ave_accuracy: " , average_accuracy)
-# print("ave_time: " , ave_time)
 
-# curvature_bound = find_curvature_bound(control_points)
-# estimated_max_curvature , t_min= find_curvature_at_min_velocity_magnitude(control_points)
-# print("estimated_max_curvature: ", estimated_max_curvature)
-# # print("t min vel: " , find_time_at_min_velocity(control_points))
 bspline = BsplineEvaluation(control_points,order,0,1)
 curvature, time_data = bspline.get_spline_curvature_data(10000)
 velocity, time_data = bspline.get_derivative_magnitude_data(10000 , 1)
@@ -187,24 +156,7 @@ plt.legend()
 plt.xlabel("time")
 plt.title("Velocity Magnitude and Curvature")
 plt.show()
-# curvature_data, time_data = bspline.get_spline_curvature_data(1000)
-# print("true_max_curvature: " , np.max(curvature_data))
-# centripetal_acceleration = bspline.get_centripetal_acceleration_at_time_t(t_min)
-# angular_rate = bspline.get_angular_rate_at_time_t(t_min)
-# print("angular_rate: " , angular_rate)
-# centr_data, time_data = bspline.get_centripetal_acceleration_data(1000)
-# ang_rate_data, time_data = bspline.get_angular_rate_data(1000)
-# print("ang_rate_max: " , np.max(ang_rate_data) )
-# print("ang_rate_bound: " , find_ang_rate_bound(control_points))
-# # print("centripetal_acceleration: " , centripetal_acceleration)
-# # print("true_centr_max: " , np.max(centr_data))
-# # print("centrl accel bound: " , find_centr_accel_bound(control_points))
-# # print("curvature_bound: " , curvature_bound)
-# bspline.plot_spline(1000)
-# bspline.plot_derivative_magnitude(1000,1)
-# bspline.plot_curvature(1000)
-# bspline.plot_centripetal_acceleration(1000)
-# bspline.plot_derivative_magnitude(1000,1)
+
 
 
 

@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from bsplinegenerator.bsplines import BsplineEvaluation
 
-order = 3
+order = 2
 num_control_points = order+1
 isBezier = True
 
@@ -30,7 +30,7 @@ def create_random_control_points_greater_than_angles(num_control_points,angle,le
             next_vec = length*random_vec/np.linalg.norm(random_vec)
             control_points[:,i][:,None] = control_points[:,i-1][:,None] + next_vec
         else:
-            new_angle = angle*2*(0.5-np.random.rand())
+            new_angle = angle#*2*(0.5-np.random.rand())
             R = np.array([[np.cos(new_angle), -np.sin(new_angle)],[np.sin(new_angle), np.cos(new_angle)]])
             prev_vec = control_points[:,i-1][:,None] - control_points[:,i-2][:,None]
             unit_prev_vec = prev_vec/np.linalg.norm(prev_vec)

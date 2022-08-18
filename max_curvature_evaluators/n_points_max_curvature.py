@@ -4,6 +4,7 @@ import random
 from bsplinegenerator.matrix_evaluation import get_M_matrix
 from bsplinegenerator.helper_functions import count_number_of_control_points
 from bsplinegenerator.bsplines import BsplineEvaluation
+import matplotlib.pyplot as plt
 
 n_points = 10
 scale_factor = 1
@@ -33,5 +34,15 @@ def get_max_curvature_by_checking_n_points(control_points, M_vel, M_accel, L_vel
     # curvature = np.linalg.norm(np.cross(velocity_data.T, acceleration_data.T).T,2,0) / velocity_magnitude**3
     return np.max(curvature)
 
+bspline = BsplineEvaluation(control_points,order,0,1,False)
+spline_curve, curve_time = bspline.get_spline_curvature_data(1000)
+spline_points, points_time = bspline.get_spline_curvature_data(30)
+max_curvature = np.max(spline_points)
 
+plt.title("Curvature at N points")
+plt.plot(curve_time,spline_curve, label="curvature")
+plt.scatter(points_time,spline_points, label="discrete curvature measurements")
+plt.plot(curve_time,spline_curve*0 + max_curvature, label="estimated max curvature")
+plt.legend()
+plt.show()
 
