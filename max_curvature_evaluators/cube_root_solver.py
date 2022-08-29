@@ -1,5 +1,4 @@
 import numpy as np
-import cmath
 import matplotlib.pyplot as plt
 
 def solver(a,b,c,d):
