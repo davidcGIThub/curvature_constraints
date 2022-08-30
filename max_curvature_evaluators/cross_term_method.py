@@ -92,6 +92,56 @@ def get_cross_term_bezier_control_points_from_third_order_spline(control_points,
         cross_term_control_points = np.concatenate((a0,a1,a2),1)
     return cross_term_control_points
 
+def get_cross_term_bezier_control_points_from_fourth_order_spline(control_points,dimension):
+    P_0 = control_points[:,0][:,None]
+    P_1 = control_points[:,1][:,None]
+    P_2 = control_points[:,2][:,None]
+    P_3 = control_points[:,3][:,None]
+    P_4 = control_points[:,4][:,None]
+    p1 = P_0-2*P_1+P_2
+    p2 = P_0/2-3*P_1/2+3*P_2/2-P_3/2
+    p3 = P_0/2 - P_2/2
+    if dimension == 3:
+        Y1 = np.array([[0,1,0],[0,0,1],[1,0,0]])
+        Y2 = np.array([[0,0,1],[1,0,0],[0,1,0]])
+        Y3 = np.array([[0,0,1],[0,0,-1],[0,1,0]])
+        Y4 = np.array([[0,1,0],[1,0,0],[1,0,0]])
+    elif dimension == 2:
+        Y1 = Y4 = np.array([1,0])
+        Y2 = Y3 = np.array([0,1])
+    c_4 = np.dot(Y1, 24*P_0 - 72*P_1 + 72*P_2 - 24*P_3)*np.dot(Y2,4*P_0 - 16*P_1 + 24*P_2 - 16*P_3 + 4*P_4) \
+         - np.dot(Y2,24*P_0 - 72*P_1 + 72*P_2 - 24*P_3)*np.dot(Y1,4*P_0 - 16*P_1 + 24*P_2 - 16*P_3 + 4*P_4) \
+         + np.dot(Y3,12*P_0 - 36*P_1 + 36*P_2 - 12*P_3)*np.dot(Y4,12*P_0 - 48*P_1 + 72*P_2 - 48*P_3 + 12*P_4) \
+         - np.dot(Y4,12*P_0 - 36*P_1 + 36*P_2 - 12*P_3)*np.dot(Y3,12*P_0 - 48*P_1 + 72*P_2 - 48*P_3 + 12*P_4)
+    
+    c_3 = np.dot(Y2,12*P_0 - 12*P_1 - 12*P_2 + 12*P_3)*np.dot(Y1,4*P_0 - 16*P_1 + 24*P_2 - 16*P_3 + 4*P_4) \
+        - np.dot(Y1,12*P_0 - 12*P_1 - 12*P_2 + 12*P_3)*np.dot(Y2,4*P_0 - 16*P_1 + 24*P_2 - 16*P_3 + 4*P_4) \
+        - np.dot(Y3,12*P_0 - 12*P_1 - 12*P_2 + 12*P_3)*np.dot(Y4,12*P_0 - 48*P_1 + 72*P_2 - 48*P_3 + 12*P_4) \
+        + np.dot(Y4,12*P_0 - 12*P_1 - 12*P_2 + 12*P_3)*np.dot(Y3,12*P_0 - 48*P_1 + 72*P_2 - 48*P_3 + 12*P_4) \
+        + np.dot(Y4,12*P_0 - 36*P_1 + 36*P_2 - 12*P_3)*np.dot(Y3,24*P_0 - 72*P_1 + 72*P_2 - 24*P_3) \
+        - np.dot(Y3,12*P_0 - 36*P_1 + 36*P_2 - 12*P_3)*np.dot(Y4,24*P_0 - 72*P_1 + 72*P_2 - 24*P_3)
+    
+    c_2 = np.dot(Y2,4*P_0 + 12*P_1 - 12*P_2 - 4*P_3)*np.dot(Y1,12*P_0 - 48*P_1 + 72*P_2 - 48*P_3 + 12*P_4) \
+        - np.dot(Y1,4*P_0 + 12*P_1 - 12*P_2 - 4*P_3)*np.dot(Y2,12*P_0 - 48*P_1 + 72*P_2 - 48*P_3 + 12*P_4) \
+        + np.dot(Y4,12*P_0 - 12*P_1 - 12*P_2 + 12*P_3)*np.dot(Y3,12*P_0 - 36*P_1 + 36*P_2 - 12*P_3) \
+        - np.dot(Y3,12*P_0 - 12*P_1 - 12*P_2 + 12*P_3)*np.dot(Y4,12*P_0 - 36*P_1 + 36*P_2 - 12*P_3) \
+        - np.dot(Y4,12*P_0 - 12*P_1 - 12*P_2 + 12*P_3)*np.dot(Y3,24*P_0 - 72*P_1 + 72*P_2 - 24*P_3) \
+        + np.dot(Y3,12*P_0 - 12*P_1 - 12*P_2 + 12*P_3)*np.dot(Y4,24*P_0 - 72*P_1 + 72*P_2 - 24*P_3)
+    
+    c_1 = np.dot(Y1, 4*P_0 + 12*P_1 - 12*P_2 - 4*P_3)*np.dot(Y2,24*P_0 - 72*P_1 + 72*P_2 - 24*P_3) \
+         - np.dot(Y2,4*P_0 + 12*P_1 - 12*P_2 - 4*P_3)*np.dot(Y1,24*P_0 - 72*P_1 + 72*P_2 - 24*P_3)
+
+    c_0 = - np.dot(Y4,4*P_0 + 12*P_1 - 12*P_2 - 4*P_3)*np.dot(Y3,12*P_0 - 12*P_1 - 12*P_2 + 12*P_3) \
+          + np.dot(Y4,12*P_0 - 12*P_1 - 12*P_2 + 12*P_3)*np.dot(Y3,4*P_0 + 12*P_1 - 12*P_2 - 4*P_3)
+    # a0 = c0
+    # a1 = (2*a0+c1)/2
+    # a2 = 2*a1 - a0 + c2 
+    if dimension == 2:
+        cross_term_control_points = np.abs(np.array([a0,a1,a2])).flatten()
+    else:
+        cross_term_control_points = np.concatenate((a0,a1,a2),1)
+    return cross_term_control_points
+
 dimension = 2
 num_data_points = 1000
 order = 3
