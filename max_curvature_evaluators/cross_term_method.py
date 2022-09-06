@@ -100,6 +100,52 @@ def get_cross_term_bezier_control_points_from_third_order_spline(control_points,
         cross_term_control_points = np.concatenate((a0,a1,a2),1)
     return cross_term_control_points
 
+def get_cross_term_bezier_control_points_from_fifth_order_spline(control_points,dimension):
+    P_0 = control_points[:,0][:,None]
+    P_1 = control_points[:,1][:,None]
+    P_2 = control_points[:,2][:,None]
+    P_3 = control_points[:,3][:,None]
+    P_4 = control_points[:,4][:,None]
+    P_5 = control_points[:,4][:,None]
+    p1 = P_0/4  - P_1/2      + P_3/2      - P_4/4
+    p2 = P_0/24 - (5*P_1)/24 + (5*P_2)/12 - (5*P_3)/12 + (5*P_4)/24 - P_5/24
+    p3 = P_0/6  - (2*P_1)/3  + P_2        - (2*P_3)/3  + P_4/6
+    p4 = P_0/6  + P_1/3      - P_2        + P_3/3      + P_4/6
+    p5 = P_0/24 + (5*P_1)/12 - (5*P_3)/12 - P_4/24
+    if dimension == 3:
+        Y1 = np.array([[0,1,0],[0,0,1],[1,0,0]])
+        Y2 = np.array([[0,0,1],[1,0,0],[0,1,0]])
+        Y3 = np.array([[0,0,1],[0,0,-1],[0,1,0]])
+        Y4 = np.array([[0,1,0],[1,0,0],[1,0,0]])
+    elif dimension == 2:
+        Y1 = Y4 = np.array([1,0])
+        Y2 = Y3 = np.array([0,1])
+
+    c_6 = np.dot(Y1,3*p3)*np.dot(Y2,p2) - np.dot(Y2,3*p3)*np.dot(Y1,p2) + \
+          np.dot(Y3,p3)*np.dot(Y4,4*p2) - np.dot(Y4,p3)*np.dot(Y3,4*p2)
+
+    c_5 = np.dot(Y1,p1)*np.dot(Y2,4*p2) - np.dot(Y2,p1)*np.dot(Y1,4*p2) + \
+          np.dot(Y4,p3)*np.dot(Y3,3*p3) - np.dot(Y3,p3)*np.dot(Y4,3*p3) + \
+          np.dot(Y3,2*p1)*np.dot(Y4,p2) - np.dot(Y4,2*p1)*np.dot(Y3,p2)
+
+    c_4 = np.dot(Y2,p4)*np.dot(Y1,4*p2) - np.dot(Y1,p4)*np.dot(Y2,4*p2) - \
+          np.dot(Y3,p4)*np.dot(Y4,p2) + np.dot(Y4,p4)*np.dot(Y3,p2) + \
+          np.dot(Y3,p1)*np.dot(Y4,3*p3) - np.dot(Y4,p1)*np.dot(Y3,3*p3) - \
+          np.dot(Y3,2*p1)*np.dot(Y4,p3) + np.dot(Y4,2*p1)*np.dot(Y3,p3)
+
+    c_3 = np.dot(Y4,p4)*np.dot(Y3,3*p3) - np.dot(Y4,3*p3)*np.dot(Y3,p4) - \
+          np.dot(Y3,p5)*np.dot(Y4,4*p2) + np.dot(Y4,p5)*np.dot(Y3,4*p2) - \
+          np.dot(Y4,2*p1)*np.dot(Y3,p1) + np.dot(Y3,2*p1)*np.dot(Y4,p1) + \
+          np.dot(Y4,p3)*np.dot(Y3,p4) - np.dot(Y3,p3)*np.dot(Y4,p4)
+
+    c_2 = np.dot(Y1,2*p1)*np.dot(Y2,p4) - np.dot(Y2,2*p1)*np.dot(Y1,p4) + \
+          np.dot(Y3,p1)*np.dot(Y4,p4) - np.dot(Y4,p1)*np.dot(Y3,p4) + \
+          np.dot(Y3,p5)*np.dot(Y4,3*p3) - np.dot(Y4,p5)*np.dot(Y3,3*p3)
+
+    c_1 = np.dot(Y2,2*p1)*np.dot(Y1,p5) - np.dot(Y1,2*p1)*np.dot(Y2,p5)
+
+    c_0 = np.dot(Y3,p5)*np.dot(Y4,p4) - np.dot(Y4,p5)*np.dot(Y3,p4)
+
 def get_cross_term_bezier_control_points_from_fourth_order_spline(control_points,dimension):
     P_0 = control_points[:,0][:,None]
     P_1 = control_points[:,1][:,None]
