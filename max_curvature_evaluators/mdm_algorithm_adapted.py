@@ -93,12 +93,13 @@ class MDM(object):
         special_upd_done = False                    #whether special update Wn = W + lambdaV is done
         cycle_current_size = 0                      #we will search actual size of cycle
         # index = 0
-        hull = ConvexHull(self._points)
-        index = hull.vertices[self.init_approx_index]
-        # index = 0
+        # hull = ConvexHull(self._points)
+        # index = hull.vertices[self.init_approx_index]
+        # vector_current = self._points[hull.vertices[self.init_approx_index]].copy()
+        index = 0
         # index = np.argmin(np.linalg.norm(self._points,2,1))
         # index = 0
-        vector_current = self._points[index,:]
+        vector_current = self._points[index,:].copy()
         supp_vector.append(index)
         p_vector[index] = 1
         #then we need to find vect_{k+1} iteratively

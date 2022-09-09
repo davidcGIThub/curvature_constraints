@@ -14,9 +14,30 @@
 
 \section{Introduction}
 
-This paper covers various approaches to constrain the curvatures of a B-spline with varying degrees of speed, accuracy, and boundedness. The objective is to find the maximum curvature of a B-spline for each knot-point interval.
+Curvature constrained paths are used in various computer aided applications such as computer graphics, highway design, trajectory generation, and data estimation. Some traditional methods like the Markov-Dubins method use straight lines and arcs to generate paths \cite{ARTICLE:Hota}. More recent work combines arcs with monotonic Bezier curves \cite{ARTICLE:Wang}. Paths that use splines such as Bezier or B-spline curves are desirable because their bounds and location can be constrained through their control points. However most methods that rely only on spline curves bound the curvature by evaluating the curvature at discrete locations along the curve \cite{ARTICLE:Cimurs}, \cite{ARTICLE:Kano}. Other spline methods that create bounds from the control point geometry are limited to two dimensions \cite{ARTICLE:Walton}\cite{ARTICLE:Walton2}, or work only for second degree splines \cite{ARTICLE:Deddi}.
+
+This paper seeks the optimal method of generating B-spline paths in three dimensions and for any spline degree. It compares various approaches for constraining the curvatures of a B-spline with varying degrees of speed, accuracy, and conservativeness. The objective in the first set of tests is to find the maximum curvature of a B-spline in a given knot-point interval. The goal for the second set of tests is to generate a curvature constrained path of minimum length between two waypoints each with a direction vector.
 
 \section{Preliminaries}
+
+
+\begin{itemize}
+  \item[] b(t) = B-spline curve
+  \item[] k = order or degree of the polynomial.
+  \item[] n \(=\) number of control points.
+  \item[] \(P_i = i^{th}\) control point.
+  \item[] m = number of knot points.
+  \item[] \(\mu\) = number of knot intervals.
+  \item[] \(t_i = i^{th}\) knot point.
+  \item[] \(N_{i , \textbf{k}}\) = \(i^{th}\) basis function of a \textbf{k} degree B-spline.
+  \item[] \(\alpha\) = spacing between uniform knot points
+  \item[] C(t) = curvature function
+  \item[] \(\nu\) = b(t)' = velocity
+  \item[] a = b(t)'' = acceleration
+  \item[] B(t) = Bezier curve
+  \item[] \(\beta_i = i^{th}\) Bezier control point.
+  \item[] \(\rho_{i , \textbf{k}}\) = \(i^{th}\) Bernstein basis polynomial of a \textbf{k} degree Bezier curve.
+\end{itemize}
 
 \subsection{B-Splines}
 
@@ -58,7 +79,29 @@ for
 \(M\) is the multiplier matrix specific to the order of the B-spline. See the appendix for details.
 
 \subsection{Bezier Curves}
-    Some of the methods described in this paper use the Bezier curve representation for individual knot intervals of the B-spline.
+    Some of the methods described in this paper use the Bezier curve representation for individual knot intervals of the B-spline. A Bezier curve is a parametric curve or polynomial of degree k, that is defined between the interval \([t_0, t_0 + \alpha]\). A set of discrete control points \(\boldsymbol{\beta}\) shapes the curve. The Bernstein formula that defines a Bezier curve is shown below.
+
+\begin{equation}
+    B(t) = \sum_{i=0}^{\textbf{k}}\beta_i \;\rho_{i,\textbf{k}}(t)
+\end{equation}
+
+for
+
+\begin{equation}
+    t_0 \leq t \leq (t_0 + \alpha)
+\end{equation}
+
+\begin{equation}
+    \boldsymbol{\beta} = [\beta_0, \beta_i, ... \beta_{\textbf{k}}]
+\end{equation}
+
+\begin{equation}
+    \rho_{i,\textbf{k}}(t) = \binom{\textbf{k}}{i}(1 - \tau)^{\textbf{k}-i}\;\tau^i
+\end{equation}
+
+\begin{equation}
+    \tau = \frac{t-t_0}{\alpha}
+\end{equation}
     
 \begin{figure}[H]
 \begin{center}
@@ -131,9 +174,11 @@ where the perpendicular portion of the second derivative is equal to the followi
 \end{aligned}
 \end{equation}
 
-\subsection{Objective}
+\subsection{Objectives}
 
-The objective in these series of methods is to find the maximum curvature over a single knot point interval of a B-spline.
+\subsubsection{First Objective}
+
+The objective in these series of tests is to find the maximum curvature over a single knot point interval of a B-spline, while testing the speed, accuracy and conservatives of each method to find the max curvature.
 
 \begin{equation}
     \text{Find} \quad C(t)_{max} \quad \text{for} \quad t \in [t_j,t_{j+1}]
@@ -157,7 +202,12 @@ where
     b(t) = \begin{bmatrix} P_{0} & P_{1} & ... & P_{k}\end{bmatrix} M \begin{bmatrix} t^k \\ \\ ... \\ \\ t^2 \\ \\ t \\ \\ 1 \end{bmatrix}
 \end{equation}
 
-\section{Maximizing the Curvature Equation}
+\subsubsection{Second Objective}
+
+The objective in these series of tests is to generate an optimal path between two waypoints with directional vectors, while comparing the speed of the path generation, accuracy of the curvature constraint, and length of the paths for each curvature bounding method.
+
+\section{Methods for Estimating Curvature Extrema}
+\subsection{Maximizing the Curvature Equation}
 
 In this method we will maximize the objective function for curvature. Or minimize the negative curvature.
 
@@ -186,7 +236,7 @@ Figure \ref{Maximum Curvature} shows the optimization performed on the curvature
 
 The average accuracy for this method is 100 percent and the average time it takes for this method is 0.003 sec.
 
-\section{Roots of the Curvature Derivative}
+\subsection{Roots of the Curvature Derivative}
 
 In this method we use the Brent–Dekker method to find the roots of the curvature derivative.
 
@@ -208,7 +258,7 @@ Again, since we are searching for a global maximum curvature, we split up the in
 
 The average accuracy for this method is 99 percent and the average time is 0.002 sec.
 
-\section{Discrete Evaluations}
+\subsection{Discrete Evaluations}
 This method involves finding the curvature at \(\eta\) points along the spline interval. Accuracy increase with \(\eta\), but so does time. 
 
 \begin{figure}[H]
@@ -260,7 +310,7 @@ We can then perform vector math operations to evaluate the curvature for the kno
     C(t) = \frac{||b(t_j \rightarrow t_{j+1})' \times b(t_j \rightarrow t_{j+1})''||}{||b(t_j \rightarrow t_{j+1})'||^3}
 \end{equation}
 
-\section{Curvature at the Minimum Velocity} \label{Curvature at Min Velocity}
+\subsection{Curvature at the Minimum Velocity} \label{Curvature at Min Velocity}
 
 Looking at the equation for curvature (\ref{eq:curvature});
 
@@ -268,7 +318,7 @@ Looking at the equation for curvature (\ref{eq:curvature});
     C(t) = \frac{||b_{(t)}' \times b_{(t)}''||}{||b_{(t)}'||^3}
 \end{equation}
 
-We can see that the maximum curvature will most likely occur near the minimum velocity. This is true for splines up to the third. Figure \ref{Time at minimum velocity and maximum curvature} shows this property for a 2nd and 3rd order B-spline. 
+We can see that the maximum curvature will most likely occur near the minimum velocity. This is true for splines up to the third order. Figure \ref{Time at minimum velocity and maximum curvature} shows this property for a 2nd and 3rd order B-spline. 
 
 \begin{figure}[H]
 \centering
@@ -277,21 +327,21 @@ We can see that the maximum curvature will most likely occur near the minimum ve
 \label{Time at minimum velocity and maximum curvature}
 \end{figure}
 
-\subsection{Minimum Velocity}
+\subsubsection{Minimum Velocity}
 
-In order to find the min velocity we must find the roots of the derivative of the velocity magnitude.
+To find the min velocity we must find the roots of the derivative of the velocity magnitude.
 
 \begin{equation}
     \frac{d ||b(t)'||}{dt} = \frac{b(t)' \cdot b(t)''}{||b(t)'||} = 0
 \end{equation}
 
-or where
+or the roots of;
 
 \begin{equation} \label{eq:roots of velocity derivative}
     b(t)' \cdot b(t)'' = 0
 \end{equation}
 
-we can express this in Matrix form as follows.
+We can express this in Matrix form as follows.
 
 \begin{equation} \label{velocity derivative}
     L'^T M^{T}\textbf{P}_i^{T}\textbf{P}_iML'' = 0
@@ -303,13 +353,11 @@ where
     L'=\begin{bmatrix} kt^{k-1} \\ ... \\ 3t^2 \\ 2t \\ 1 \\ 0 \end{bmatrix} \quad L''=\begin{bmatrix} k(k-1)t^{k-2} \\ ... \\ 6t \\ 2 \\ 0 \\ 0 \end{bmatrix}
 \end{equation}
 
-This results in a third order polynomial for 3rd order splines, and a 1st order polynomial for second order splines. Each of which we can find the roots for in linear time. Let us define the middle terms of equation (\ref{velocity derivative}).
+This results in a third order polynomial for 3rd order splines, and a 1st order polynomial for second order splines. Each of which we can find the roots for in linear time. If us define the middle terms of equation (\ref{velocity derivative}), we can express it in polynomial form.
 
 \begin{equation}
     J = M^{T}\textbf{P}_i^{T}\textbf{P}_iM
 \end{equation}
-
-We can express the polynomial form of equation (\ref{velocity derivative}). 
 
 \hspace{1cm}
 
@@ -354,11 +402,15 @@ where
 
 \hspace{1cm}
 
-To find the roots of \(b(t)' \cdot b(t)''\) for a second order spline we can use the the quadratic formula. For a third order spline we must use Cardano's formula. See []. 
+To find the roots of \(b(t)' \cdot b(t)''\) for a second order spline we can use the the quadratic formula. For a third order spline we must use some form of Cardano's formula. See \cite{WEBPAGE:Weisstein} for the process of finding the roots of a cubic equation.
 
-\subsection{Max Curvature at Roots}
+The minimum velocity will exist at one of the roots.
 
-We then evaluate the curvature at the roots if they reside within the knot interval, as well as the curvature at the start and end of the knot-point interval. Choose the max out of these evaluations.
+\subsubsection{Max Curvature at Roots}
+
+The maximum curvature in the interval will exist close to a root, or the start or end point of the knot-interval. This is valid because the maximum acceleration is always at the beginning or end of the interval for a second and third order spline because the equation for the acceleration magnitude is linear for a quadratic spline, and quadratic for a cubic spline. 
+
+ After the curvature is evaluated at each root and endpoint, the last step is to choose the max out of each evaluation.
 
 \begin{equation}
     C(t)_{\text{max} \; \text{est}} = \text{max}\{C(t_j),\; C(t_{j+1}), \; C(t_{r1}),\; ... ,C(t{r_i})\} 
@@ -366,7 +418,7 @@ We then evaluate the curvature at the roots if they reside within the knot inter
 
 where i is the number of roots within the interval \([t_j , t_{j+1}]\).
 
-\section{Max Cross-Term over Min Velocity}
+\subsection{Bound from Max Cross-Term/Min Velocity}
 
 The curvature can be bounded using the minimum velocity and maximum cross term within a knot interval. 
 
@@ -374,7 +426,7 @@ The curvature can be bounded using the minimum velocity and maximum cross term w
     C(t) = \frac{||b_{(t)}' \times b_{(t)}''||}{||b_{(t)}'||^3} \leq \frac{\text{max}\{||b_{(t)}' \times b_{(t)}''||\}}{\text{min}\{||b_{(t)}'||\}^3} \quad \text{for} \; t_j \leq t \leq t_{j+1}
 \end{equation}
 
-\subsection{Minimum Velocity}
+\subsubsection{Minimum Velocity}
 
 The minimum velocity can be found using methods from section \ref{Curvature at Min Velocity}. Once we have found the roots of equation \ref{eq:roots of velocity derivative}, we evaluate the velocity at each root within the knot interval, and at the endpoints of each knot interval. Choose the minimum velocity of those evaluations.
 
@@ -384,9 +436,9 @@ The minimum velocity can be found using methods from section \ref{Curvature at M
 
 where i is number of roots within the interval \([t_j , t_{j+1}]\).
 
-\subsection{Maximum Cross-term}
+\subsubsection{Maximum Cross-term}
 
-To find the maximum cross-term value we likewise find the roots of the derivative of its magnitude.
+To find the maximum cross-term value we find the roots of the derivative of the cross-term magnitude.
 
 \begin{equation}
     \frac{d||b(t)' \times b(t)''||}{dt} = \frac{\big(b(t)' \times b(t)''\big) \cdot \big(b(t)' \times b(t)'''\big)}{||b(t)' \times b(t)''||} = 0
@@ -401,23 +453,23 @@ or we find
 \end{aligned}
 \end{equation}
 
-If we evaluate this equation, we get a first order polynomial for a second order B-spline, and a third order polynomial for a third order B-spline. 
+If we evaluate this equation for a second order B-spline, we get zero. If we evaluate for a third order B-spline, we get third order polynomial.
 
 \hspace{1cm}
 
-    \textbf{Second Order Spline}
+    \textbf{Cross-term derivative evaluation for a second order spline}
     
 \hspace{1cm}
 
 \begin{equation}
-    \big(b(t)' \times b(t)''\big) \cdot \big(b(t)' \times b(t)'''\big) = c_2 t^2 + c_1 t + c_0
+    \big(b(t)' \times b(t)''\big) \cdot \big(b(t)' \times b(t)'''\big) = 0
 \end{equation}
 
-See section () of the appendix for the values of \(c_i\).
+See section (\ref{sec:Cross-term Derivative Coefficients for a Second Order Spline}) of the appendix for the value of \(||b(t)' \times b(t)''||\).
 
 \hspace{1cm}
 
-    \textbf{Third Order Spline}
+    \textbf{Cross-term derivative evaluation for a third order spline}
     
 \hspace{1cm}
 
@@ -425,9 +477,11 @@ See section () of the appendix for the values of \(c_i\).
     \big(b(t)' \times b(t)''\big) \cdot \big(b(t)' \times b(t)'''\big) = c_3 t^3 + c_2 t^2 + c_1 t + c_0
 \end{equation}
 
-See section () of the appendix for the values of \(c_i\).
+See section (\ref{section:Cross-term Derivative Coefficients for a Third Order Spline}) of the appendix for the values of \(c_i\).
 
-In polynomial form the roots of ({derivative of cross term}) can be found using either the quadratic formula for second order B-splines, or adaptations of the Cardano formula for third order B-splines (see []). Once the roots of equation have been found, cross term is evaluated at each root, and at the endpoints of each knot interval. The max cross term is the max of these evaluations. For simplicity, the cross term will be called A(t).
+\hspace{1cm}
+
+In polynomial form the roots of ({derivative of cross term}) can be found using either the quadratic formula for second order B-splines, or adaptations of the Cardano formula for third order B-splines (see \cite{WEBPAGE:Weisstein}). Once the roots of equation (\ref{derivative of cross term}) have been found, the cross-term is evaluated at each root, and at the endpoints of each knot interval. The max cross term is the max of these evaluations. For simplicity, the cross term will be called A(t).
 
 \begin{equation}
     A(t) = ||b(t)' \times b(t)''||
@@ -437,17 +491,21 @@ In polynomial form the roots of ({derivative of cross term}) can be found using 
     ||A(t)|| \leq \text{max}\{ ||A(t_j)|| ,\; ||A(t_{j+1})|| ,\; ||A(t_{r1})|| ,\; ... \;  ||A(t_{ri})|| \}
 \end{equation}
 
-\section{Control Point Method}
+\subsection{Control Point Method}
 
-\subsection{B-Spline Control Point Bounds}
+\subsubsection{Bounds Using Velocity and Acceleration}
 
 Using the the relation between centripetal acceleration and curvature from figure (\ref{Fig:Centripetal_Acceleration}), we can establish bounds on the curvature. Knowing that the total acceleration will always be greater than the centripetal acceleration, the following is true.
 
-\begin{equation}
-    C(t) = \frac{a_p(t)}{\nu(t)^2} \leq \frac{a(t)}{\nu(t)^2}  
+\begin{equation} \label{eq:acceleration and velocity bounds}
+    C(t) = \frac{a_p(t)}{\nu(t)^2} \leq \frac{a(t)}{\nu(t)^2} 
 \end{equation}
 
-The objective is then to bound the minimum velocity, and maximum acceleration in a spline interval. Using the control point derivatives of a spline, we can bound the max and min values of the spline derivatives. The control point derivatives of a spline are the control points for the new B-spline created when you take the derivative of the spline. Below we show the control point derivative definition for an open B-spline and for a clamped B-spline.
+The objective is then to bound the minimum velocity, and maximum acceleration in a spline interval.
+
+\subsubsection{Control Point Derivatives}
+
+Using the control point derivatives of a spline, we can bound the max and min values of the spline derivatives. The control point derivatives of a spline are the control points for the new B-spline created when you take the derivative of the spline. Below we show the control point derivative definition for an open B-spline and for a clamped B-spline.
 
 \begin{equation}
 \begin{aligned}
@@ -463,6 +521,8 @@ The objective is then to bound the minimum velocity, and maximum acceleration in
 \end{aligned}
 \end{equation}
 
+\subsubsection{Convex Hull of the Control Points}
+
 Because of the strong convex hull property of B-splines, the spline will always reside within the convex hull of the control points. Therefore the maximum and minimum bounds for a B-spline will be the maximum and minimum of the convex hull. See figure (\ref{Fig:MaxMinBounds}).
 
 \begin{figure}[H]
@@ -473,13 +533,25 @@ Because of the strong convex hull property of B-splines, the spline will always 
 \label{Fig:MaxMinBounds}
 \end{figure}
 
+\hspace{1cm}
+
+\textbf{Maximum Bound of the Convex Hull}
+
+\hspace{1cm}
+
  The maximum bound will be the value of the norm of the control point that is furthest from the origin.
 
     \begin{equation}
         b(t) \leq \text{max} \{||P_i||\}
     \end{equation}
     
-Finding the minimum bound is a minimum norm problem. Given a set of control points \(\textbf{P} = \)\{ \(P_0, \; P_1, \; ... P_{n-1}\) \}, and coefficients \(\Lambda = \)\{ \(\lambda_0, \; \lambda_1, \; ... \lambda_{n-1}\) \} we can define the convex hull as follows.
+\hspace{1cm}
+
+\textbf{Minimum Bound of the Convex Hull}
+
+\hspace{1cm}
+    
+Finding the minimum bound is a minimum norm problem \cite{ARTICLE:Kaown}. Given a set of control points \(\textbf{P} = \)\{ \(P_0, \; P_1, \; ... P_{n-1}\) \}, and coefficients \(\Lambda = \)\{ \(\lambda_0, \; \lambda_1, \; ... \lambda_{n-1}\) \} we can define the convex hull as follows.
 
 \begin{equation}
     Z = \{ \textbf{P} \Lambda^{T} : \text{sum}(\Lambda) = 1,\; \lambda_{i} \geq 0\}
@@ -503,9 +575,9 @@ This means finding the set of coefficients \(\Lambda^*\) that minimizes \(||z||\
 \end{aligned}
 \end{equation}
 
-A faster method is using the Mitchell-Demyanov-Malozemov (MDM) method or the accelerated MDM method. See articles [] and []. The MDM algorithm works by choosing a search direction and then finding a point with minimum norm on a line segment along that direction within the convex hull. It then chooses a new search direction from the control point that has maximum projection onto the current estimate to the control point that has the least projection on the current estimate. The accelerated MDM takes advantage of the presence of cycles in the update sequence to give a better search direction.
+A faster method is using the Mitchell-Demyanov-Malozemov (MDM) method \cite{ARTICLE:Kaown}, or the accelerated MDM method. See articles \cite{ARTICLE:Vladimirovich} and \cite{ARTICLE:Barbero}. The MDM algorithm works by choosing a search direction and then finding a point with minimum norm on a line segment along that direction within the convex hull. It then chooses a new search direction from the control point that has maximum projection onto the current estimate to the control point that has the least projection on the current estimate. The accelerated MDM takes advantage of the presence of cycles in the update sequence to give a better search direction.
 
-Using either of these methods we can find \(\Lambda^*\) and create a minimum bound for the B-spline magnitude.
+Using either of these methods we can find the coefficients  \(\Lambda^*\)  that minimize \(||z||\) and create a minimum bound for the B-spline magnitude.
 
 \begin{equation}
 \begin{aligned}
@@ -514,11 +586,25 @@ Using either of these methods we can find \(\Lambda^*\) and create a minimum bou
 \end{aligned}
 \end{equation}
 
+\subsubsection{Curvature Bounds Using Control Points}
+
+\hspace{1cm}
+
+\textbf{B-spline Control Point Bounds}
+
+\hspace{1cm}
+
 Combining our knowledge of control point derivatives, and bounding a spline within the convex hull, we can create bounds for the curvature of a B-spline.
 
 \begin{equation}
     C(t) \leq \frac{\text{max}\{b''(t)\}}{\text{min}\{b'(t)\}^2} \leq \frac{\text{max}\{||P_i''||\}}{||\textbf{P}' \Lambda^{*T}||^2}
 \end{equation}
+
+\hspace{1cm}
+
+\textbf{Bezier Curve Control Point Bounds}
+
+\hspace{1cm}
 
 Even tighter bounds can be achieved by converting the B-spline control points to Bezier curve control points. A Bezier curve also holds the Convex Hull property where the curve is bounded by its control points. Observe from figure (\ref{Fig:BsplineToBezier}) how the Bezier curve control points create a tighter bound around the curve. If we define \boldsymbol{\beta}' and \boldsymbol{\beta}'' as the Bezier control points  transformed from \textbf{P}' and \textbf{P}'' respectively, we have the following bound over curvature.
 
@@ -526,11 +612,22 @@ Even tighter bounds can be achieved by converting the B-spline control points to
     C(t) \leq \frac{\text{max}\{||\beta_i''||\}}{||\boldsymbol{\beta}' \Lambda^{*T}||^2}
 \end{equation}
 
-See section () of the appendix for the conversion between B-spline control points and Bezier control points.
+where
 
-\subsection{Control Points of the Cross Term}
+\begin{equation}
+    \boldsymbol{\beta}' = \boldsymbol{P}_i' F
+\end{equation}
 
-A downside of creating bounds using the control point acceleration and control point velocity is that the bounds for curvature become conservative during straight, or near straight line portions of the path. This is because the acceleration is near the same direction as the velocity. Let us take the cross term in the numerator from equation (\ref{eq:curvature}) and call this cross term A. 
+\begin{equation}
+    \boldsymbol{\beta}'' = \boldsymbol{P}_i'' F
+\end{equation}
+
+See section \ref{sec:B-spline To Bezier} of the appendix for the conversion between B-spline control points and Bezier control points.
+
+\subsubsection{Curvature Bounds using Control Points of the Cross-Term}
+
+A downside of creating bounds using the control point acceleration and control point velocity is that the bounds for curvature become conservative during straight, or near straight line portions of the path. This is because the acceleration is in the same direction as the velocity, and so equation (\ref{eq:acceleration and velocity bounds}) does a poor job of representing a true bound for curvature. 
+Let us take the cross term in the numerator from equation (\ref{eq:curvature}) and call this cross term A. 
 
 \begin{equation}
     A(t)  = b_{(t)}' \times b_{(t)}''
@@ -554,25 +651,53 @@ The curvature is bounded by the following equation.
     C(t) \leq \frac{\text{max}\{||b_{(t)}' \times b_{(t)}''||\}}{\text{min}\{b'(t)\}^3} \leq \frac{\text{max}\{||a_i||\}}{||\boldsymbol{\beta}' \Lambda^{*T}||^3}
 \end{equation}
 
-Section () of the appendix contains the derivation for control points \textbf{a}.
+Section \ref{sec:Cross-Term Control Points} of the appendix contains the derivation for control points \textbf{a}.
 
-\section{Geometric Method}
+\subsection{Geometric Method}
 
-This method is taken from article []. It works only for 2^{nd} order B-splines.
+This method is taken from article \cite{ARTICLE:Deddi}. It works only for \(2^{nd}\) order B-splines. The idea is that by knowing the position of the control points of a Bezier curve, one can calculate the curvature extrema of the spline segment.
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=.3]{GeometricMethodMaxCurvature.png}
 \end{center}
-\caption{}
+\caption{Geometric properties of a Bezier curve control points}
 \label{Fig:GeometricMethodMaxCurvature}
 \end{figure}
 
-TODO
+Given a set of Bezier control points \(\boldsymbol{\beta}\) converted from B-spline control points, the curvature extrema can be computed as follows.
 
-\section{Control Point Angle Method}
+\begin{equation}
+    C_{max} = \begin{dcases} 
+    \frac{2A}{||L_0||^3} \quad \text{if} \quad L_0 \cdot L_m \leq 0 \\\\ 
+    \frac{2A}{||L_f||^3} \quad \text{if} \quad L_m \cdot L_f \leq 0 \\\\
+    \frac{2||L_m||^3}{A^2} \quad \text{otherwise}
+    \end{dcases}
+\end{equation}
 
-TODO
+where
+
+\begin{equation}
+    A = ||L_0 \times L_f||/2
+\end{equation}
+
+\begin{equation}
+\begin{aligned}
+    L_0 =& \beta_1 - \beta_0 \\
+    L_m =& \beta_1 - m \\
+    L_f =& \beta_1 - \beta_2 \\
+\end{aligned}
+\end{equation}
+
+\begin{equation}
+    m = (\beta_0+\beta_2)/2
+\end{equation}
+
+Note that in figure \ref{Fig:GeometricMethodMaxCurvature}, A is the area of the triangle formed by the Bezier control points.
+
+\subsection{Control Point Angle Method}
+
+By bounding the angle formed between legs of the control points, the curvature of a B-spline is bounded. This method has two requirements.
 
 \begin{figure}[H]
 \begin{center}
@@ -581,6 +706,54 @@ TODO
 \caption{}
 \label{Fig:ControlPointAngleConstraints}
 \end{figure}
+
+% if order == 1:
+%     angle = np.pi/2
+% elif order == 2:
+%     angle = np.pi/2
+% elif order == 3:
+%     angle = np.pi/4
+% elif order == 4:
+%     angle = np.pi/6
+% elif order == 5:
+%     angle = np.pi/8
+    
+\begin{itemize}
+  \item[] 1. \(||P_{i+1} - P_i||\) = L 
+  \item[] 2. \( 0^{\circ} \leq \theta \leq \frac{180}{2(k-1)}^{\circ}\)
+\end{itemize}
+
+where 
+
+\begin{equation}
+    \theta_i = \cos^{-1}\Big(\frac{v_i \cdot v_{i+1}}{||v_i||\;||v_{i+1}||} \Big)
+\end{equation}
+
+Given these requirements, the curvature of the spline segment is bounded as follows.
+
+\begin{equation}
+    C(t)_{\text{max}} = \text{max}\Big\{\frac{\sin(\pi-\theta_i)}{Lc}\Big\}
+\end{equation}
+
+In the above equation (c) is a constant dependent on the order of the spline. When using B-spline control points, c is equal to the following.
+
+\begin{equation}
+    c = \begin{dcases} 0.3535581731351085 \quad \text{if} \quad k = 2 \\
+    0.7885805074747374 \quad \text{if} \quad k = 3 \\
+    0.9117477044041745 \quad \text{if} \quad k = 4 \\
+    0.9436121693107355 \quad \text{if} \quad k = 5 \\
+    \end{dcases}
+\end{equation}
+
+When working with Bezier control points we have the following.
+
+\begin{equation}
+    c = \begin{dcases} 0.707107843971492 \quad \text{if} \quad k = 2 \\
+    1.092830461641069 \quad \text{if} \quad k = 3 \\
+    1.121134469464793 \quad \text{if} \quad k = 4 \\
+    1.112637519330997 \quad \text{if} \quad k = 5 \\
+    \end{dcases}
+\end{equation}
 
 \section{Appendix}
 
@@ -594,7 +767,7 @@ TODO
     \frac{d}{dt} (a \times b) = \frac{da}{dt} \times b +  a \times \frac{db}{dt}
 \end{equation}
 
-\subsection{B-spline to Bezier Conversion}
+\subsection{B-spline to Bezier Conversion} \label{sec:B-spline To Bezier}
 
 The equation to transform a set of Bezier control points to open B-spline control points are as follows.
 
@@ -627,35 +800,50 @@ Where F is a transformation matrix. Listed below are the values for F to convert
    0 &   0  & 0  & 0 &  0 & 1\end{bmatrix} \quad \text{if} \quad \textbf{k} = 5
         \end{flalign*}
         
-\subsection{Cross term Control Points}
+\subsection{Cross-Term Control Points} \label{sec:Cross-Term Control Points}
+
+This section derives the Bezier control points of the cross-term A(t) in terms of the B-spline control points of b(t). 
 
 \begin{equation}
     A(t)  = b_{(t)}' \times b_{(t)}''
 \end{equation}
 
-\subsubsection{Second Order B-spline}
-
-    A(t) is constant for each knot interval. Therefore;
+The following matrices are used to simplify the math for each derivation in this section.
 
 \begin{equation}
 \begin{aligned}
-    \text{max}\{||b_{(t)}' \times b_{(t)}''||\} &= ||A(t)|| \\
-    &=  4\Big|\Big|  (P_0 \times P_1) + (P_1 \times P_2) + (P_2 \times P_0) \Big|\Big|
+    Y_1 &= \begin{bmatrix}
+     0 & 1 & 0 \\ 0 & 0 & 1 \\ 1 & 0 & 0
+    \end{bmatrix}, \quad  Y_2 = \begin{bmatrix}
+     0 & 0 & 1 \\ 1 & 0 & 0 \\ 0 & 1 & 0
+    \end{bmatrix} \\\\ Y_3 &= \begin{bmatrix}
+     0 & 0 & 1 \\ 0 & 0 & -1 \\ 0 & 1 & 0
+    \end{bmatrix}
+      Y_4 = \begin{bmatrix}
+     0 & 1 & 0 \\ 1 & 0 & 0 \\ 1 & 0 & 0
+    \end{bmatrix}
 \end{aligned}
+\end{equation}
+
+or if the spline is two dimensional;
+
+\begin{equation}
+    Y_1 = Y_4 = \begin{bmatrix} 1 & 0
+    \end{bmatrix}, \quad  Y_2 = Y_3  \begin{bmatrix}0 & 1
+    \end{bmatrix}
+\end{equation}
+
+\subsubsection{Second Order B-spline}
+
+    A(t) is constant for each knot interval.
+
+\begin{equation}
+A(t) = (P_0 \times P_1) + (P_1 \times P_2) + (P_2 \times P_0)
 \end{equation}
 
 \subsubsection{Third Order B-spline}
 
- For a third order B-spline, the cross term A(t) is a second order polynomial. The second order Bezier curve equation is shown below.
- 
- \begin{equation} \label{2nd_order_bezier_curve}
- \begin{aligned}
-    B(t) &= (1-t)^2 \beta_0 + 2(1-t)t \beta_1 + t^2 \beta_2 \\
-    &= (\beta_0 - 2\beta_1 + \beta_2)t^2 + (2\beta_1 - 2\beta_0)t + \beta_0
-\end{aligned}
- \end{equation}
- 
- If we evaluate A(t) we get the following.
+ For a third order B-spline, the cross term A(t) is a second order polynomial. If we evaluate A(t) we get the following.
  
  \begin{equation} \label{2nd_order_cross_term}
      A(t) = c_2 t^2  + c_1 t + c_0
@@ -692,31 +880,16 @@ and
 \end{aligned}
 \end{equation}
 
-\begin{equation}
-\begin{aligned}
-    Y_1 &= \begin{bmatrix}
-     0 & 1 & 0 \\ 0 & 0 & 1 \\ 1 & 0 & 0
-    \end{bmatrix}, \quad  Y_2 = \begin{bmatrix}
-     0 & 0 & 1 \\ 1 & 0 & 0 \\ 0 & 1 & 0
-    \end{bmatrix} \\\\ Y_3 &= \begin{bmatrix}
-     0 & 0 & 1 \\ 0 & 0 & -1 \\ 0 & 1 & 0
-    \end{bmatrix}
-      Y_4 = \begin{bmatrix}
-     0 & 1 & 0 \\ 1 & 0 & 0 \\ 1 & 0 & 0
-    \end{bmatrix}
+ We can also write A(t) in terms of its Bezier control points \textbf{a}.
+ 
+ \begin{equation} \label{2nd_order_bezier_curve}
+ \begin{aligned}
+    A(t) &= (1-t)^2 a_0 + 2(1-t)t a_1 + t^2 a_2 \\\\
+    &= (a_0 - 2a_1 + a_2)t^2 + (2a_1 - 2a_0)t + a_0
 \end{aligned}
-\end{equation}
+ \end{equation}
 
-or if the spline is two dimensional;
-
-\begin{equation}
-    Y_1 = Y_4 = \begin{bmatrix} 1 & 0
-    \end{bmatrix}, \quad  Y_2 = Y_3  \begin{bmatrix}0 & 1
-    \end{bmatrix}
-\end{equation}
-
-Set the coefficients of equation (\ref{2nd_order_cross_term}) equal to the coefficients of equation (\ref{2nd_order_bezier_curve}) to find the Bezier control points of A(t). Remember that \(a_i\) is the \(i^{th}\) Bezier control point of the cross term. 
-
+We then set the coefficients of equation (\ref{2nd_order_cross_term}) equal to the coefficients of equation (\ref{2nd_order_bezier_curve}) to find the Bezier control points of A(t). Remember that \(a_i\) is the \(i^{th}\) Bezier control point of the cross term. 
 
 \begin{equation}
     a_0 = c_0
@@ -730,16 +903,209 @@ Set the coefficients of equation (\ref{2nd_order_cross_term}) equal to the coeff
     a_2 = 2a_1 - a_0 + c_2
 \end{equation}
 
-therefore
+\subsubsection{Fourth Order B-Spline}
 
+ For a fourth order B-spline, the cross term A(t) is a fourth order polynomial.
+ 
+ \begin{equation} \label{4th_order_cross_term}
+     A(t) = c_4 t^4  + c_3 t^3 + c_2 t^2  + c_1 t + c_0
+ \end{equation}
+ 
+ where
+ 
 \begin{equation}
-    \text{max}\{||b_{(t)}' \times b_{(t)}''||\} \leq \text{max}\{a_i \}
+\begin{aligned}
+    c_4 =& 2Y_1 p_1 \circ Y_2 p_2 - 2Y_2 p_1 \circ Y_1p_2 + \\
+         & Y_3 p_1 \circ 3Y_4 p_2 - Y_4 p_1 \circ 3Y_3p_2
+\end{aligned}
 \end{equation}
 
+\begin{equation}
+\begin{aligned}
+    c_3 =& Y_2 p_3 \circ    Y_1 p_2 -  Y_1 p_3 \circ    Y_2 p_2 -  \\
+         & Y_3 p_3 \circ  3 Y_4 p_2 +  Y_4 p_3 \circ  3 Y_3 p_2 + \\
+         & Y_4 p_1 \circ  2 Y_3 p_1 -  Y_3 p_1 \circ  2 Y_4 p_1
+\end{aligned}
+\end{equation}
+    
+\begin{equation}
+\begin{aligned}
+    c_2 =  Y_2 p_4 \circ  3 Y_1 p_2 -  Y_1 p_4 \circ  3 Y_2 p_2 +  \\
+            Y_4 p_3 \circ  Y_3 p_1 -  Y_3 p_3 \circ  Y_4 p_1 - \\
+            Y_4 p_3 \circ  2 Y_3 p_1 +  Y_3 p_3 \circ  2 Y_4 p_1
+\end{aligned}
+\end{equation}
 
-\subsection{Cross Term Roots}
+\begin{equation}
+\begin{aligned}
+    c_1 =  Y_1  p_4 \circ  2 Y_2 p_1 -  Y_2 p_4 \circ  2 Y_1 p_1
+\end{aligned}
+\end{equation}
 
-\subsubsection{Third Order Spline}
+\begin{equation}
+\begin{aligned}
+    c_0 = -  Y_4 p_4 \circ  Y_3 p_3 +  Y_4 p_3 \circ  Y_3 p_4
+\end{aligned}
+\end{equation}
+
+and
+
+\begin{equation}
+\begin{aligned}
+    p_1 =& (P_0 - 3P_1 + 3P_2 - P_3)/2 \\
+    p_2 =& P_0/6 - 2P_1/3 + P_2 - 2P_3/3 + P_4/6 \\
+    p_3 =& (P_0 - P_1 - P_2 + P_3)/2 \\
+    p_4 =& (P_0/3 + P_1 - P_2 - P_3/3)/2 \\
+\end{aligned}
+\end{equation}
+ 
+ We also write A(t) in terms of its Bezier control points \textbf{a}.
+ 
+\begin{equation} 
+\begin{aligned}
+A(t) =& (1-t)^4a_0 + 4t(1-t)^3a_1 + 6t^2(1-t)^2a_2 + 4t^3(1-t)a_3 + t^4a_4 \\\\
+=& (a_0 - 4a_1 + 6a_2 - 4a_3 +
+a_4)t^4 + (12a_1 - 4a_0 - 12a_2 + 4a_3)t^3 + \\
+&(6a_0 - 12a_1 + 6a_2)t^2 + (4a_1 - 4a_0)t + a_0
+\end{aligned}
+\end{equation}
+ 
+ If we set equations () equal to each other, we can solve for the Bezier control points of A(t).
+ 
+ \begin{equation}
+     a_0 = c_0
+ \end{equation}
+  \begin{equation}
+     a_1 = \frac{c_1 + 4a_0}{4} 
+ \end{equation}
+  \begin{equation}
+     a_2 = \frac{c_2 + 12a_1 - 6a_0}{6}
+ \end{equation}
+  \begin{equation}
+     a_3 = \frac{c_3 + 12a_2 + 4a_0 - 12a_1}{4}
+ \end{equation}
+  \begin{equation}
+     a_4 = c_4 + 4a_1 + 4a_3 - 6a_2 - a_0
+ \end{equation}
+ 
+ \subsubsection{Fifth Order B-Spline}
+
+ For a fifth order B-spline, the cross term A(t) is a sixth order polynomial.
+ 
+ \begin{equation} \label{4th_order_cross_term}
+     A(t) = c_6 t^6  + c_5 t^5 + c_4 t^4  + c_3 t^3 + c_2 t^2  + c_1 t + c_0
+ \end{equation}
+ 
+ where
+ 
+ \begin{equation}
+ c_6 =& 3 Y_1 p_3\circ Y_2 p_2 - 3Y_2 p_3\circ Y_1 p_2 + Y_3 p_3\circ 4Y_4 p_2 - Y_4 p_3\circ 4 Y_3 p_2
+ \end{equation}
+
+ \begin{equation}
+ \begin{aligned}
+    c_5 =& Y_1 p_1\circ 4 Y_2 p_2 - Y_2 p_1\circ 4 Y_1 p_2 + Y_4 p_3\circ 3 Y_3 p_3 - Y_3 p_3\circ 3 Y_4 p_3 + \\
+         & 2 Y_3 p_1\circ Y_4 p_2 - 2 Y_4 p_1\circ Y_3 p_2
+ \end{aligned}
+ \end{equation}
+
+ \begin{equation}
+ \begin{aligned}
+    c_4 =& Y_2 p_4\circ 4Y_1 p_2 - Y_1 p_4\circ 4Y_2 p_2 -
+          Y_3 p_4\circ Y_4 p_2 + Y_4 p_4\circ Y_3 p_2 + \\
+         & Y_3 p_1\circ 3Y_4 p_3 - Y_4 p_1\circ 3Y_3 p_3 -
+          2Y_3 p_1\circ Y_4 p_3 + 2Y_4 p_1\circ Y_3 p_3
+ \end{aligned}
+ \end{equation}
+ 
+ \begin{equation}
+ \begin{aligned}
+    c_3 =& Y_4 p_4\circ 3 Y_3 p_3 - 3 Y_4 p_3\circ Y_3 p_4 - 
+          Y_3 p_5\circ 4 Y_4 p_2 + Y_4 p_5\circ 4 Y_3 p_2 - \\
+          & 2 Y_4 p_1\circ Y_3 p_1 + 2 Y_3 p_1\circ Y_4 p_1 + 
+          Y_4 p_3\circ Y_3 p_4 - Y_3 p_3\circ Y_4 p_4
+ \end{aligned}
+ \end{equation}
+ 
+ \begin{equation}
+ \begin{aligned}
+    c_2 =& 2 Y_1 p_1\circ Y_2 p_4 - 2 Y_2 p_1\circ Y_1 p_4 + 
+          Y_3 p_1\circ Y_4 p_4 - Y_4 p_1\circ Y_3 p_4 + \\
+          & Y_3 p_5\circ 3 Y_4 p_3 - Y_4 p_5\circ 3 Y_3 p_3
+ \end{aligned}
+ \end{equation}
+ 
+ \begin{equation}
+    c_1 = 2 Y_2 p_1\circ Y_1 p_5 - 2 Y_1 p_1\circ Y_2 p_5
+ \end{equation}
+ 
+ \begin{equation}
+c_0 = Y_3 p_5 \circ Y_4 p4 - Y_4 p_5 \circ Y_3 p4
+ \end{equation}
+ 
+ and
+ 
+\begin{equation}
+\begin{aligned}
+p1 &= P_0/4  - P_1/2      + P_3/2      - P_4/4 \\
+p2 &= P_0/24 - (5P_1)/24 + (5P_2)/12 - (5P_3)/12 + (5P_4)/24 - P_5/24 \\
+p3 &= P_0/6  - (2P_1)/3  + P_2        - (2P_3)/3  + P_4/6 \\
+p4 &= P_0/6  + P_1/3      - P_2        + P_3/3      + P_4/6 \\
+p5 &= P_0/24 + (5P_1)/12 - (5P_3)/12 - P_4/24
+\end{aligned}
+\end{equation}
+
+ We also write A(t) in terms of its Bezier control points \textbf{a}.
+ 
+\begin{equation} 
+\begin{aligned}
+A(t) =& (t - 1)^6 a_0  - 6t(t - 1)^5a_1 + 15t^2(t - 1)^4 a_2 - 20 t^3 (t - 1)^3 a_3 + \\
+& 15 t^4 (t - 1)^2 a_4 - 6 t^5 (t - 1) a_5 + t^6 a_6
+ \\\\
+=& (a_0 - 6a_1 + 15a_2 - 20a_3 + 15a_4 - 6a_5 + a_6)t^6 + \\ &(30a_1 - 6a_0 - 60a_2 + 60a_3 - 30a_4 + 6a_5)t^5 + \\ & (15a_0 - 60a_1 + 90a_2 - 60a_3 + 15a_4)t^4 + \\
+& (60a_1 - 20a_0 - 60a_2 + 20a_3)t^3 + (15a_0 - 30a_1 + 15a_2)t^2 + \\
+&(6a_1 - 6a_0)t + a_0
+
+\end{aligned}
+\end{equation}
+
+ If we set equations () equal to each other, we can solve for the Bezier control points of A(t).
+ 
+ \begin{equation}
+     a_0 = c_0
+ \end{equation}
+  \begin{equation}
+     a_1 = \frac{c_1 + 6 a_0}{6}
+ \end{equation}
+  \begin{equation}
+     a_2 = \frac{c_2 - 15 a_0 + 30 a_1}{15}
+ \end{equation}
+  \begin{equation}
+     a_3 = \frac{c_3 + 60 a_2 + 20 a_0 - 60 a_1}{20}
+ \end{equation}
+  \begin{equation}
+     a_4 = \frac{c_4 -15 a_0 + 60 a_1 - 90 a_2 + 60 a_3}{15}
+ \end{equation}
+   \begin{equation}
+     a_5 = \frac{c_5 - 30 a_1 + 6 a_0 + 60 a_2 - 60 a_3 + 30 a_4}{6}
+ \end{equation}
+    \begin{equation}
+     a_6 = c_6 - a_0 + 6*a_1 - 15 a_2 + 20 a_3 - 15 a_4 + 6 a_5
+ \end{equation}
+
+\subsection{Cross-Term Roots}
+
+\subsubsection{Cross-term Derivative Coefficients for a Second Order Spline} \label{sec:Cross-term Derivative Coefficients for a Second Order Spline}
+
+    The cross term is constant for each knot interval. Therefore the roots are irrelevant and the max cross term has a closed form solution.
+
+\begin{equation}
+\begin{aligned}
+    \text{max}\{||b_{(t)}' \times b_{(t)}''||\} =  \Big|\Big|  (P_0 \times P_1) + (P_1 \times P_2) + (P_2 \times P_0) \Big|\Big|
+\end{aligned}
+\end{equation}
+
+\subsubsection{Cross-term Derivative Coefficients for a Third Order Spline} \label{section:Cross-term Derivative Coefficients for a Third Order Spline}
 
 The equation for the derivative of the cross-term of a third order B-spline has the following form.
 
@@ -816,9 +1182,11 @@ c_0 =& -\big((P_{0y}/2 - P_{2y}/2)(P_{0x} - 2P_{1x} + P_{2x}) - (P_{0x}/2 - P_{2
      & P_{2z}/2)(P_{0y} - 2P_{1y} + P_{2y}) - (P_{0y}/2 - P_{2y}/2)(P_{0z} - 2P_{1z} + P_{2z})\big) \\
      & \big((P_{0z}/2 - P_{2z}/2)(P_{0y} - 3P_{1y} + 3P_{2y} - P_{3y}) - (P_{0y}/2 - P_{2y}/2)(P_{0z} - \\
      & 3P_{1z} + 3P_{2z} - P_{3z})\big)
-
 \end{aligned}
 \end{equation}
 
+
+\bibliographystyle{ieeetr}
+\bibliography{references}
+
 \end{document}
- 

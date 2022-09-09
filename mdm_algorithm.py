@@ -132,13 +132,13 @@ class MDM(object):
                 MIN_set.append(ind_min)
                 MAX_set.append(ind_max)
             diff = self._points[ind_max] - self._points[ind_min]
-            print('\nDifference: ' + str(diff))
+            # print('\nDifference: ' + str(diff))
             delta_p = np.dot(diff, vector_current)
 
             if delta_p > 0.000001:                  #if not bigger, then we've found a solution
-                print('delta_p: ' + str(delta_p))
-                print('p_vector[ind_max] = ' + str(p_vector[ind_max]) + '\nnp.linalg.norm(diff)): '
-                      + str(np.linalg.norm(diff)))
+                # print('delta_p: ' + str(delta_p))
+                # print('p_vector[ind_max] = ' + str(p_vector[ind_max]) + '\nnp.linalg.norm(diff)): '
+                    #   + str(np.linalg.norm(diff)))
                 t_param = delta_p /(p_vector[ind_max] * (np.linalg.norm(diff)) ** 2)  # recounting all variables
                 if t_param >= 1:
                     t_param = 1
@@ -151,7 +151,7 @@ class MDM(object):
                 if self.is_accelerated is True:          #if using accelerated MDM-method
                     if iterations > 0 and cycle_is_constructing is False:  #constructing cycle(active finding cycle, i mean, active-active)
                         contains = np.where(np.all(diff_vector == diff, axis = 1))[0]    #finds if diff_vector contains diff
-                        print('np.where1: ' + str(contains))
+                        # print('np.where1: ' + str(contains))
                         if len(contains) != 0:      #found first element of cycle
                             cycle_is_constructing = True        #cycle is constructing now
                             cycle_start = contains[len(contains)-1]                     #index of first element of cycle; not changing
@@ -160,16 +160,16 @@ class MDM(object):
                     elif cycle_is_constructing is True and cycle_constructed is False:
                         if cycle_current_size < cycle_size:
                             indices_match = np.where(np.all(diff_vector == diff, axis=1))[0]
-                            print('np.where2: ' + str(indices_match))
+                            # print('np.where2: ' + str(indices_match))
                             if len(indices_match) > 0 and  indices_match[len(indices_match) - 1] == (cycle_start + cycle_current_size):
                                 cycle_current_size += 1     #checking if cycle exists
                                 if cycle_current_size == cycle_size:
                                     cycle_constructed = True
-                                    print('CYCLE HAS FOUND AND CONSTRUCTED SUCCESSFULLY!')
+                                    # print('CYCLE HAS FOUND AND CONSTRUCTED SUCCESSFULLY!')
                             else:
                                 cycle_is_constructing = False
                                 cycle_current_size = 0
-                                print('False cycle construction.')
+                                # print('False cycle construction.')
                     P_vectors.append(p_vector.copy())
                     V_vectors.append(vector_current.copy())
                     t_param_vector.append(t_param)
@@ -186,10 +186,10 @@ class MDM(object):
                 for i in range(len(p_vector)):
                     if p_vector[i] > 0.0000001:
                         supp_vector.append(i)
-            print('Vector current: ' + str(vector_current))
+            # print('Vector current: ' + str(vector_current))
             iterations += 1
-            print('Iterations: ' + str(iterations))
-            print('Supp_vector: ' + str(supp_vector))
+            # print('Iterations: ' + str(iterations))
+            # print('Supp_vector: ' + str(supp_vector))
 
         return vector_current
 
@@ -230,7 +230,10 @@ class MDM(object):
 
 # points = np.array([[2.0,5.0],[5.0,3.0],[6.0,5.0]]) 
 
-points = np.array([[ 1.,  -1.,   2. ],[-0.5, -2.,  -1.5]]).T
+# points = np.array([[ 1.,  -1.,   2. ],[-0.5, -2.,  -1.5]]).T
+points = np.random.randint(10, size=(2,4)).T*1.0 # random
+points = np.array([[-1.5,-1,0,1.5],[-2.5,-2.33333333, -0.66666667,0.33333333]]).T
+points = np.array([[ 0.,0.,0.,0.16666667],[-2.,-1.33333333,1.33333333,1.16666667]]).T
 # points = np.array([[ -75.17801366,    7.83288242,   -5.01730323],
 #        [  34.64493481,   17.08160686,   -4.12464737],
 #        [  69.25185714,   46.30248975,  -50.02067627],
@@ -263,39 +266,39 @@ points = np.array([[ 1.,  -1.,   2. ],[-0.5, -2.,  -1.5]]).T
 #        [ -46.1174773 ,  -31.61406696,   60.10877562]])
 
 
-dim = 2; number_of_points = 30
+dim = 2; number_of_points = 4
 
 is_manual_enter = False
 is_accelerated = True
 
-inp = input('Use manual enter or use default parameters? M/D.')
-if inp == 'M':
-    is_manual_enter = True
-if is_manual_enter is True:
-    gener = input('Use generator or manual input of points? G/M')
-    if gener == 'M':
-        print('Enter the data (points values) in the \"data.txt\" file.')
-        points = []
-        number_of_points = 0
-        with open("data.txt") as f:
-            for line in f:
-                temp = [float(x) for x in line.split()]
-                points.append(temp)
-                number_of_points += 1
-        points = np.array(points)
-        dim = len(points[0])
-    elif gener == 'G':
-        dim = int(input('Enter number of dimensions: '))
-        number_of_points = int(input('Enter number of points: '))
-        points = GenerPoints(3, 68, number_of_points, dim)
+# inp = input('Use manual enter or use default parameters? M/D.')
+# if inp == 'M':
+#     is_manual_enter = True
+# if is_manual_enter is True:
+#     gener = input('Use generator or manual input of points? G/M')
+#     if gener == 'M':
+#         print('Enter the data (points values) in the \"data.txt\" file.')
+#         points = []
+#         number_of_points = 0
+#         with open("data.txt") as f:
+#             for line in f:
+#                 temp = [float(x) for x in line.split()]
+#                 points.append(temp)
+#                 number_of_points += 1
+#         points = np.array(points)
+#         dim = len(points[0])
+#     elif gener == 'G':
+#         dim = int(input('Enter number of dimensions: '))
+#         number_of_points = int(input('Enter number of points: '))
+#         points = GenerPoints(3, 68, number_of_points, dim)
 
-    temp = input('Use classic or accelerated MDM-method? C/A')      #by default we're using accelerated method
-    if temp == 'C':
-        is_accelerated = False
+#     temp = input('Use classic or accelerated MDM-method? C/A')      #by default we're using accelerated method
+#     if temp == 'C':
+#         is_accelerated = False
 
-elif is_manual_enter is False:
-    print('Our DEFAULT values: \nNumber of dimensions is ' \
-          + str(dim) + '\nNumber of points is ' + str(number_of_points))
+# elif is_manual_enter is False:
+print('Our DEFAULT values: \nNumber of dimensions is ' \
+        + str(dim) + '\nNumber of points is ' + str(number_of_points))
 
 
 hull = GetHullandPlot(points, dim)
@@ -307,4 +310,4 @@ if dim == 2 :
 elif dim == 3 :
     plt.plot([result[0], 0], [result[1], 0], [result[2], 0], 'ro')
 plt.show()
-print('Result is: ' + str(result))
+print('Result is: ' + str(np.linalg.norm(result)))

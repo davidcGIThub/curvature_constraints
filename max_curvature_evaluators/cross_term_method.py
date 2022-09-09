@@ -7,27 +7,8 @@ import random
 import matplotlib.pyplot as plt
 from mdm_algorithm_adapted import MDM
 
-def get_control_point_curvature(control_points,scale_factor):
-    dimension = get_dimension(control_points)
-    control_point_velocities = (control_points[:,1:] - control_points[:,0:-1])/scale_factor
-    control_point_accelerations = (control_point_velocities[:,1:]-control_point_velocities[:,0:-1])/scale_factor
-    if count_number_of_control_points(control_point_velocities) > 1:
-        control_point_velocities = convert_to_bezier_control_points(control_point_velocities)
-    if count_number_of_control_points(control_point_accelerations) > 1:
-        control_point_accelerations = convert_to_bezier_control_points(control_point_accelerations)
-    max_acceleration = np.max(np.linalg.norm(control_point_accelerations,2,0))
-    print("control_point_velocities: " , control_point_velocities)
-    mdm = MDM(control_point_velocities,dimension,True)
-    min_velocity = mdm.get_min_distance()
-    print("min_velocity: " , min_velocity)
-    print("max_acceleration: " , max_acceleration)
-    if min_velocity == 0:
-         max_curvature = 0
-    else:
-        max_curvature = max_acceleration/min_velocity**2
-    return max_curvature
 
-def get_control_point_curvature_cross_method(control_points,order,scale_factor):
+def get_control_point_curvature_bound(control_points,order,scale_factor):
     dimension = get_dimension(control_points)
     control_point_velocities = (control_points[:,1:] - control_points[:,0:-1])/scale_factor
     control_point_accelerations = (control_point_velocities[:,1:]-control_point_velocities[:,0:-1])/scale_factor
@@ -36,12 +17,19 @@ def get_control_point_curvature_cross_method(control_points,order,scale_factor):
     if count_number_of_control_points(control_point_accelerations) > 1:
         control_point_accelerations = convert_to_bezier_control_points(control_point_accelerations)
     max_cross_term = get_cross_term_norm_bound(control_points,order,dimension)
+    max_acceleration = np.max(np.linalg.norm(control_point_accelerations,2,0))
     mdm = MDM(control_point_velocities,dimension,True)
     min_velocity = mdm.get_min_distance()
     if min_velocity == 0:
-         max_curvature = 0
+        if np.array_equal(control_point_velocities[0,:] , control_point_velocities[1,:]):
+            max_curvature = 0
+        else:
+            max_curvature = np.inf
     else:
-        max_curvature = max_cross_term/min_velocity**3
+        max_curvature_cross_term_method = max_cross_term/min_velocity**3
+        max_curvature_acceleration_method = max_acceleration/min_velocity**2
+        max_curvature = np.min([max_curvature_acceleration_method, \
+                                max_curvature_cross_term_method])
     return max_curvature
 
 def get_cross_term_norm_bound(control_points, order, dimension):
@@ -56,6 +44,13 @@ def get_cross_term_norm_bound(control_points, order, dimension):
         cross_term_norm_bound = np.max(cross_term_cp_norm)
     elif order == 4:
         cross_term_cps = get_cross_term_bezier_control_points_from_fourth_order_spline(control_points, dimension)
+        if dimension == 2:
+            cross_term_cp_norm = np.abs(cross_term_cps)
+        else: #dimension == 3
+            cross_term_cp_norm = np.linalg.norm(cross_term_cps,2,0)
+        cross_term_norm_bound = np.max(cross_term_cp_norm)
+    elif order == 5:
+        cross_term_cps = get_cross_term_bezier_control_points_from_fifth_order_spline(control_points, dimension)
         if dimension == 2:
             cross_term_cp_norm = np.abs(cross_term_cps)
         else: #dimension == 3
@@ -90,7 +85,6 @@ def get_cross_term_bezier_control_points_from_third_order_spline(control_points,
         + np.dot(Y3,p1) * np.dot(Y4,2*p2) - np.dot(Y4,p1) * np.dot(Y3,2*p2)
     c1 =  np.dot(Y1,p3) * np.dot(Y2,2*p2) - np.dot(Y2,p3) * np.dot(Y1,2*p2)
     c0 =  np.dot(Y3,p3) * np.dot(Y4,p1) - np.dot(Y4,p3) * np.dot(Y3,p1)
-    coeficients = np.array([c0,c1,c2])
     a0 = c0
     a1 = (2*a0+c1)/2
     a2 = 2*a1 - a0 + c2
@@ -106,7 +100,7 @@ def get_cross_term_bezier_control_points_from_fifth_order_spline(control_points,
     P_2 = control_points[:,2][:,None]
     P_3 = control_points[:,3][:,None]
     P_4 = control_points[:,4][:,None]
-    P_5 = control_points[:,4][:,None]
+    P_5 = control_points[:,5][:,None]
     p1 = P_0/4  - P_1/2      + P_3/2      - P_4/4
     p2 = P_0/24 - (5*P_1)/24 + (5*P_2)/12 - (5*P_3)/12 + (5*P_4)/24 - P_5/24
     p3 = P_0/6  - (2*P_1)/3  + P_2        - (2*P_3)/3  + P_4/6
@@ -120,31 +114,36 @@ def get_cross_term_bezier_control_points_from_fifth_order_spline(control_points,
     elif dimension == 2:
         Y1 = Y4 = np.array([1,0])
         Y2 = Y3 = np.array([0,1])
-
     c_6 = np.dot(Y1,3*p3)*np.dot(Y2,p2) - np.dot(Y2,3*p3)*np.dot(Y1,p2) + \
           np.dot(Y3,p3)*np.dot(Y4,4*p2) - np.dot(Y4,p3)*np.dot(Y3,4*p2)
-
     c_5 = np.dot(Y1,p1)*np.dot(Y2,4*p2) - np.dot(Y2,p1)*np.dot(Y1,4*p2) + \
           np.dot(Y4,p3)*np.dot(Y3,3*p3) - np.dot(Y3,p3)*np.dot(Y4,3*p3) + \
           np.dot(Y3,2*p1)*np.dot(Y4,p2) - np.dot(Y4,2*p1)*np.dot(Y3,p2)
-
     c_4 = np.dot(Y2,p4)*np.dot(Y1,4*p2) - np.dot(Y1,p4)*np.dot(Y2,4*p2) - \
-          np.dot(Y3,p4)*np.dot(Y4,p2) + np.dot(Y4,p4)*np.dot(Y3,p2) + \
+          np.dot(Y3,p4)*np.dot(Y4,p2)   + np.dot(Y4,p4)*np.dot(Y3,p2) + \
           np.dot(Y3,p1)*np.dot(Y4,3*p3) - np.dot(Y4,p1)*np.dot(Y3,3*p3) - \
           np.dot(Y3,2*p1)*np.dot(Y4,p3) + np.dot(Y4,2*p1)*np.dot(Y3,p3)
-
-    c_3 = np.dot(Y4,p4)*np.dot(Y3,3*p3) - np.dot(Y4,3*p3)*np.dot(Y3,p4) - \
-          np.dot(Y3,p5)*np.dot(Y4,4*p2) + np.dot(Y4,p5)*np.dot(Y3,4*p2) - \
-          np.dot(Y4,2*p1)*np.dot(Y3,p1) + np.dot(Y3,2*p1)*np.dot(Y4,p1) + \
-          np.dot(Y4,p3)*np.dot(Y3,p4) - np.dot(Y3,p3)*np.dot(Y4,p4)
-
+    c_3 = np.dot(Y4,p4)  *np.dot(Y3,3*p3) - np.dot(Y4,3*p3)*np.dot(Y3,p4) - \
+          np.dot(Y3,p5)  *np.dot(Y4,4*p2) + np.dot(Y4,p5)  *np.dot(Y3,4*p2) - \
+          np.dot(Y4,2*p1)*np.dot(Y3,p1)   + np.dot(Y3,2*p1)*np.dot(Y4,p1) + \
+          np.dot(Y4,p3)  *np.dot(Y3,p4)   - np.dot(Y3,p3)  *np.dot(Y4,p4)
     c_2 = np.dot(Y1,2*p1)*np.dot(Y2,p4) - np.dot(Y2,2*p1)*np.dot(Y1,p4) + \
           np.dot(Y3,p1)*np.dot(Y4,p4) - np.dot(Y4,p1)*np.dot(Y3,p4) + \
           np.dot(Y3,p5)*np.dot(Y4,3*p3) - np.dot(Y4,p5)*np.dot(Y3,3*p3)
-
     c_1 = np.dot(Y2,2*p1)*np.dot(Y1,p5) - np.dot(Y1,2*p1)*np.dot(Y2,p5)
-
     c_0 = np.dot(Y3,p5)*np.dot(Y4,p4) - np.dot(Y4,p5)*np.dot(Y3,p4)
+    a_0 = c_0
+    a_1 = (c_1 + 6*a_0)/6
+    a_2 = (c_2 - 15*a_0 + 30*a_1)/15
+    a_3 = (c_3 + 60*a_2 + 20*a_0 - 60*a_1)/20
+    a_4 = (c_4 - 15*a_0 + 60*a_1 - 90*a_2 + 60*a_3)/15
+    a_5 = (c_5 - 30*a_1 + 6*a_0  + 60*a_2 - 60*a_3 + 30*a_4)/6
+    a_6 =  c_6 - a_0    + 6*a_1  - 15*a_2 + 20*a_3 - 15*a_4 + 6*a_5
+    if dimension == 2:
+        cross_term_control_points = np.array([a_0,a_1,a_2,a_3,a_4,a_5,a_6]).flatten()
+    else:
+        cross_term_control_points = np.concatenate((a_0,a_1,a_2,a_3,a_4,a_5,a_6),1)
+    return cross_term_control_points
 
 def get_cross_term_bezier_control_points_from_fourth_order_spline(control_points,dimension):
     P_0 = control_points[:,0][:,None]
@@ -189,15 +188,21 @@ def get_cross_term_bezier_control_points_from_fourth_order_spline(control_points
         cross_term_control_points = np.concatenate((a0,a1,a2,a3,a4),1)
     return cross_term_control_points
 
-dimension = 3
+dimension = 2
 num_data_points = 1000
-order = 4
-control_points = np.random.randint(10, size=(dimension,order+1)) # random
+order = 3
+control_points = np.random.randint(10, size=(dimension,order+1))*1.0 # random
 # control_points = np.array([[0,1,4,5],[0,1,4,5]])
 # control_points = np.array([[0, 4, 2, 2],[4, 5, 7, 2]])
 # control_points = np.array([[4, 1, 3, 3],[9, 3, 5, 0]])
 # control_points = np.array([[1, 4, 3, 8, 5,7],[3, 4, 2, 1,8,7]])
 # control_points = np.array([[0,2,5,4,7],[1,3,2,5,7]])
+# control_points = np.array([[1,2,3,4,5],[1,2,3,4,5]])
+# control_points = np.array([[1,2,3,7,10],[1,2,3,7,10]])
+# control_points = np.array([[1,1,1,1,10],[1,1,1,1,10]])
+# control_points = np.array([[6, 3, 5, 1],[8, 4, 4, 4]])
+# control_points = np.array([[5, 3, 1, 2, 9],[8, 8, 4, 5, 7]])
+# control_points = np.array([[9., 4., 5., 3., 5.,],[1., 6., 5., 5., 3.,]])
 print("control_points: " , control_points)
 start_time = 0
 scale_factor = 1
@@ -215,14 +220,17 @@ elif dimension == 3:
     cross_term_norm = np.linalg.norm(cross_term,2,0)
 
 
-# curvature_bound_cross = get_control_point_curvature_cross_method(control_points,order,1)
+curvature_bound = get_control_point_curvature_bound(control_points,order,1)
 # curvature_bound_control = get_control_point_curvature(control_points,1)
-# plt.plot(time_data,curvature,label="curvature")
-# plt.plot(time_data,time_data*0+curvature_bound_cross,label="bound cross")
+plt.plot(time_data,curvature,label="curvature")
+plt.plot(time_data,time_data*0+curvature_bound,label="bound")
 # plt.plot(time_data,time_data*0+curvature_bound_control,label="bound control")
-# plt.legend()
-# plt.show()
+plt.legend()
+plt.show()
 
+vel_magnitudes, time_data = bspline.get_derivative_magnitude_data(num_data_points,1)
+min_vel = np.min(vel_magnitudes)
+print("min_vel: " , min_vel)
 # bspline.plot_spline(num_data_points)
 # bspline.plot_derivative_magnitude(num_data_points,1)
 # bspline.plot_derivative_magnitude(num_data_points,2)
@@ -231,25 +239,27 @@ elif dimension == 3:
 # plt.plot(time_data,cross_term_norm,label="cross term norm")
 # plt.plot(time_data,time_data*0+cross_term_norm_bound,label="bound")
 # plt.show()
-if order == 3:
-    cross_term_cps = get_cross_term_bezier_control_points_from_third_order_spline(control_points,dimension)
-if order == 4:
-    cross_term_cps = get_cross_term_bezier_control_points_from_fourth_order_spline(control_points,dimension)
-print("cross_term_cps: " , cross_term_cps)
-if dimension == 3:
-    plt.figure()
-    ax = plt.axes(projection='3d')
-    ax.set_box_aspect(aspect =(1,1,1))
-    ax.plot(cross_term[0,:], cross_term[1,:],cross_term[2,:],label="cross_term")
-    ax.scatter(cross_term_cps[0,:], cross_term_cps[1,:],cross_term_cps[2,:],label="cross_term_cps")
-    plt.show()
-elif dimension == 2:
-    plt.plot(time_data, cross_term, label = "actual cross term")
-    # plt.plot( time_data, (coeficients[0] + time_data*coeficients[1] + time_data**2*coeficients[2] + time_data**3*coeficients[3]+time_data**4*coeficients[4]), label ="tested cross")
-    # plt.plot( time_data, coeficients[0] + time_data*coeficients[1] + (time_data**2)*coeficients[2], label = "tested cross")
-    # print("np.shape(cross_term_cps): ", np.shape(cross_term_cps))
-    # print("np.linspace(0,1,2*order-3): ", np.linspace(0,1,2*order-3))
-    plt.scatter(np.linspace(0,1,2*order-3), cross_term_cps)
-    plt.legend()
-    plt.show()
+# if order == 3:
+#     cross_term_cps = get_cross_term_bezier_control_points_from_third_order_spline(control_points,dimension)
+# if order == 4:
+#     cross_term_cps = get_cross_term_bezier_control_points_from_fourth_order_spline(control_points,dimension)
+# if order == 5:
+#     cross_term_cps = get_cross_term_bezier_control_points_from_fifth_order_spline(control_points,dimension)    
+# print("cross_term_cps: " , cross_term_cps)
+# if dimension == 3:
+#     plt.figure()
+#     ax = plt.axes(projection='3d')
+#     ax.set_box_aspect(aspect =(1,1,1))
+#     ax.plot(cross_term[0,:], cross_term[1,:],cross_term[2,:],label="cross_term")
+#     ax.scatter(cross_term_cps[0,:], cross_term_cps[1,:],cross_term_cps[2,:],label="cross_term_cps")
+#     plt.show()
+# elif dimension == 2:
+#     plt.plot(time_data, cross_term, label = "actual cross term")
+#     # plt.plot( time_data, (coeficients[0] + time_data*coeficients[1] + time_data**2*coeficients[2] + time_data**3*coeficients[3]+time_data**4*coeficients[4]), label ="tested cross")
+#     # plt.plot( time_data, coeficients[0] + time_data*coeficients[1] + (time_data**2)*coeficients[2], label = "tested cross")
+#     # print("np.shape(cross_term_cps): ", np.shape(cross_term_cps))
+#     # print("np.linspace(0,1,2*order-3): ", np.linspace(0,1,2*order-3))
+#     plt.scatter(np.linspace(0,1,2*order-3), cross_term_cps)
+#     plt.legend()
+#     plt.show()
 
