@@ -1,5 +1,5 @@
 import numpy as np
-from max_curvature_evaluators.mdm_algorithm_adapted import MDM
+from max_curvature_evaluators.helper_files.mdm_algorithm_adapted import MDM
 import matplotlib.pyplot as plt
 import time
 

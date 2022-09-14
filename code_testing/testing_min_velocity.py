@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from bsplinegenerator.bsplines import BsplineEvaluation
 from scipy.optimize import minimize, Bounds, LinearConstraint
-from max_curvature_evaluators.mdm_algorithm_adapted import MDM
+from max_curvature_evaluators.helper_files.mdm_algorithm_adapted import MDM
 import time
 ## Control Points ###
 

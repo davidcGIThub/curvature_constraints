@@ -7,17 +7,21 @@ def get_matrix(order):
     M = get_M_matrix(0, order, [], False)
     return M
 
-def calculate_velocity_magnitude(t,M,control_points):
-    num_control_points = count_number_of_control_points(control_points)
-    order = num_control_points - 1
+def calculate_velocity_magnitude(t,M,control_points,order):
     dT = get_T_derivative_vector(order,t,0,1,1)
     velocity = np.dot(control_points,np.dot(M,dT)).flatten()
     velocity_magnitude = np.linalg.norm(velocity)
     return velocity_magnitude 
 
-def calculate_curvature(t,M,control_points):
-    num_control_points = count_number_of_control_points(control_points)
-    order = num_control_points - 1
+def calculate_cross_term_magnitude(t,M,control_points,order):
+    dT = get_T_derivative_vector(order,t,0,1,1)
+    d2T = get_T_derivative_vector(order,t,0,2,1)
+    velocity = np.dot(control_points,np.dot(M,dT)).flatten()
+    acceleration = np.dot(control_points,np.dot(M,d2T)).flatten()
+    cross_term_magnitude = np.linalg.norm(np.cross(velocity,acceleration))
+    return cross_term_magnitude
+
+def calculate_curvature(t,M,control_points,order):
     dT = get_T_derivative_vector(order,t,0,1,1)
     d2T = get_T_derivative_vector(order,t,0,2,1)
     velocity = np.dot(control_points,np.dot(M,dT)).flatten()
@@ -30,9 +34,7 @@ def calculate_curvature(t,M,control_points):
     curvature = numerator/denominator
     return curvature
 
-def calculate_curvature_derivative(t,M,control_points):
-    num_control_points = count_number_of_control_points(control_points)
-    order = num_control_points - 1
+def calculate_curvature_derivative(t,M,control_points,order):
     dT = get_T_derivative_vector(order,t,0,1,1)
     d2T = get_T_derivative_vector(order,t,0,2,1)
     d3T = get_T_derivative_vector(order,t,0,3,1)

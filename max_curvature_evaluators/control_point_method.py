@@ -5,8 +5,7 @@ from bsplinegenerator.helper_functions import count_number_of_control_points
 from bsplinegenerator.bsplines import BsplineEvaluation
 import random
 import matplotlib.pyplot as plt
-from mdm_algorithm_adapted import MDM
-
+from max_curvature_evaluators.helper_files.mdm_algorithm_adapted import MDM
 
 def get_control_point_curvature_bound(control_points,order,scale_factor):
     dimension = get_dimension(control_points)

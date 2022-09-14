@@ -1,7 +1,7 @@
 import numpy as np
 from bsplinegenerator.helper_functions import count_number_of_control_points
 import time
-from helper import calculate_curvature, get_matrix
+from max_curvature_evaluators.helper_files.helper_curvature_evaluations import calculate_curvature, get_matrix
 from bsplinegenerator.bsplines import BsplineEvaluation
 from beziercurvegenerator.bezier_curves import BezierCurve
 import matplotlib.pyplot as plt

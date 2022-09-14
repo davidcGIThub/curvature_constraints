@@ -59,9 +59,3 @@ def __cubic_solver(A,B,C,D):
             t2 = (4*A*B*C - 9*A**2*D - B**3)/(A*P)
             roots = [t1,t2]
     return roots
-
-def cube_root_plotter(A,B,C,D,bounds=[0,1]):
-    t = np.linspace(bounds[0],bounds[1],1000)
-    f = A*t**3 + B*t**2 + C*t + D
-    plt.plot(t,f)
-    plt.show()
