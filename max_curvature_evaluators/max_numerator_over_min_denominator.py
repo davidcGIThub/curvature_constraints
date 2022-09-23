@@ -1,11 +1,21 @@
 import numpy as np
-from max_curvature_evaluators.helper_files.cube_root_solver import solver, cube_root_plotter
+from max_curvature_evaluators.helper_files.cube_root_solver import solver
+from max_curvature_evaluators.helper_files.helper_curvature_evaluations import get_matrix
 from bsplinegenerator.bsplines import BsplineEvaluation
 from bsplinegenerator.helper_functions import count_number_of_control_points
 from max_curvature_evaluators.helper_files.helper_curvature_evaluations import calculate_velocity_magnitude, calculate_cross_term_magnitude
 import matplotlib.pyplot as plt
 import time
 
+def find_curvature_using_max_numerator_over_min_denominator(control_points, order, M):
+    dimension = 3
+    min_velocity = find_min_velocity_magnitude(control_points, order, M)
+    max_acceleration = find_max_acceleration(control_points, order)
+    max_cross_term = find_max_cross_term(control_points, order, M, dimension)
+    curvature1 = max_acceleration/min_velocity**2
+    curvature2 = max_cross_term/min_velocity**3
+    max_curvature = np.min((curvature1,curvature2))
+    return max_curvature
 
 def find_min_velocity_magnitude(control_points, order, M):
     P = control_points
@@ -33,13 +43,12 @@ def find_min_velocity_magnitude(control_points, order, M):
     for i in range(len(times_to_check)):
         t = times_to_check[i]
         if t >= 0 and t <= 1:
-            velocity = calculate_velocity_magnitude(t, M, control_points)
+            velocity = calculate_velocity_magnitude(t, M, control_points,order)
             if velocity < min_velocity:
                 min_velocity = velocity
     return min_velocity
 
-def find_max_cross_term(control_points, order, M):
-    dimension = 3
+def find_max_cross_term(control_points, order, M, dimension):
     if order == 2:
         p0 = control_points[:,0]
         p1 = control_points[:,1]
@@ -58,7 +67,18 @@ def find_max_cross_term(control_points, order, M):
                     max_cross_term = cross_term
     return max_cross_term
 
-def find_max_acceleration
+def find_max_acceleration(control_points,order):
+    if order == 2:
+        MT = np.array([[1],[-2],[1]])
+        max_acceleration = np.linalg.norm(np.dot(control_points,MT))
+    elif order == 3:
+        alpha = 1
+        MT_start = np.array([[1],[-2],[1],[0]])
+        MT_end = np.array([[1-1/alpha],[3/alpha-2],[1-3/alpha],[1/alpha]])
+        start_acceleration = np.linalg.norm(np.dot(control_points,MT_start))
+        end_acceleration = np.linalg.norm(np.dot(control_points,MT_end))
+        max_acceleration = np.max((start_acceleration,end_acceleration))
+    return max_acceleration
 
 def get_cross_coeficients(dimension,control_points):
     if dimension == 3:
@@ -136,4 +156,3 @@ def get_cross_coeficients(dimension,control_points):
         c_0 = -((p0y/2 - p2y/2)*(p0x - 2*p1x + p2x) - (p0x/2 - p2x/2)*(p0y - 2*p1y + p2y))*((p0y/2 - p2y/2)* \
             (p0x - 3*p1x + 3*p2x - p3x) - (p0x/2 - p2x/2)*(p0y - 3*p1y + 3*p2y - p3y))
     return c_3, c_2, c_1, c_0
-

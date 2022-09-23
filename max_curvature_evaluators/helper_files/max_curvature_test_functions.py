@@ -1,51 +1,74 @@
 import numpy as np
 import time
+from sklearn.neighbors import KernelDensity
 from bsplinegenerator.bsplines import BsplineEvaluation 
 from max_curvature_evaluators.helper_files.helper_curvature_evaluations import get_matrix
 from max_curvature_evaluators.angle_constrained_max_finder import create_random_control_points_greater_than_angles
 from max_curvature_evaluators.sqp_max_finder import find_max_curvature_sqp_method, get_m_matrix_sqp
 from max_curvature_evaluators.root_finder import find_max_curvature_root_finder, get_m_matrix_root
 from max_curvature_evaluators.discrete_evaluations import get_matrices_discrete_evaluations, get_max_curvature_by_checking_n_points
+# from max_curvature_evaluators.discrete_evaluations_slow import get_matrices_discrete_evaluations, get_max_curvature_by_checking_n_points
 from max_curvature_evaluators.max_at_min_velocity_finder import find_curvature_at_min_velocity_magnitude
+from max_curvature_evaluators.control_point_method import get_control_point_curvature_bound
+from max_curvature_evaluators.max_numerator_over_min_denominator import find_curvature_using_max_numerator_over_min_denominator
+from max_curvature_evaluators.geometric_max_finder import get_max_curvature
+from max_curvature_evaluators.angle_constrained_max_finder import get_constant, get_curvature_bound
 
-def get_speed_and_accuracy_of_max_curvature_function(order,isRestricted,method):
-    control_points = create_control_points(isRestricted,order)
+def get_speed_and_accuracy_of_max_curvature_function(order,method,control_points, true_max_curvature):
     curvature_bound, evaluation_time = get_curvature_bound_and_time(method, control_points,order)
-    bspline = BsplineEvaluation(control_points,order,0,1)
-    curvature_data, time_data = bspline.get_spline_curvature_data(10000)
-    true_max_curvature = np.max(curvature_data)
-    if true_max_curvature < 1e-10 and curvature_bound < 1e-10:
-        error_rate = 0
-    elif true_max_curvature < 1e-10:
-        error_rate = 100
-    elif true_max_curvature == np.inf and curvature_bound == np.inf:
-        error_rate = 0
-    elif true_max_curvature == np.inf:
-        error_rate = 100
-    else:
-        error_rate = np.abs(curvature_bound - true_max_curvature)/true_max_curvature*100
-    accuracy = 100-error_rate
-    return accuracy, evaluation_time
+    relative_error = (curvature_bound - true_max_curvature)/(1+abs(true_max_curvature))
+    if true_max_curvature == np.inf or curvature_bound == np.inf:
+        relative_error = 0
+    return relative_error, evaluation_time
 
-def create_control_points(isRestricted, order):
-    if isRestricted:
-        control_points = create_random_control_points_greater_than_angles(order+1,order,np.random.rand()*10)
-    else:
+def create_control_point_and_max_curvature_list(order, num_iterations):
+    control_point_list = []
+    max_curvature_list = []
+    for i in range(num_iterations):
+        control_points, max_curvature = get_control_points_and_max_curvature(order)
+        control_point_list.append(control_points)
+        max_curvature_list.append(max_curvature)
+    return control_point_list, max_curvature_list
+
+def get_control_points_and_max_curvature(order):
+    valid_control_points = False
+    while not valid_control_points:
         control_points = np.random.randint(10, size=(3,order+1)) #random
-    return control_points
+        bspline = BsplineEvaluation(control_points,order,0,1)
+        velocity_data, time_data = bspline.get_derivative_magnitude_data(1000,1)
+        min_velocity = np.min(velocity_data)
+        acceleration_data, time_data = bspline.get_derivative_magnitude_data(1000,1)
+        min_acceleration = np.min(acceleration_data)
+        curvature_data, time_data = bspline.get_spline_curvature_data(10000)
+        max_curvature = np.max(curvature_data)
+        cp_max_curvature = get_control_point_curvature_bound(control_points, order, 1)
+        relative_error_cp_max = np.abs(cp_max_curvature - max_curvature)/(1+np.abs(max_curvature))
+        if min_velocity > 10e-5 and min_acceleration > 10e-5 and relative_error_cp_max < 10000:
+            valid_control_points = True
+    return control_points, max_curvature
 
-def test_performance_of_max_curvature_function(order,isRestricted,method,num_iterations):
-    accuracy_array = np.zeros(num_iterations)
+def test_performance_of_max_curvature_function(order,method,control_point_list, max_curvature_list):
+    num_iterations = len(control_point_list)
+    relative_error_array = np.zeros(num_iterations)
     evaluation_time_array = np.zeros(num_iterations)
     for i in range(num_iterations):
-        accuracy, evaluation_time = get_speed_and_accuracy_of_max_curvature_function(order,isRestricted,method)
-        accuracy_array[i] = accuracy
+        control_points = control_point_list[i]
+        max_curvature = max_curvature_list[i]
+        relative_error, evaluation_time = get_speed_and_accuracy_of_max_curvature_function(order,method,control_points, max_curvature)
+        relative_error_array[i] = relative_error
         evaluation_time_array[i] = evaluation_time
-    average_accuracy = np.average(accuracy_array)
     average_time = np.average(evaluation_time_array)
-    std_accuracy = np.sqrt(np.sum((average_accuracy - accuracy_array)**2)/num_iterations)
+    high_error = np.max(relative_error_array)
+    low_error = np.min(relative_error_array)
     std_time = np.sqrt(np.sum((average_time - evaluation_time_array)**2)/num_iterations)
-    return average_accuracy, std_accuracy, average_time, std_time
+    kde = KernelDensity(kernel='gaussian',bandwidth=0.5).fit(relative_error_array.reshape([-1,1]))
+    samples = np.linspace(low_error,high_error,10000)
+    scores = kde.score_samples(samples.reshape([-1,1]))
+    index_highest_score = np.argmax(scores)
+    mode = samples[index_highest_score]
+    mean = np.mean(relative_error_array)
+    std = np.std(relative_error_array)
+    return mode, mean, std, relative_error_array, average_time, std_time
 
 def get_curvature_bound_and_time(method,control_points,order):
     if method == "maximize_curvature_equation":
@@ -59,7 +82,7 @@ def get_curvature_bound_and_time(method,control_points,order):
         curvature_bound = find_max_curvature_root_finder(control_points,order,M)
         evaluation_time = time.time() - start_time
     elif method == "discrete_evaluations":
-        n_points = 100
+        n_points = 1000
         M_vel, M_accel, L_vel, L_accel = get_matrices_discrete_evaluations(n_points,order)
         start_time = time.time()
         curvature_bound = get_max_curvature_by_checking_n_points(control_points, M_vel, M_accel, L_vel, L_accel)
@@ -69,12 +92,25 @@ def get_curvature_bound_and_time(method,control_points,order):
         start_time = time.time()
         curvature_bound = find_curvature_at_min_velocity_magnitude(control_points, order, M)
         evaluation_time = time.time() - start_time
-    elif method == "control_point_derivatives":
-        pass
     elif method == "max_numerator_over_min_denominator":
-        pass
-    elif method == "":
-        pass
+        M = get_matrix(order)
+        start_time = time.time()
+        curvature_bound = find_curvature_using_max_numerator_over_min_denominator(control_points, order, M)
+        evaluation_time = time.time() - start_time
+    elif method == "control_point_derivatives":
+        start_time = time.time()
+        curvature_bound = get_control_point_curvature_bound(control_points,order,1)
+        evaluation_time = time.time() - start_time
+    elif method == "geometric":
+        start_time = time.time()
+        curvature_bound = get_max_curvature(control_points)
+        evaluation_time = time.time() - start_time
     elif method == "angle_constrained_control_points":
-        pass
+        isBezier = False
+        constant = get_constant(order,isBezier)
+        start_time = time.time()
+        curvature_bound = get_curvature_bound(control_points,constant)
+        evaluation_time = time.time() - start_time
+    else:
+        print( method , " not found")
     return curvature_bound, evaluation_time

@@ -50,5 +50,10 @@ def calculate_curvature_derivative(t,M,control_points,order):
     denominator_1 = norm_vel_cross_accel*norm_velocity**3
     numerator_2 = 3*vel_dot_accel*norm_vel_cross_accel
     denominator_2 = norm_velocity**5
-    curvature_derivative = numerator_1/denominator_1 - numerator_2/denominator_2
+    if numerator_1 == 0:
+        term1 = 0
+    else:
+        term1 = numerator_1/denominator_1
+    term2 = numerator_2/denominator_2
+    curvature_derivative = term1 - term2
     return curvature_derivative

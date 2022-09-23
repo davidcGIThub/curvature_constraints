@@ -19,11 +19,11 @@ def find_max_curvature_sqp_method(control_points,order,M):
     num_initial_guesses = order+1
     def curvature_objective_function(time):
         t = time[0]
-        curvature = calculate_curvature(t,M,control_points)
+        curvature = calculate_curvature(t,M,control_points,order)
         return -curvature
     def curvature_derivative(time):
         t = time[0]
-        curvature_derivative = calculate_curvature_derivative(t,M,control_points)
+        curvature_derivative = calculate_curvature_derivative(t,M,control_points,order)
         return -curvature_derivative
     time_bounds = Bounds(lb=0.0, ub =1.0)
     t = 0
