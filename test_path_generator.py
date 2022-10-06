@@ -4,13 +4,14 @@ import matplotlib.pyplot as plt
 from bsplinegenerator.bsplines import BsplineEvaluation
 from path_generation.path_generator import PathGenerator
 
-waypoints = np.array([[1,4],[2,4]])
+waypoints = np.array([[1,4],[1,4]])
+directions = np.array([[-1,0],[0,1]])
+max_curvature = 2
 
-max_curvature = .1
 dimension = np.shape(waypoints)[0]
 order = 3
 path_gen = PathGenerator(order, dimension)
-control_points = path_gen.generate_trajectory(waypoints)
+control_points = path_gen.generate_trajectory(waypoints, directions,max_curvature)
 scale_factor = 1
 start_time = 0
 bspline = BsplineEvaluation(control_points, order, start_time, scale_factor, False)
@@ -25,6 +26,6 @@ bspline.plot_spline(number_data_points)
 # plt.show()
 # bspline.plot_derivative(number_data_points, 1)
 # bspline.plot_spline_vs_time(number_data_points)
-# bspline.plot_curvature(number_data_points)
-# bspline.plot_derivative_magnitude(number_data_points, 1)
-# bspline.plot_derivative_magnitude(number_data_points, 2)
+bspline.plot_curvature(number_data_points)
+bspline.plot_derivative_magnitude(number_data_points, 1)
+bspline.plot_derivative_magnitude(number_data_points, 2)
