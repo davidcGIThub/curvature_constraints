@@ -1,11 +1,8 @@
 import numpy as np
 from scipy.optimize import root_scalar
 from max_curvature_evaluators.helper_files.helper_curvature_evaluations import calculate_curvature, calculate_curvature_derivative
-from bsplinegenerator.bsplines import BsplineEvaluation
-from bsplinegenerator.helper_functions import count_number_of_control_points
 from bsplinegenerator.matrix_evaluation import get_M_matrix
-import time
-import matplotlib.pyplot as plt
+
 """
 Uses the brent_q bracketing method 
 """

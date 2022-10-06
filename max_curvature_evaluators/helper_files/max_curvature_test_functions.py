@@ -30,6 +30,88 @@ def create_control_point_and_max_curvature_list(order, num_iterations):
         max_curvature_list.append(max_curvature)
     return control_point_list, max_curvature_list
 
+def create_edge_cases(order):
+    if order == 2:
+        control_point_list = create_2nd_order_edge_cases()
+    elif order == 3:
+        control_point_list = create_3rd_order_edge_cases()
+    elif order == 5:
+        control_point_list = create_5th_order_edge_cases()
+    max_curvature_list = []
+    for i in range(len(control_point_list)):
+        control_points = control_point_list[i]
+        bspline = BsplineEvaluation(control_points,order,0,1)
+        curvature_data, time_data = bspline.get_spline_curvature_data(10000)
+        max_curvature = np.max(curvature_data)
+        max_curvature_list.append(max_curvature)
+    return control_point_list, max_curvature_list
+    
+def create_2nd_order_edge_cases():
+    # zero curvature, constant velocity
+    points_1 = np.array([[0,1,2],[0,1,2],[0,1,2]])
+    # zero curvature, with acceleration
+    points_2 = np.array([[0,1,3],[0,1,3],[0,1,3]])
+    # infinit curvature middle, hits zero velocity in middle
+    points_3 = np.array([[0,2,1],[0,2,1],[0,2,1]])
+    # zero curvature, hits zero velocity at endpoint
+    points_4 = np.array([[1,1,2],[1,1,2],[1,1,2]])
+    # zero velocity whole time, infinite curvature
+    points_5 = np.array([[1,1,1],[1,1,1],[1,1,1]])
+    # almost straight line
+    points_6 = np.array([[0,1.01,2],[0,1,2.03],[0.01,1,2]])
+    # almost straight line
+    points_7 = np.array([[0.03,1.99,1.01],[0,2.02,1.07],[0.01,2.04,1]])
+    return [points_1, points_2, points_3, points_4, points_5, points_6, points_7]
+
+def create_3rd_order_edge_cases():
+    # zero curvature, constant velocity
+    points_1 = np.array([[0,1,2,3],[0,1,2,3],[0,1,2,3]])
+    # zero curvature with some acceleration
+    points_2 = np.array([[0,1,3,6],[0,1,3,6],[0,1,3,6]])
+    # infinite curvature middle, hits zero velocity middle
+    points_3 = np.array([[1,4,3,2],[1,4,3,2],[1,4,3,2]])
+    # zero curvature, hits zero velocity at endpoint
+    points_4 = np.array([[1,1,1,2],[1,1,1,2],[1,1,1,2]])
+    # zero velocity whole time, infinite curvature
+    points_5 = np.array([[1,1,1,1],[1,1,1,1],[1,1,1,1]])
+    # almost straight line
+    points_6 = np.array([[0,1.01,2.01,3.06],[0,1,2.03,3.01],[0.01,1,1.95,2.98]])
+    # almost straight line, sharp turn around
+    points_7 = np.array([[1,4.02,2.99,2],[1.05,3.94,2.96,2],[1.02,4,3.06,2.02]])
+    return [points_1, points_2, points_3, points_4, points_5, points_6, points_7]
+
+def create_5th_order_edge_cases():
+    # zero curvature, constant velocity
+    points_1 = np.array([[0,1,2,3,4,5],[0,1,2,3,4,5],[0,1,2,3,4,5]])
+    # zero curvature, with some acceleration
+    points_2 = np.array([[0,1,3,4,7,9],[0,1,3,4,7,9],[0,1,3,4,7,9]])
+    # infinite curvature middle, hits zero velocity middle
+    points_3 = np.array([[1,3,4,5,3,0],[1,3,4,5,3,0],[1,3,4,5,3,0]])
+    # zero curvature, hits zero velocity at endpoint
+    points_4 = np.array([[1,1,1,1,1,2],[1,1,1,1,1,2],[1,1,1,1,1,2]])
+    # zero velocity whole time, infinite curvature
+    points_5 = np.array([[1,1,1,1,1,1],[1,1,1,1,1,1],[1,1,1,1,1,1]])
+    # almost straight line
+    points_6 = np.array([[0,1.01,2,3.06,4.01,5],[0,1,2.03,3.01,4,5.03],[0.01,1,2,3,4.05,5.02]])
+    # almost straight line, infinite curvature middle, hits zero velocity middle
+    points_7 = np.array([[1.01,2.99,4.05,4.96,3.01,0],[1,3.01,4,5,3.06,0],[1,3.03,4,5.02,2.97,0.01]])
+    return [points_1, points_2, points_3, points_4, points_5, points_6, points_7]
+
+# # zero curvature, constant velocity
+# control_points = np.array([[0,1,2,3],[0,1,2,3]]) # correct
+# # zero curvature with some acceleration
+# control_points = np.array([[0,1,3,6],[0,1,3,6]]) 
+# # infinite curvature middle, hits zero velocity middle
+# control_points = np.array([[1,4,3,2],[1,4,3,2]]) 
+# # zero curvature, hits zero velocity at endpoint
+# control_points = np.array([[1,1,1,2],[1,1,1,2]])
+# # zero velocity whole time, infinite curvature
+# control_points = np.array([[1,1,1,1],[1,1,1,1]])
+# # almost straight line
+# control_points = np.array([[0,1.01,2.03,3.06],[0,1,2.03,3.01],[0.01,1,2.02,3]])
+# # almost straight, infinite curvature middle, hits zero velocity middle
+# control_points = np.array([[1.01,3.98,3.02,2.04],[.99,4.03,2.97,2.02]]) 
+
 def get_control_points_and_max_curvature(order):
     valid_control_points = False
     while not valid_control_points:

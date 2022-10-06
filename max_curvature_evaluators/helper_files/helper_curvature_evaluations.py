@@ -1,6 +1,5 @@
 
 import numpy as np
-from bsplinegenerator.helper_functions import count_number_of_control_points
 from bsplinegenerator.matrix_evaluation import get_T_derivative_vector, get_M_matrix
 
 def get_matrix(order):
