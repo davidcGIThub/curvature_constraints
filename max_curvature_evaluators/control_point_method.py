@@ -7,10 +7,10 @@ import random
 import matplotlib.pyplot as plt
 from max_curvature_evaluators.helper_files.mdm_algorithm_adapted import MDM
 
-def get_control_point_curvature_bound(control_points,order,scale_factor):
+def get_control_point_curvature_bound(control_points,order):
     dimension = get_dimension(control_points)
-    control_point_velocities = (control_points[:,1:] - control_points[:,0:-1])/scale_factor
-    control_point_accelerations = (control_point_velocities[:,1:]-control_point_velocities[:,0:-1])/scale_factor
+    control_point_velocities = (control_points[:,1:] - control_points[:,0:-1])#/scale_factor
+    control_point_accelerations = (control_point_velocities[:,1:]-control_point_velocities[:,0:-1])#/scale_factor
     if count_number_of_control_points(control_point_velocities) > 1:
         control_point_velocities = convert_to_bezier_control_points(control_point_velocities)
     if count_number_of_control_points(control_point_accelerations) > 1:

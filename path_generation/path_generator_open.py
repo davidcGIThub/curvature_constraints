@@ -10,6 +10,8 @@ from scipy.optimize import minimize, Bounds, LinearConstraint, NonlinearConstrai
 from bsplinegenerator.matrix_evaluation import get_M_matrix, get_T_derivative_vector
 from bsplinegenerator.bspline_to_bezier import get_bspline_to_bezier_conversion_matrix
 from max_curvature_evaluators.root_finder import find_max_curvature_root_finder
+from max_curvature_evaluators.max_numerator_over_min_denominator import find_curvature_using_max_numerator_over_min_denominator
+from max_curvature_evaluators.control_point_method import get_control_point_curvature_bound
 import sys
 # from bsplinegenerator
 
@@ -169,6 +171,7 @@ class PathGenerator:
             (self._dimension,self._num_control_points))
             max_curvature_of_spline_intervals = self.__get_max_curvature_of_each_spline_interval(control_points)
             constraint = max_curvature_of_spline_intervals - max_curvature
+            # print("constraint: " , constraint)
             return constraint
         lower_bound = -np.inf
         upper_bound = 0
@@ -182,28 +185,9 @@ class PathGenerator:
             control_points_per_interval = control_points[:,i:i+self._order+1]
             if self._curvature_method == "roots_of_curvature_derivative":
                 max_curvatures[i] = find_max_curvature_root_finder(control_points_per_interval,self._order,self._M)
+            elif self._curvature_method == "max_numerator_over_min_denominator":
+                max_curvatures[i] = find_curvature_using_max_numerator_over_min_denominator(control_points_per_interval,self._order,self._M)
+            elif self._curvature_method == "control_point_derivatives":
+                max_curvatures[i] = get_control_point_curvature_bound(control_points_per_interval,self._order)
         return  max_curvatures
-
-
-    def __create_waypoint_direction_constraint(self, velocities):
-        def direction_constraint_function(variables):
-            constraints = np.zeros(self._dimension*2)
-            control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
-            (self._dimension,self._num_control_points))
-            segement_1_control_points = control_points[:,0:self._order+1]
-            segement_2_control_points = control_points[:,self._num_control_points-self._order-1:]
-            scale_factor = variables[-1]
-            T_0 = get_T_derivative_vector(self._order,0,0,1,scale_factor)
-            T_f = get_T_derivative_vector(self._order,scale_factor,0,1,scale_factor)
-            start_velocity = np.dot(segement_1_control_points,np.dot(self._M,T_0)).flatten()
-            end_velocity = np.dot(segement_2_control_points,np.dot(self._M,T_f)).flatten()
-            desired_start_velocity = velocities[:,0]
-            desired_end_velocity = velocities[:,1]
-            constraints[0:self._dimension] = start_velocity - desired_start_velocity
-            constraints[self._dimension:] = end_velocity - desired_end_velocity
-            return constraints
-        lower_bound = 0
-        upper_bound = 0
-        direction_constraint = NonlinearConstraint(direction_constraint_function, lb= lower_bound, ub=upper_bound)
-        return direction_constraint
 

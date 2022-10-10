@@ -15,12 +15,14 @@ waypoints = np.array([[0,5],[0,0]])
 velocities = np.array([[-1,-1],[0,0]])
 velocities = velocities/np.linalg.norm(velocities,2,0)
 print("velocities: " , velocities)
-max_velocity = 1
-max_curvature = 0.5
+max_velocity = 2
+max_curvature = 1
 
 dimension = np.shape(waypoints)[0]
 order = 3
 curvature_method = "roots_of_curvature_derivative"
+# curvature_method = "max_numerator_over_min_denominator"
+# curvature_method = "control_point_derivatives"
 path_gen = PathGenerator(order, dimension, curvature_method)
 start_time = time.time()
 control_points, scale_factor = path_gen.generate_trajectory(waypoints, velocities, max_velocity, max_curvature)
