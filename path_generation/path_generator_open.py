@@ -12,6 +12,7 @@ from bsplinegenerator.bspline_to_bezier import get_bspline_to_bezier_conversion_
 from max_curvature_evaluators.root_finder import find_max_curvature_root_finder
 from max_curvature_evaluators.max_numerator_over_min_denominator import find_curvature_using_max_numerator_over_min_denominator
 from max_curvature_evaluators.control_point_method import get_control_point_curvature_bound
+from max_curvature_evaluators.max_at_min_velocity_finder import find_curvature_at_min_velocity_magnitude
 import sys
 # from bsplinegenerator
 
@@ -36,7 +37,7 @@ class PathGenerator:
         # create initial conditions
         self._dimension = np.shape(waypoints)[0]
         initial_control_points = self.__create_initial_control_points(waypoints)
-        initial_control_points = np.array([[1,-2,-2,1,4,7,7,4],[0,0,2,2,2,2,0,0]])
+        # initial_control_points = np.array([[1,-2,-2,1,4,7,7,4],[0,0,2,2,2,2,0,0]])
         initial_scale_factor = 1
         optimization_variables = np.concatenate((initial_control_points.flatten(),[initial_scale_factor]))
         # define constraints and objective function and constraints
@@ -58,7 +59,7 @@ class PathGenerator:
             # method = 'trust-constr',
             bounds=objective_variable_bounds,
             constraints=(waypoint_constraint, velocity_constraint, \
-                max_velocity_constraint, curvature_constraint), 
+                max_velocity_constraint), #, curvature_constraint), 
             options = minimize_options)
         # retrieve data
         optimized_control_points = np.reshape(result.x[0:-1] ,(self._dimension,self._num_control_points))
@@ -189,5 +190,7 @@ class PathGenerator:
                 max_curvatures[i] = find_curvature_using_max_numerator_over_min_denominator(control_points_per_interval,self._order,self._M)
             elif self._curvature_method == "control_point_derivatives":
                 max_curvatures[i] = get_control_point_curvature_bound(control_points_per_interval,self._order)
+            elif self._curvature_method == "curvature_at_min_velocity":
+                max_curvatures[i] = find_curvature_at_min_velocity_magnitude(control_points_per_interval, self._order, self._M)
         return  max_curvatures
 
