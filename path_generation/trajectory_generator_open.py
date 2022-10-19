@@ -37,15 +37,15 @@ class PathGenerator:
         # create initial conditions
         self._dimension = np.shape(waypoints)[0]
         initial_control_points = self.__create_initial_control_points(waypoints)
-        # initial_control_points = np.array([[-1,0,1,2,2.5,3,4,5,6],[0,0,0,0,0,0,0,0,0]])
-        # initial_control_points = np.array([[0,0,0,2.5,2.5,2.5,5,5,5],[-3,0,3,3,0,-3,-3,0,3]]) # case 4
-        # initial_control_points = np.array([[2,0,-2,-2,2,2,3,5,7],[0,0,0,-2,-2,-2,0,0,0]]) # case 5
+        # initial_control_points = np.array([[0,0,0,1.5,2.5,3.5,5,5,5],[0,2,4,4,4,4,4,2,0]])
+        # initial_control_points = np.array([[0,0,0,4,4,4,8,8,8],[-3,0,3,3,0,-3,-3,0,3]])
+        initial_control_points = np.array([[2,0,-2,-2,2,2,3,5,7],[0,0,0,-2,-2,-2,0,0,0]])
         initial_scale_factor = 1
         optimization_variables = np.concatenate((initial_control_points.flatten(),[initial_scale_factor]))
         # define constraints and objective function and constraints
         waypoint_constraint = self.__create_waypoint_constraint(waypoints)
-        # velocity_constraint = self.__create_waypoint_velocity_constraint(velocities)
-        direction_constraint = self.__create_waypoint_direction_constraint(velocities)
+        velocity_constraint = self.__create_waypoint_velocity_constraint(velocities)
+        # direction_constraint = self.__create_waypoint_direction_constraint(velocities)
         max_velocity_constraint = self.__create_maximum_velocity_constraint(max_velocity)
         curvature_constraint = self.__create_curvature_constraint(max_curvature)
         # curvature_constraint = self.__create_curvature_constraint(max_curvature)
@@ -60,7 +60,7 @@ class PathGenerator:
             method='SLSQP', 
             # method = 'trust-constr',
             bounds=objective_variable_bounds,
-            constraints=(waypoint_constraint, direction_constraint, \
+            constraints=(waypoint_constraint, velocity_constraint, \
                 max_velocity_constraint, curvature_constraint), 
             options = minimize_options)
         # retrieve data
@@ -154,18 +154,23 @@ class PathGenerator:
         velocity_vector_constraint = NonlinearConstraint(velocity_constraint_function, lb= lower_bound, ub=upper_bound)
         return velocity_vector_constraint
 
-    def __create_maximum_velocity_constraint(self, max_velocity):
-        def maximum_velocity_constraint_function(variables):
+    def __create_maximum_velocity_and_acceleration_constraint(self, max_velocity, max_acceleration):
+        def maximum_velocity_and_acceleration_constraint_function(variables):
             control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
                 (self._dimension,self._num_control_points))
             scale_factor = variables[-1]
             velocity_control_points = (control_points[:,1:] - control_points[:,0:-1]) / scale_factor
+            acceleration_control_points = (velocity_control_points[:,1:] - velocity_control_points[:,0:-1]) / scale_factor
             norm_velocity_control_points = np.linalg.norm(velocity_control_points,2,0)
-            constraints = norm_velocity_control_points - max_velocity
+            norm_acceleration_control_points = np.linalg.norm(acceleration_control_points,2,0)
+            velocity_constraints = norm_velocity_control_points - max_velocity
+            acceleration_constraints = norm_acceleration_control_points - max_acceleration
+            constraints = np.concatenate((velocity_constraints,acceleration_constraints))
             return constraints
         lower_bound = -np.inf
         upper_bound = 0
-        max_velocity_constraint = NonlinearConstraint(maximum_velocity_constraint_function, lb = lower_bound, ub= upper_bound)
+        max_velocity_constraint = NonlinearConstraint(maximum_velocity_and_acceleration_constraint_function, \
+             lb = lower_bound, ub= upper_bound)
         return max_velocity_constraint        
 
     def __create_curvature_constraint(self, max_curvature):
@@ -174,7 +179,6 @@ class PathGenerator:
             (self._dimension,self._num_control_points))
             max_curvature_of_spline_intervals = self.__get_max_curvature_of_each_spline_interval(control_points)
             constraint = max_curvature_of_spline_intervals - max_curvature
-            # print("constraint: " , constraint)
             return constraint
         lower_bound = -np.inf
         upper_bound = 0
@@ -196,27 +200,3 @@ class PathGenerator:
                 max_curvatures[i] = find_curvature_at_min_velocity_magnitude(control_points_per_interval, self._order, self._M)
         return  max_curvatures
 
-    def __create_waypoint_direction_constraint(self, direction):
-        def direction_constraint_function(variables):
-            constraints = np.zeros(2)
-            control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
-            (self._dimension,self._num_control_points))
-            segement_1_control_points = control_points[:,0:self._order+1]
-            segement_2_control_points = control_points[:,self._num_control_points-self._order-1:]
-            scale_factor = variables[-1]
-            T_0 = get_T_derivative_vector(self._order,0,0,1,scale_factor)
-            T_f = get_T_derivative_vector(self._order,scale_factor,0,1,scale_factor)
-            start_velocity = np.dot(segement_1_control_points,np.dot(self._M,T_0)).flatten()
-            end_velocity = np.dot(segement_2_control_points,np.dot(self._M,T_f)).flatten()
-            start_angle = np.arctan2(start_velocity[1],start_velocity[0])
-            end_angle = np.arctan2(end_velocity[1],end_velocity[0])
-            desired_start_angle = np.arctan2(direction[1,0],direction[0,0])
-            desired_end_angle = np.arctan2(direction[1,1],direction[0,1])
-            constraints[0] = start_angle - desired_start_angle
-            constraints[1] = end_angle - desired_end_angle
-            # print("constraints: " , constraints)
-            return constraints
-        lower_bound = 0
-        upper_bound = 0
-        direction_constraint = NonlinearConstraint(direction_constraint_function, lb= lower_bound, ub=upper_bound)
-        return direction_constraint
