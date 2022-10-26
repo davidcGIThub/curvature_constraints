@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/david/Code/curvature_constraints/CubicSolver/CubicEquationSolver.cpp
+CubicEquationSolver.hpp
+/home/david/Code/curvature_constraints/CubicSolver/CubicEquationSolver.hpp
+cmath
+-
+iostream
+-
+iomanip
+-
+
+/home/david/Code/curvature_constraints/CubicSolver/CubicEquationSolver.hpp
+array
+-
+list
+-
+limits
+-
+

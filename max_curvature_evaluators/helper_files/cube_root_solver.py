@@ -1,5 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
 
 def solver(a,b,c,d):
     if a == 0:
@@ -15,8 +14,11 @@ def solver(a,b,c,d):
     return roots
 
 def __linear_solver(c,d):
-    root = -d/c
-    roots = [root]
+    if c == 0:
+        roots = []
+    else:
+        root = -d/c
+        roots = [root]
     return roots
 
 def __quadratic_solver(b,c,d):
@@ -36,7 +38,8 @@ def __cubic_solver(A,B,C,D):
     if d > 0:
         Q_ = (3*(C/A) - (B/A)**2)/9
         R_ = (9*(B/A)*(C/A) - 27*(D/A) -2*(B/A)**3)/54
-        theta_ = np.arccos(R_/np.sqrt((-Q_)**3))
+        term = R_/np.sqrt((-Q_)**3)
+        theta_ = np.arccos(term)
         t1 = 2*np.sqrt(-Q_)*np.cos(theta_/3) - (B/A)/3
         t2 = 2*np.sqrt(-Q_)*np.cos((theta_+2*np.pi)/3) - (B/A)/3
         t3 = 2*np.sqrt(-Q_)*np.cos((theta_+4*np.pi)/3) - (B/A)/3
@@ -45,10 +48,13 @@ def __cubic_solver(A,B,C,D):
         P = B**2 - 3*A*C
         Q = 9*A*B*C - 2*(B**3) - 27*(A**2)*D
         cube_root = lambda x: x**(1./3.) if x >= 0 else -(-x)**(1./3.)
+        term_1 = Q/2 + np.sqrt((Q**2)/4 - P**3)
+        term_2 = Q/2 - np.sqrt((Q**2)/4 - P**3)
         N = cube_root(Q/2 + np.sqrt((Q**2)/4 - P**3)) + \
-        cube_root(Q/2 - np.sqrt((Q**2)/4 - P**3))
+            cube_root(Q/2 - np.sqrt((Q**2)/4 - P**3))
         t1 = -B/(3*A) + N/(3*A)
         roots = [t1]
+        print("t1: ", t1)
     else:
         P = B**2 - 3*A*C
         if P == 0:

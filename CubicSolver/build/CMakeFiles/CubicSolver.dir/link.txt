@@ -1,0 +1,2 @@
+/usr/bin/ar qc libCubicSolver.a  CMakeFiles/CubicSolver.dir/CubicEquationSolver.cpp.o
+/usr/bin/ranlib libCubicSolver.a

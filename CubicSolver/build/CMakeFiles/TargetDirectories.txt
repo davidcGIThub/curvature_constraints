@@ -1,0 +1,4 @@
+/home/david/Code/curvature_constraints/CubicSolver/build/CMakeFiles/rebuild_cache.dir
+/home/david/Code/curvature_constraints/CubicSolver/build/CMakeFiles/edit_cache.dir
+/home/david/Code/curvature_constraints/CubicSolver/build/CMakeFiles/CubicSolver_UnitTest.dir
+/home/david/Code/curvature_constraints/CubicSolver/build/CMakeFiles/CubicSolver.dir

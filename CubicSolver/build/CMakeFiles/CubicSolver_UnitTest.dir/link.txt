@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/CubicSolver_UnitTest.dir/UnitTestCubicEquationSolver.cpp.o  -o CubicSolver_UnitTest  /usr/lib/x86_64-linux-gnu/libgtest.a -lpthread /usr/lib/x86_64-linux-gnu/libgtest_main.a libCubicSolver.a 
