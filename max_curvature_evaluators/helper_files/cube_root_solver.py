@@ -1,4 +1,5 @@
 import numpy as np
+import time
 
 def solver(a,b,c,d):
     if a == 0:
@@ -50,11 +51,9 @@ def __cubic_solver(A,B,C,D):
         cube_root = lambda x: x**(1./3.) if x >= 0 else -(-x)**(1./3.)
         term_1 = Q/2 + np.sqrt((Q**2)/4 - P**3)
         term_2 = Q/2 - np.sqrt((Q**2)/4 - P**3)
-        N = cube_root(Q/2 + np.sqrt((Q**2)/4 - P**3)) + \
-            cube_root(Q/2 - np.sqrt((Q**2)/4 - P**3))
+        N = cube_root(term_1) + cube_root(term_2)
         t1 = -B/(3*A) + N/(3*A)
         roots = [t1]
-        print("t1: ", t1)
     else:
         P = B**2 - 3*A*C
         if P == 0:

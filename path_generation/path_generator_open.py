@@ -3,8 +3,6 @@ This module generates a B-spline path from one point to another
 with some given direction vector at each point, and with some
 curvature constraint
 """
-
-from turtle import st
 import numpy as np
 from scipy.optimize import minimize, Bounds, LinearConstraint, NonlinearConstraint, Bounds
 from bsplinegenerator.matrix_evaluation import get_M_matrix, get_T_derivative_vector
@@ -29,7 +27,7 @@ class PathGenerator:
         # 5th order spline 3 intervals - 8 control points
         self._order = order
         self._dimension = dimension
-        self._num_control_points = 9
+        self._num_control_points = 8
         self._M = get_M_matrix(0, self._order, np.array([]), False)
         self._curvature_method = curvature_method
         self._objective_function_type = objective_function_type
@@ -63,8 +61,9 @@ class PathGenerator:
             # method = 'trust-constr',
             bounds=objective_variable_bounds,
             constraints=(waypoint_constraint, velocity_constraint, \
-                max_acceleration_constraint, \
-                max_velocity_constraint, curvature_constraint), 
+                # max_acceleration_constraint, \
+                # max_velocity_constraint, \
+                     curvature_constraint), 
             options = minimize_options)
         # retrieve data
         optimized_control_points = np.reshape(result.x[0:-1] ,(self._dimension,self._num_control_points))
@@ -88,7 +87,7 @@ class PathGenerator:
             (self._dimension,self._num_control_points))
         distances = self.__get_distances_between_points(control_points)
         scale_factor = variables[-1]
-        return np.sum(distances) #+ scale_factor
+        return np.sum(distances) + scale_factor
 
     def __create_objective_variable_bounds(self):
         lower_bounds = np.zeros(self._num_control_points*self._dimension + 1) - np.inf

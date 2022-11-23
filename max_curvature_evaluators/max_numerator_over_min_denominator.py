@@ -10,11 +10,24 @@ import time
 def find_curvature_using_max_numerator_over_min_denominator(control_points, order, M):
     dimension = np.shape(control_points)[0]
     min_velocity = find_min_velocity_magnitude(control_points, order, M)
+    print("min_velocity: " , min_velocity)
     max_acceleration = find_max_acceleration(control_points, order)
+    print("max_acceleration: " , max_acceleration)
     max_cross_term = find_max_cross_term(control_points, order, M, dimension)
-    curvature1 = max_acceleration/min_velocity**2
-    curvature2 = max_cross_term/min_velocity**3
-    max_curvature = np.min((curvature1,curvature2))
+    print("max_cross_term: " , max_cross_term)
+    min_numerator = np.min((max_cross_term, max_acceleration))
+    if min_velocity == 0:
+        if min_numerator == 0:
+            max_curvature = 0
+        else:
+            max_curvature = np.inf
+    else:
+        curvature1 = max_acceleration/min_velocity**2
+        # print("curvature1: " , curvature1)
+        curvature2 = max_cross_term/min_velocity**3
+        # print("curvature2: " , curvature2)
+        max_curvature = np.min((curvature1,curvature2))
+    # print("max_curvature: " , max_curvature)
     return max_curvature
 
 def find_min_velocity_magnitude(control_points, order, M):

@@ -12,27 +12,32 @@ import time
 ## add function to get path length
 
 waypoints = np.array([[0,5],[0,0]])
-# velocities = np.array([[1,1],[0,0]]) # 0
+velocities = np.array([[1,1],[0,0]]) # 0
 velocities = np.array([[1,0],[0,1]]) # 1
 # velocities = np.array([[0,0],[1,-1]]) # 2
 # velocities = np.array([[-1,-1],[0,0]]) # 3
 # velocities = np.array([[0,0],[1,1]]) # 4
 # velocities = np.array([[-1,1],[0,0]]) # 5
 
+##### For Path optimization!! #####
+# minimize length with directions, not velocities
+# minimize acceleration with max vel 2 times velocities at the start points
+
 initial_control_points = None
 # initial_control_points = np.array([[2,0,-2,-2,2.5,7,7,5,3],[0,0,0,4,4,4,0,0,0]]) # case 3 top
 # initial_control_points = np.array([[2,0,-2,-2,2.5,7,7,5,3],[0,0,0,-4,-4,-4,0,0,0]]) # case 3 bottom
+# initial_control_points = np.array([[5,-1,-2,3,2,7,6,0],[3,-2,3,4,-3,-3,1,-3]]) # case 3 middle
 # initial_control_points = np.array([[0,0,0,2.5,2.5,2.5,5,5,5],[-3,0,3,3,0,-3,-3,0,3]]) # case 4
 # initial_control_points = np.array([[2,0,-2,-2,2,2,3,5,7],[0,0,0,-2,-2,-2,0,0,0]]) # case 5
 
 velocities = velocities/np.linalg.norm(velocities,2,0)
 
-# objective_function_type = "minimize_control_point_distance_and_time"
+objective_function_type = "minimize_control_point_distance_and_time"
 # objective_function_type = "minimize_distance_and_time"
 objective_function_type = "minimize_acceleration"
 # objective_function_type = "minimize_velocity"
 
-max_velocity = 2
+max_velocity = 10000
 max_acceleration = 10
 max_curvature = 1
 # center_sfc = np.array([[2.5],[2]]) # top

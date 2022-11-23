@@ -1,5 +1,7 @@
 #include "gtest/gtest.h"
 #include "CubicEquationSolver.hpp"
+#include <chrono>
+#include <ctime>  
 
 TEST(TestSuite, LinearProblem1)
 {
@@ -56,7 +58,11 @@ TEST(TestSuite, CubicProblem1)
     double c_term = -6;
     double d_term = -2;
     std::array<double,3> true_answer = {1.075972408704097, -1.520314680974536, -0.3056577277295605};
+    auto start = std::chrono::system_clock::now();
     std::array<double,3> answer = CubicEquationSolver::solve_cubic_equation(a_term,b_term,c_term,d_term);
+    auto end = std::chrono::system_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end-start;
+    std::cout << "elapsed time: " << elapsed_seconds.count() << "s" << std::endl;
     EXPECT_EQ(answer, true_answer);
 }
 

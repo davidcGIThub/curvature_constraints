@@ -26,9 +26,23 @@ def get_2nd_order_spline_max_curvature(bezier_control_points):
     leg_end = p1-p2
     A = np.linalg.norm(np.cross(leg_start,leg_end))/2
     if np.dot(leg_start,leg_middle) <= 0:
-        max_curvature = A/np.linalg.norm(leg_start)**3
+        print("method 1")
+        norm_start = np.linalg.norm(leg_start)
+        if norm_start == 0:
+            max_curvature = 0
+        else:
+            max_curvature = A/norm_start**3
     elif np.dot(leg_middle,leg_end) <= 0:
-        max_curvature = A/np.linalg.norm(leg_end)**3
+        norm_end = np.linalg.norm(leg_end)
+        if norm_end == 0:
+            max_curvature = 0
+        else:
+            max_curvature = A/norm_end**3
+        print("method 2")
     else:
-        max_curvature = np.linalg.norm(leg_middle)**3 / A**2
-    return max_curvature
+        if A == 0:
+            max_curvature = np.inf
+        else:
+            max_curvature = np.linalg.norm(leg_middle)**3 / (A*A)
+        print("method 3")
+    return max_curvature/2

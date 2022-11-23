@@ -1,6 +1,6 @@
 import numpy as np
 from max_curvature_evaluators.helper_files import cube_root_solver
-
+import time
 # c = 2
 # d = 3.2
 # print("linear problem 1: " , cube_root_solver.__linear_solver(c,d))
@@ -23,16 +23,18 @@ from max_curvature_evaluators.helper_files import cube_root_solver
 # b = 432
 # c = -192
 # print("Quadratic problem ?: " , cube_root_solver.__quadratic_solver(a,b,c))
-# a = 4
-# b = 3
-# c = -6
-# d = -2
-# print("Cubic problem 1: " , cube_root_solver.__cubic_solver(a,b,c,d))
 a = 4
 b = 3
-c = 6
-d = 2
-print("Cubic problem 2: " , cube_root_solver.__cubic_solver(a,b,c,d))
+c = -6
+d = -2
+start_time = time.time()
+print("Cubic problem 1: " , cube_root_solver.__cubic_solver(a,b,c,d))
+print("elapsed_time: ", time.time() - start_time)
+# a = 4
+# b = 3
+# c = 6
+# d = 2
+# print("Cubic problem 2: " , cube_root_solver.__cubic_solver(a,b,c,d))
 # a = 4
 # b = 4
 # c = 1
