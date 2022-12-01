@@ -239,8 +239,12 @@ class PathGenerator:
             control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
             (self._dimension,self._num_control_points))
             max_curvature_of_spline_intervals = self.__get_max_curvature_of_each_spline_interval(control_points)
-            constraint = max_curvature_of_spline_intervals - max_curvature
+            largest_curvature = np.max(max_curvature_of_spline_intervals)
+            # constraint = max_curvature_of_spline_intervals - max_curvature
+            constraint = largest_curvature - max_curvature
             # print("constraint: " , constraint)
+            print("control points: " , control_points)
+            print("max curvature: " , largest_curvature)
             return constraint
         lower_bound = -np.inf
         upper_bound = 0

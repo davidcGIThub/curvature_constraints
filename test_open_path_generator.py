@@ -32,14 +32,14 @@ initial_control_points = None
 
 velocities = velocities/np.linalg.norm(velocities,2,0)
 
-objective_function_type = "minimize_control_point_distance_and_time"
+# objective_function_type = "minimize_control_point_distance_and_time"
 # objective_function_type = "minimize_distance_and_time"
 objective_function_type = "minimize_acceleration"
 # objective_function_type = "minimize_velocity"
 
 max_velocity = 10000
 max_acceleration = 10
-max_curvature = 1
+max_curvature = 2.3
 # center_sfc = np.array([[2.5],[2]]) # top
 center_sfc = np.array([[2.5],[-2]]) # bottom
 # center_sfc = np.array([[2.5],[0]])
@@ -49,6 +49,7 @@ dimension = np.shape(waypoints)[0]
 order = 3
 # curvature_method = "roots_of_curvature_derivative"
 curvature_method = "max_numerator_over_min_denominator"
+
 # curvature_method = "control_point_derivatives"
 # curvature_method = "curvature_at_min_velocity"
 

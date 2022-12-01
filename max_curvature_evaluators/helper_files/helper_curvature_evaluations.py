@@ -10,7 +10,7 @@ def calculate_velocity_magnitude(t,M,control_points,order):
     dT = get_T_derivative_vector(order,t,0,1,1)
     velocity = np.dot(control_points,np.dot(M,dT)).flatten()
     velocity_magnitude = np.linalg.norm(velocity)
-    return velocity_magnitude 
+    return velocity_magnitude
 
 def calculate_cross_term_magnitude(t,M,control_points,order):
     dT = get_T_derivative_vector(order,t,0,1,1)

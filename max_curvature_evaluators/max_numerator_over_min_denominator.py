@@ -1,6 +1,5 @@
 import numpy as np
 from max_curvature_evaluators.helper_files.cube_root_solver import solver
-from max_curvature_evaluators.helper_files.helper_curvature_evaluations import get_matrix
 from bsplinegenerator.bsplines import BsplineEvaluation
 from bsplinegenerator.helper_functions import count_number_of_control_points
 from max_curvature_evaluators.helper_files.helper_curvature_evaluations import calculate_velocity_magnitude, calculate_cross_term_magnitude
@@ -10,12 +9,12 @@ import time
 def find_curvature_using_max_numerator_over_min_denominator(control_points, order, M):
     dimension = np.shape(control_points)[0]
     min_velocity = find_min_velocity_magnitude(control_points, order, M)
-    print("min_velocity: " , min_velocity)
     max_acceleration = find_max_acceleration(control_points, order)
-    print("max_acceleration: " , max_acceleration)
     max_cross_term = find_max_cross_term(control_points, order, M, dimension)
-    print("max_cross_term: " , max_cross_term)
     min_numerator = np.min((max_cross_term, max_acceleration))
+    print("min_velocity: ", min_velocity)
+    print("max_acceleration: ", max_acceleration)
+    print("max_cross_term: ", max_cross_term)
     if min_velocity == 0:
         if min_numerator == 0:
             max_curvature = 0

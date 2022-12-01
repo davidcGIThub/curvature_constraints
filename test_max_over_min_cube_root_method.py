@@ -8,13 +8,13 @@ import matplotlib.pyplot as plt
 
 order = 3
 num_control_points = order+1
-dimension = 3
-control_points = np.random.randint(10, size=(2,order+1)) # random
-control_points = np.array([[0.1, 3.2, 2.01, 1.1],[0.01, 2.98, 2.1, 0.99]])
+# dimension = 3
+# control_points = np.random.randint(10, size=(dimension,order+1)) # random
+control_points = np.array([[1, 3, 2, 0],[1, 3, 2, 0]])
 bspline = BsplineEvaluation(control_points,order,0,1)
 M = get_matrix(order)
 
-curvature_data, time_data = bspline.get_spline_curvature_data(10000)
+curvature_data, time_data = bspline.get_spline_curvature_data(10000000)
 true_max_curvature = np.max(curvature_data)
 max_curvature = find_curvature_using_max_numerator_over_min_denominator(control_points, order, M)
 
