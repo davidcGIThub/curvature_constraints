@@ -22,11 +22,8 @@ def find_curvature_using_max_numerator_over_min_denominator(control_points, orde
             max_curvature = np.inf
     else:
         curvature1 = max_acceleration/min_velocity**2
-        # print("curvature1: " , curvature1)
         curvature2 = max_cross_term/min_velocity**3
-        # print("curvature2: " , curvature2)
         max_curvature = np.min((curvature1,curvature2))
-    # print("max_curvature: " , max_curvature)
     return max_curvature
 
 def find_min_velocity_magnitude(control_points, order, M):

@@ -12,7 +12,7 @@ import time
 ## add function to get path length
 
 waypoints = np.array([[0,5],[0,0]])
-velocities = np.array([[1,1],[0,0]]) # 0
+# velocities = np.array([[1,1],[0,0]]) # 0
 velocities = np.array([[1,0],[0,1]]) # 1
 # velocities = np.array([[0,0],[1,-1]]) # 2
 # velocities = np.array([[-1,-1],[0,0]]) # 3
@@ -33,13 +33,14 @@ initial_control_points = None
 velocities = velocities/np.linalg.norm(velocities,2,0)
 
 # objective_function_type = "minimize_control_point_distance_and_time"
-# objective_function_type = "minimize_distance_and_time"
-objective_function_type = "minimize_acceleration"
+objective_function_type = "minimize_distance_and_time"
+# objective_function_type = "minimize_acceleration"
 # objective_function_type = "minimize_velocity"
+# objective_function_type = "maximize_velocity"
 
-max_velocity = 10000
-max_acceleration = 10
-max_curvature = 2.3
+max_velocity = 2
+# max_acceleration = 10
+max_curvature = 1
 # center_sfc = np.array([[2.5],[2]]) # top
 center_sfc = np.array([[2.5],[-2]]) # bottom
 # center_sfc = np.array([[2.5],[0]])
@@ -55,8 +56,8 @@ curvature_method = "max_numerator_over_min_denominator"
 
 path_gen = PathGenerator(order, dimension, curvature_method, objective_function_type)
 start_time = time.time()
-control_points, scale_factor = path_gen.generate_trajectory(waypoints, velocities, max_velocity, \
-    max_acceleration, max_curvature, center_sfc, dimensions_sfc,initial_control_points)
+control_points, scale_factor = path_gen.generate_trajectory(waypoints, velocities, \
+    max_velocity, max_curvature, center_sfc, dimensions_sfc,initial_control_points)
 end_time = time.time()
 
 spline_start_time = 0

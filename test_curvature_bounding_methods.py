@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 # method = "control_point_derivatives"
 # method = "geometric"
 # method = "angle_constrained_control_points"
-order = 3
+order = 4
 num_iterations = 1000
 isRestricted = False
 # methods = np.array(["discrete_evaluations", "maximize_curvature_equation", "roots_of_curvature_derivative", \
@@ -28,6 +28,7 @@ ax = fig.add_subplot()
 ax.set_xticks([1,2,3,4])
 ax.set_xticklabels(['discrete \n evaluations','maximize \n curvature \n equation', \
     'roots of \n curvature \n derivative', 'control point \n derivatives'])
+# ax.set_xticks([1,2,3,4,5,6,7])
 # ax.set_xticklabels(['discrete \n evaluations','maximize \n curvature \n equation','roots of \n curvature \n derivative', \
 #     'curvature \n at min \n velocity' ,'max numerator \n over \n min denominator', 'control point \n derivatives', "geometric"])
 ax.plot([0,len(methods)],[0,0],color = "gray") #, label = "mean")

@@ -17,7 +17,7 @@ acceleration_data, time_data = bspline.get_derivative_magnitude_data(1000,2)
 curvature_data, time_data = bspline.get_spline_curvature_data(1000)
 
 M = get_matrix(order)
-max_curvature = get_control_point_curvature_bound(control_points,order,1)
+max_curvature = get_control_point_curvature_bound(control_points,order)
 print("max curvature: " , max_curvature)
 
 curvature_data, time_data = bspline.get_spline_curvature_data(1000)

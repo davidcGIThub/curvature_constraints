@@ -21,7 +21,7 @@ def get_speed_and_accuracy_of_max_curvature_function(order,method,control_points
         relative_error = 0
     return relative_error, evaluation_time
 
-def create_control_point_and_max_curvature_list(order, num_iterations):
+def create_control_point_and_max_curvature_list(order, num_iterations, dimension=2):
     control_point_list = []
     max_curvature_list = []
     for i in range(num_iterations):
@@ -112,10 +112,10 @@ def create_5th_order_edge_cases():
 # # almost straight, infinite curvature middle, hits zero velocity middle
 # control_points = np.array([[1.01,3.98,3.02,2.04],[.99,4.03,2.97,2.02]]) 
 
-def get_control_points_and_max_curvature(order):
+def get_control_points_and_max_curvature(order,dimension=2):
     valid_control_points = False
     while not valid_control_points:
-        control_points = np.random.randint(10, size=(3,order+1)) #random
+        control_points = np.random.randint(10, size=(dimension,order+1)) #random
         bspline = BsplineEvaluation(control_points,order,0,1)
         velocity_data, time_data = bspline.get_derivative_magnitude_data(1000,1)
         min_velocity = np.min(velocity_data)
@@ -123,7 +123,7 @@ def get_control_points_and_max_curvature(order):
         min_acceleration = np.min(acceleration_data)
         curvature_data, time_data = bspline.get_spline_curvature_data(10000)
         max_curvature = np.max(curvature_data)
-        cp_max_curvature = get_control_point_curvature_bound(control_points, order, 1)
+        cp_max_curvature = get_control_point_curvature_bound(control_points, order)
         relative_error_cp_max = np.abs(cp_max_curvature - max_curvature)/(1+np.abs(max_curvature))
         if min_velocity > 10e-5 and min_acceleration > 10e-5 and relative_error_cp_max < 10000:
             valid_control_points = True
@@ -181,7 +181,7 @@ def get_curvature_bound_and_time(method,control_points,order):
         evaluation_time = time.time() - start_time
     elif method == "control_point_derivatives":
         start_time = time.time()
-        curvature_bound = get_control_point_curvature_bound(control_points,order,1)
+        curvature_bound = get_control_point_curvature_bound(control_points,order)
         evaluation_time = time.time() - start_time
     elif method == "geometric":
         start_time = time.time()

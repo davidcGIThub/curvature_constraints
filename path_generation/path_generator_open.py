@@ -12,6 +12,7 @@ from max_curvature_evaluators.max_numerator_over_min_denominator import find_cur
 from max_curvature_evaluators.control_point_method import get_control_point_curvature_bound
 from max_curvature_evaluators.max_at_min_velocity_finder import find_curvature_at_min_velocity_magnitude
 from bsplinegenerator.bspline_to_bezier import get_composite_bspline_to_bezier_conversion_matrix
+from max_curvature_evaluators.helper_files.cube_root_solver import solver
 # from bsplinegenerator
 
 class PathGenerator:
@@ -33,9 +34,11 @@ class PathGenerator:
         self._objective_function_type = objective_function_type
         self._F_composite = get_composite_bspline_to_bezier_conversion_matrix(self._num_control_points, self._order)
 
-    def generate_trajectory(self, waypoints,velocities, max_velocity, max_acceleration, \
+    def generate_trajectory(self, waypoints,velocities, max_velocity, \
                 max_curvature, center_sfc, dimensions_sfc, initial_control_points = None):
         # create initial conditions
+        min_velocity = 0.5
+        max_acceleration = max_curvature*min_velocity**2
         self._dimension = np.shape(waypoints)[0]
         if initial_control_points is None:
             initial_control_points = self.__create_initial_control_points(waypoints)
@@ -46,8 +49,8 @@ class PathGenerator:
         velocity_constraint = self.__create_waypoint_velocity_constraint(velocities)
         safe_corridor_constraint = self.__create_safe_corridor_constraint(center_sfc, dimensions_sfc)
         direction_constraint = self.__create_waypoint_direction_constraint(velocities)
-        # max_acceleration = np.inf
-        max_velocity_constraint = self.__create_maximum_velocity_constraint(max_velocity)
+        # max_velocity_constraint = self.__create_maximum_velocity_constraint(max_velocity)
+        min_velocity_constraint = self.__create_min_velocity_constraint(min_velocity)
         max_acceleration_constraint = self.__create_maximum_acceleration_constraint(max_acceleration)
         curvature_constraint = self.__create_curvature_constraint(max_curvature)
         objectiveFunction = self.__get_objective_function()
@@ -61,9 +64,10 @@ class PathGenerator:
             # method = 'trust-constr',
             bounds=objective_variable_bounds,
             constraints=(waypoint_constraint, velocity_constraint, \
-                # max_acceleration_constraint, \
-                # max_velocity_constraint, \
-                     curvature_constraint), 
+                max_acceleration_constraint, \
+                min_velocity_constraint, \
+                # curvature_constraint
+                ), 
             options = minimize_options)
         # retrieve data
         optimized_control_points = np.reshape(result.x[0:-1] ,(self._dimension,self._num_control_points))
@@ -79,6 +83,8 @@ class PathGenerator:
             return self.__minimize_acceleration_objective_function
         elif self._objective_function_type == "minimize_velocity":
             return self.__minimize_velocity_objective_function
+        elif self._objective_function_type == "maximize_velocity":
+            return self.__maximize_velocity_objective_function
         else:
             return self.__minimize_control_point_distance_and_time_objective_function
 
@@ -155,6 +161,24 @@ class PathGenerator:
             c = (p0 - 2*p1 + p2)**2
             sum_of_integrals += np.sum(a/3 + b/2 + c)
         return sum_of_integrals + 1/scale_factor
+
+    def __maximize_velocity_objective_function(self, variables):
+        # for third order splines only
+        control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
+            (self._dimension,self._num_control_points))
+        scale_factor = variables[-1]
+        num_intervals = self._num_control_points - self._order
+        sum_of_integrals = 0
+        for i in range(num_intervals):
+            p0 = control_points[:,i]
+            p1 = control_points[:,i+1]
+            p2 = control_points[:,i+2]
+            p3 = control_points[:,i+3]
+            a = (p0 - 3*p1 + 3*p2 - p3)**2
+            b = (-2*(p0 - 2*p1 + p2)*(p0 - 3*p1 + 3*p2 - p3))
+            c = (p0 - 2*p1 + p2)**2
+            sum_of_integrals += np.sum(a/3 + b/2 + c)
+        return -(sum_of_integrals + 1/scale_factor)
 
     def __create_initial_control_points(self, waypoints):
         start_waypoint = waypoints[:,0]
@@ -240,11 +264,7 @@ class PathGenerator:
             (self._dimension,self._num_control_points))
             max_curvature_of_spline_intervals = self.__get_max_curvature_of_each_spline_interval(control_points)
             largest_curvature = np.max(max_curvature_of_spline_intervals)
-            # constraint = max_curvature_of_spline_intervals - max_curvature
             constraint = largest_curvature - max_curvature
-            # print("constraint: " , constraint)
-            print("control points: " , control_points)
-            print("max curvature: " , largest_curvature)
             return constraint
         lower_bound = -np.inf
         upper_bound = 0
@@ -303,3 +323,64 @@ class PathGenerator:
         upper_bound = 0
         safe_corridor_constraint = NonlinearConstraint(safe_corridor_constraint_function, lb = lower_bound, ub = upper_bound)
         return safe_corridor_constraint
+
+    def __create_min_velocity_constraint(self, min_velocity):
+        def min_velocity_constraint_function(variables):
+            control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
+            (self._dimension,self._num_control_points))
+            scale_factor = variables[-1]
+            min_velocity_of_spline = self.__get_min_velocity_of_spline(control_points,scale_factor)
+            constraint = min_velocity - min_velocity_of_spline
+            return constraint
+        lower_bound = -np.inf
+        upper_bound = 0
+        min_velocity_constraint = NonlinearConstraint(min_velocity_constraint_function , lb = lower_bound, ub = upper_bound)
+        return min_velocity_constraint
+
+    def __get_min_velocity_of_spline(self, control_points, scale_factor):
+        min_velocity = np.inf
+        # print("#### new run #####")
+        for i in range(self._num_control_points-self._order):
+            interval_control_points = control_points[:,i:i+self._order+1]
+            velocity = self.__find_min_velocity_magnitude(interval_control_points, self._order, self._M, scale_factor)
+            # print("velocity: " , velocity)
+            if velocity < min_velocity:
+                min_velocity = velocity
+        return min_velocity
+
+    def __calculate_velocity_magnitude(self, t,M,control_points,order,scale_factor):
+        dT = get_T_derivative_vector(order,t*scale_factor,0,1,scale_factor)
+        velocity = np.dot(control_points,np.dot(M,dT)).flatten()
+        velocity_magnitude = np.linalg.norm(velocity)
+        return velocity_magnitude
+
+    def __find_min_velocity_magnitude(self, control_points, order, M, scale_factor):
+        P = control_points
+        J = np.dot(np.dot(M.T,P.T) , np.dot(P,M))
+        if order == 1:
+            A = 0
+            B = 0
+            C = 0
+            D = 0
+        elif order == 2:
+            A = 0
+            B = 0
+            C = 8*J[0,0]
+            D = 4*J[1,0]
+        elif order == 3:
+            A = 36*J[0,0]
+            B = 12*J[0,1] + 24*J[1,0]
+            C = 8*J[1,1] + 12*J[2,0]
+            D = 4*J[2,1]
+        else:
+            raise Exception("Function only capable of 1-3rd order splines")
+        roots = solver(A,B,C,D)
+        times_to_check = np.concatenate((roots,np.array([0,1])))
+        min_velocity = np.inf
+        for i in range(len(times_to_check)):
+            t = times_to_check[i]
+            if t >= 0 and t <= 1:
+                velocity = self.__calculate_velocity_magnitude(t, M, control_points,order,scale_factor)
+                if velocity < min_velocity:
+                    min_velocity = velocity
+        return min_velocity
