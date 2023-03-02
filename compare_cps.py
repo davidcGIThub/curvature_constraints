@@ -19,7 +19,7 @@ clamped = False
 num_data_points_per_interval = 1000
 order = 5
 num_control_points = 11
-dimension = 2
+dimension = 3
 # bez
 area_list_bez = []
 max_norm_list_bez = []
@@ -90,6 +90,9 @@ for i in range(num_test_cases):
         minv_min_norm_win += 1
     elif minvo_min_bound < bezier_min_bound:
         bez_min_norm_win += 1
+    # print("minvo_min_bound: " , minvo_min_bound)
+    # print("bez_min_bound: " , bezier_min_bound)
+    # print(" ")
     
 print("Area wins: Minvo = " , minv_area_win, ",  Bezier = " , bez_area_win)
 print("Min Norm wins: Minvo = " , minv_min_norm_win, ",  Bezier = " , bez_min_norm_win)

@@ -1,0 +1,40 @@
+cmake_minimum_required(VERSION 3.16.3)
+
+project(CurvatureEvaluator)
+
+SET(CMAKE_CXX_STANDARD 11)
+SET(CMAKE_CXX_STANDARD_REQUIRED 1)
+SET(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+FIND_PACKAGE(GTest REQUIRED)
+FIND_PACKAGE(Eigen3 3.3 REQUIRED)
+
+link_directories(${Eigen_INCLUDE_DIRS})
+include_directories(${GTEST_INCLUDE_DIRS}
+    ${PROJECT_SOURCE_DIR}/include
+    ${PROJECT_SOURCE_DIR}/src
+    ${PROJECT_SOURCE_DIR}/tests)
+
+add_library(${PROJECT_NAME} STATIC 
+    ${PROJECT_SOURCE_DIR}/include/SecondOrderCurvatureEvaluator.hpp
+    ${PROJECT_SOURCE_DIR}/include/CubicEquationSolver.hpp
+    ${PROJECT_SOURCE_DIR}/include/BsplineToBezier.hpp
+    ${PROJECT_SOURCE_DIR}/src/CubicEquationSolver.cpp
+    ${PROJECT_SOURCE_DIR}/src/CubicEquationSolver.cpp
+    ${PROJECT_SOURCE_DIR}/src/CubicEquationSolver.cpp)
+
+set(TEST_NAME ${PROJECT_NAME}_UnitTest)
+
+add_executable(${TEST_NAME}
+    ${PROJECT_SOURCE_DIR}/tests/UnitTestCubicEquationSolver.cpp
+    ${PROJECT_SOURCE_DIR}/tests/UnitTestBsplineToBezier.cpp
+    ${PROJECT_SOURCE_DIR}/tests/UnitTestSecondOrderCurvatureEvaluator.cpp)
+
+target_include_directories(${TEST_NAME} PRIVATE
+    ${PROJECT_SOURCE_DIR}/include
+    ${PROJECT_SOURCE_DIR}/src
+    ${PROJECT_SOURCE_DIR}/tests)
+
+target_link_libraries(${TEST_NAME} ${GTEST_LIBRARIES}
+    pthread ${GTEST_MAIN_LIBRARIES} ${PROJECT_NAME}
+    ${Eigen_LIBRARIES})

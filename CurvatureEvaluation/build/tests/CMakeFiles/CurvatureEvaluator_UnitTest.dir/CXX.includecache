@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../src/CubicEquationSolver.hpp
+array
+-
+list
+-
+limits
+-
+
+../src/ThirdOrderCurvatureEvaluator.hpp
+array
+-
+eigen3/Eigen/Core
+-
+eigen3/Eigen/Dense
+-
+CubicEquationSolver.hpp
+../src/CubicEquationSolver.hpp
+
+/home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestThirdOrderCurvatureEvaluator.cpp
+gtest/gtest.h
+/home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/gtest/gtest.h
+ThirdOrderCurvatureEvaluator.hpp
+/home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/ThirdOrderCurvatureEvaluator.hpp
+

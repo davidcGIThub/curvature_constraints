@@ -1,9 +1,6 @@
 import numpy as np
 from bsplinegenerator.bspline_to_minvo import bezier_to_minvo_control_points
 
-
-
-
 def get_bezier_cross_term_norm_bound(control_points, order, dimension):
     if order == 2:
         cross_term_norm_bound = get_cross_term_norm_value_from_second_order_spline(control_points)
