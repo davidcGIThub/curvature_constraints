@@ -12,7 +12,7 @@ def get_m_matrix_root(order):
     return M
 
 def find_max_curvature_root_finder(control_points,order,M):
-    num_intervals = order+1
+    num_intervals = order+2
     def curvature_derivative(t):
         return calculate_curvature_derivative(t,M,control_points,order)
     interval_start = 0

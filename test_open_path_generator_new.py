@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 from bsplinegenerator.bsplines import BsplineEvaluation
-from path_generation.path_generator_open import PathGenerator
+from path_generation.path_generator_new import PathGenerator
 import time
 
 ## try different initial conditions
@@ -33,13 +33,12 @@ initial_control_points = None
 velocities = velocities/np.linalg.norm(velocities,2,0)
 
 # objective_function_type = "minimize_control_point_distance_and_time"
-objective_function_type = "minimize_distance_and_time"
+# objective_function_type = "minimize_distance_and_time"
 # objective_function_type = "minimize_acceleration"
 # objective_function_type = "minimize_velocity"
 # objective_function_type = "maximize_velocity"
 
-max_velocity = 2
-# max_acceleration = 10
+
 max_curvature = 1
 # center_sfc = np.array([[2.5],[2]]) # top
 center_sfc = np.array([[2.5],[-2]]) # bottom
@@ -49,15 +48,13 @@ dimensions_sfc = np.array([[12],[4]])
 dimension = np.shape(waypoints)[0]
 order = 3
 # curvature_method = "roots_of_curvature_derivative"
-curvature_method = "max_numerator_over_min_denominator"
-
+# curvature_method = "roots_numerator_and_denominator"
 # curvature_method = "control_point_derivatives"
-# curvature_method = "curvature_at_min_velocity"
+curvature_method = "constrain_max_acceleration_and_min_velocity"
 
-path_gen = PathGenerator(order, dimension, curvature_method, objective_function_type)
+path_gen = PathGenerator(order, dimension, curvature_method)
 start_time = time.time()
-control_points, scale_factor = path_gen.generate_trajectory(waypoints, velocities, \
-    max_velocity, max_curvature, center_sfc, dimensions_sfc,initial_control_points)
+control_points, scale_factor = path_gen.generate_path(waypoints, velocities, max_curvature)
 end_time = time.time()
 
 spline_start_time = 0
@@ -101,13 +98,14 @@ plt.show()
 
 print("control points: " ,  control_points)
 print("method: ", curvature_method)
-print("objective: " , objective_function_type)
+# print("objective: " , objective_function_type)
 print("evaluation time: " , np.round(end_time - start_time,3) , "sec")
-print("path length: ", np.round(bspline.get_arc_length(),3), "units")
+print("path length: ", np.round(bspline.get_arc_length(1000000),3), "units")
 print("path time: ", np.round(bspline.get_end_time(),3), "sec")
 print("highest curvature: " , np.round(np.max(curvature_data),2))
-print("V0: ", np.round(velocity_data[:,0],2), "units/sec")
-print("Vf: ", np.round(velocity_data[:,-1],2), "units/sec")
-print("vel mean: " , np.round(np.mean(velocity_magnitude_data),3))
+# print("V0: ", np.round(velocity_data[:,0],2), "units/sec")
+# print("Vf: ", np.round(velocity_data[:,-1],2), "units/sec")
+# print("vel mean: " , np.round(np.mean(velocity_magnitude_data),3))
 print("vel std: " , np.round(np.std(velocity_magnitude_data),3))
+print("vel spread: ", np.max(velocity_magnitude_data) - np.min(velocity_magnitude_data))
 print("acceleration_integral: " , round(np.sum(acceleration_magnitude_data)*time_data[1],2))

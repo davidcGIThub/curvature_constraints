@@ -12,9 +12,6 @@ def find_curvature_using_max_numerator_over_min_denominator(control_points, orde
     max_acceleration = find_max_acceleration(control_points, order)
     max_cross_term = find_max_cross_term(control_points, order, M, dimension)
     min_numerator = np.min((max_cross_term, max_acceleration))
-    print("min_velocity: ", min_velocity)
-    print("max_acceleration: ", max_acceleration)
-    print("max_cross_term: ", max_cross_term)
     if min_velocity == 0:
         if min_numerator == 0:
             max_curvature = 0

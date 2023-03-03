@@ -16,7 +16,7 @@ def get_m_matrix_sqp(order):
     return M
 
 def find_max_curvature_sqp_method(control_points,order,M):
-    num_initial_guesses = order+1
+    num_initial_guesses = order+2
     def curvature_objective_function(time):
         t = time[0]
         curvature = calculate_curvature(t,M,control_points,order)

@@ -4,43 +4,33 @@ from max_curvature_evaluators.helper_files.max_curvature_test_functions import t
     get_curvature_bound_and_time, create_edge_cases
 import matplotlib.pyplot as plt
 
-# isRestricted = True
-# method = "maximize_curvature_equation"
-# method = "roots_of_curvature_derivative"
-# method = "discrete_evaluations"
-# method = "curvature_at_min_velocity"
-# method = "max_numerator_over_min_denominator"
-# method = "control_point_derivatives"
-# method = "geometric"
-# method = "angle_constrained_control_points"
-order = 4
+order = 3
 num_iterations = 1000
 isRestricted = False
-# methods = np.array(["discrete_evaluations", "maximize_curvature_equation", "roots_of_curvature_derivative", \
-#     "curvature_at_min_velocity", "max_numerator_over_min_denominator", "control_point_derivatives"]) #, "geometric"])
-# colors = np.array(["b", "g", "r", "c", "m", "y", "orange"])
-methods = np.array(["discrete_evaluations", "maximize_curvature_equation", \
-    "roots_of_curvature_derivative", "control_point_derivatives"])
-colors = np.array(["b", "g", "r", "y"])
+methods = np.array(["discrete_evaluations", "maximize_curvature_equation", "roots_of_curvature_derivative", "roots_of_curvature_numerator_and_denominator", "control_point_derivatives"]) #, "geometric"])
+colors = np.array(["b", "g", "r", "c", "m"])
+plt.rcParams['font.family'] = 'DeJavu Serif'
+plt.rcParams['font.serif'] = ['Times New Roman']
+
 control_point_list, max_curvature_list = create_control_point_and_max_curvature_list(order, num_iterations)
 fig = plt.figure()
 ax = fig.add_subplot()
-ax.set_xticks([1,2,3,4])
-ax.set_xticklabels(['discrete \n evaluations','maximize \n curvature \n equation', \
-    'roots of \n curvature \n derivative', 'control point \n derivatives'])
-# ax.set_xticks([1,2,3,4,5,6,7])
-# ax.set_xticklabels(['discrete \n evaluations','maximize \n curvature \n equation','roots of \n curvature \n derivative', \
-#     'curvature \n at min \n velocity' ,'max numerator \n over \n min denominator', 'control point \n derivatives', "geometric"])
-ax.plot([0,len(methods)],[0,0],color = "gray") #, label = "mean")
+ax.set_xticks([1,2,3,4,5])
+ax.set_xticklabels(['discrete \n evaluations','maximize curvature \n equation', \
+                    'roots of curvature \n derivative',  'roots of curvature \n numerator & denominator',
+                    'control point \n derivatives'])
+
+ax.plot([0,len(methods)],[0,0],color = "gray",label="mean")
+ax.plot([0,len(methods)],[0,0],color = "gray",label="median", linestyle='dotted') 
 for i in range(len(methods)):
     method = methods[i]
     color = colors[i]
-    mode, mean, std, relative_error_array, average_time, std_time = \
+    median, mean, std, relative_error_array, average_time, std_time = \
         test_performance_of_max_curvature_function(order,method,control_point_list, max_curvature_list)
     print("method: " , method)
     print("mean: " , mean)
     print("std: ", std)
-    print("mode ", mode)
+    print("median ", median)
     print("high: " , np.max(relative_error_array))
     print("low: " , np.min(relative_error_array))
     print("average_time: ", average_time)
@@ -49,18 +39,18 @@ for i in range(len(methods)):
     j = i + 1
     x_data = np.zeros(len(relative_error_array)) + j
     ax.scatter(x_data, relative_error_array,facecolors='none',edgecolors=color)
-    ax.plot([j-0.25,j,j+0.25],np.array([mode,mode,mode]), color = color, linestyle=":")
-    ax.plot([j-0.25,j,j+0.25],np.array([mean,mean,mean]), color = color, label = method)
-plt.ylabel("Relative Error")
-plt.xlabel("Methods of Finding Curvature Extrema")
-plt.title("Curvature Bounding Methods for 3rd Order Spline")
+    ax.plot([j-0.25,j,j+0.25],np.array([median,median,median]), color = color, linestyle=":")
+    ax.plot([j-0.25,j,j+0.25],np.array([mean,mean,mean]), color = color)
+
+plt.ylabel("Relative Error for Random B-splines", weight='bold')
+plt.xlabel("Methods of Evaluating Curvature Extrema",  weight='bold')
+plt.title("B-Spline Curvature Extrema Error Calculations", weight='bold')
 plt.yscale("symlog") 
 plt.yscale('symlog' , linthresh=0.00001)
+plt.legend()
 plt.show()
 
 # control_point_list, max_curvature_list = create_edge_cases(order)
-
-
 
 # for i in range(len(methods)):
 # # i = 0

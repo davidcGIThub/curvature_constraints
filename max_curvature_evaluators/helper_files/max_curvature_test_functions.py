@@ -6,8 +6,8 @@ from max_curvature_evaluators.helper_files.helper_curvature_evaluations import g
 from max_curvature_evaluators.angle_constrained_max_finder import create_random_control_points_greater_than_angles
 from max_curvature_evaluators.sqp_max_finder import find_max_curvature_sqp_method, get_m_matrix_sqp
 from max_curvature_evaluators.root_finder import find_max_curvature_root_finder, get_m_matrix_root
-from max_curvature_evaluators.discrete_evaluations import get_matrices_discrete_evaluations, get_max_curvature_by_checking_n_points
-# from max_curvature_evaluators.discrete_evaluations_slow import get_matrices_discrete_evaluations, get_max_curvature_by_checking_n_points
+# from max_curvature_evaluators.discrete_evaluations import get_matrices_discrete_evaluations, get_max_curvature_by_checking_n_points
+from max_curvature_evaluators.discrete_evaluations_slow import get_matrices_discrete_evaluations, get_max_curvature_by_checking_n_points
 from max_curvature_evaluators.max_at_min_velocity_finder import find_curvature_at_min_velocity_magnitude
 from max_curvature_evaluators.control_point_method import get_control_point_curvature_bound
 from max_curvature_evaluators.max_numerator_over_min_denominator import find_curvature_using_max_numerator_over_min_denominator
@@ -16,6 +16,11 @@ from max_curvature_evaluators.angle_constrained_max_finder import get_constant, 
 
 def get_speed_and_accuracy_of_max_curvature_function(order,method,control_points, true_max_curvature):
     curvature_bound, evaluation_time = get_curvature_bound_and_time(method, control_points,order)
+    # if method == "discrete_evaluations":
+    #     print("method: " , method)
+    #     print("curvature bound: " , curvature_bound)
+    #     print("true curvature: " , true_max_curvature)
+    #     print(" ")
     relative_error = (curvature_bound - true_max_curvature)/(1+abs(true_max_curvature))
     if true_max_curvature == np.inf or curvature_bound == np.inf:
         relative_error = 0
@@ -143,14 +148,15 @@ def test_performance_of_max_curvature_function(order,method,control_point_list, 
     high_error = np.max(relative_error_array)
     low_error = np.min(relative_error_array)
     std_time = np.sqrt(np.sum((average_time - evaluation_time_array)**2)/num_iterations)
-    kde = KernelDensity(kernel='gaussian',bandwidth=0.5).fit(relative_error_array.reshape([-1,1]))
-    samples = np.linspace(low_error,high_error,10000)
-    scores = kde.score_samples(samples.reshape([-1,1]))
-    index_highest_score = np.argmax(scores)
-    mode = samples[index_highest_score]
+    # kde = KernelDensity(kernel='gaussian',bandwidth=0.5).fit(relative_error_array.reshape([-1,1]))
+    # samples = np.linspace(low_error,high_error,10000)
+    # scores = kde.score_samples(samples.reshape([-1,1]))
+    # index_highest_score = np.argmax(scores)
+    # mode = samples[index_highest_score]
     mean = np.mean(relative_error_array)
     std = np.std(relative_error_array)
-    return mode, mean, std, relative_error_array, average_time, std_time
+    median = np.median(relative_error_array)
+    return median, mean, std, relative_error_array, average_time, std_time
 
 def get_curvature_bound_and_time(method,control_points,order):
     if method == "maximize_curvature_equation":
@@ -174,7 +180,7 @@ def get_curvature_bound_and_time(method,control_points,order):
         start_time = time.time()
         curvature_bound = find_curvature_at_min_velocity_magnitude(control_points, order, M)
         evaluation_time = time.time() - start_time
-    elif method == "max_numerator_over_min_denominator":
+    elif method == "roots_of_curvature_numerator_and_denominator":
         M = get_matrix(order)
         start_time = time.time()
         curvature_bound = find_curvature_using_max_numerator_over_min_denominator(control_points, order, M)
