@@ -104,18 +104,10 @@ class PathGenerator:
         return optimized_control_points, optimized_scale_factor
 
     def __get_objective_function(self):
-        if self._objective_function_type == "minimize_control_point_distance_and_time":
-            return self.__minimize_control_point_distance_and_time_objective_function
-        elif self._objective_function_type == "minimize_distance_and_time":
+        if self._objective_function_type == "minimize_distance_and_time":
             return self.__minimize_distance_objective_function
         elif self._objective_function_type == "minimize_acceleration":
             return self.__minimize_acceleration_objective_function
-        elif self._objective_function_type == "minimize_velocity":
-            return self.__minimize_velocity_objective_function
-        elif self._objective_function_type == "maximize_velocity":
-            return self.__maximize_velocity_objective_function
-        else:
-            return self.__minimize_control_point_distance_and_time_objective_function
 
     def __minimize_distance_objective_function(self, variables):
         # for third order splines only
