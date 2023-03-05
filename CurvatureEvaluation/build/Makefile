@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation
+CMAKE_SOURCE_DIR = /home/david/Code/curvature_constraints/CurvatureEvaluation/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build
+CMAKE_BINARY_DIR = /home/david/Code/curvature_constraints/CurvatureEvaluation/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/CMakeFiles /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/david/Code/curvature_constraints/CurvatureEvaluation/build/CMakeFiles /home/david/Code/curvature_constraints/CurvatureEvaluation/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/david/Code/curvature_constraints/CurvatureEvaluation/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -111,30 +111,122 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named CurvatureEvaluator
+# Target rules for targets named Project
 
 # Build rule for target.
-CurvatureEvaluator: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 CurvatureEvaluator
-.PHONY : CurvatureEvaluator
+Project: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Project
+.PHONY : Project
 
 # fast build rule for target.
-CurvatureEvaluator/fast:
-	$(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/build
-.PHONY : CurvatureEvaluator/fast
+Project/fast:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/build
+.PHONY : Project/fast
 
-#=============================================================================
-# Target rules for targets named CurvatureEvaluator_UnitTest
+# target to build an object file
+BsplineToBezier.o:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/BsplineToBezier.o
+.PHONY : BsplineToBezier.o
 
-# Build rule for target.
-CurvatureEvaluator_UnitTest: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 CurvatureEvaluator_UnitTest
-.PHONY : CurvatureEvaluator_UnitTest
+# target to preprocess a source file
+BsplineToBezier.i:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/BsplineToBezier.i
+.PHONY : BsplineToBezier.i
 
-# fast build rule for target.
-CurvatureEvaluator_UnitTest/fast:
-	$(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build
-.PHONY : CurvatureEvaluator_UnitTest/fast
+# target to generate assembly for a file
+BsplineToBezier.s:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/BsplineToBezier.s
+.PHONY : BsplineToBezier.s
+
+# target to build an object file
+CubicEquationSolver.o:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/CubicEquationSolver.o
+.PHONY : CubicEquationSolver.o
+
+# target to preprocess a source file
+CubicEquationSolver.i:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/CubicEquationSolver.i
+.PHONY : CubicEquationSolver.i
+
+# target to generate assembly for a file
+CubicEquationSolver.s:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/CubicEquationSolver.s
+.PHONY : CubicEquationSolver.s
+
+# target to build an object file
+FifthOrderCurvatureEvaluator.o:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/FifthOrderCurvatureEvaluator.o
+.PHONY : FifthOrderCurvatureEvaluator.o
+
+# target to preprocess a source file
+FifthOrderCurvatureEvaluator.i:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/FifthOrderCurvatureEvaluator.i
+.PHONY : FifthOrderCurvatureEvaluator.i
+
+# target to generate assembly for a file
+FifthOrderCurvatureEvaluator.s:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/FifthOrderCurvatureEvaluator.s
+.PHONY : FifthOrderCurvatureEvaluator.s
+
+# target to build an object file
+MDMAlgorithm.o:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/MDMAlgorithm.o
+.PHONY : MDMAlgorithm.o
+
+# target to preprocess a source file
+MDMAlgorithm.i:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/MDMAlgorithm.i
+.PHONY : MDMAlgorithm.i
+
+# target to generate assembly for a file
+MDMAlgorithm.s:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/MDMAlgorithm.s
+.PHONY : MDMAlgorithm.s
+
+# target to build an object file
+MDMAlgorithmClass.o:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/MDMAlgorithmClass.o
+.PHONY : MDMAlgorithmClass.o
+
+# target to preprocess a source file
+MDMAlgorithmClass.i:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/MDMAlgorithmClass.i
+.PHONY : MDMAlgorithmClass.i
+
+# target to generate assembly for a file
+MDMAlgorithmClass.s:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/MDMAlgorithmClass.s
+.PHONY : MDMAlgorithmClass.s
+
+# target to build an object file
+SecondOrderCurvatureEvaluator.o:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/SecondOrderCurvatureEvaluator.o
+.PHONY : SecondOrderCurvatureEvaluator.o
+
+# target to preprocess a source file
+SecondOrderCurvatureEvaluator.i:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/SecondOrderCurvatureEvaluator.i
+.PHONY : SecondOrderCurvatureEvaluator.i
+
+# target to generate assembly for a file
+SecondOrderCurvatureEvaluator.s:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/SecondOrderCurvatureEvaluator.s
+.PHONY : SecondOrderCurvatureEvaluator.s
+
+# target to build an object file
+ThirdOrderCurvatureEvaluator.o:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/ThirdOrderCurvatureEvaluator.o
+.PHONY : ThirdOrderCurvatureEvaluator.o
+
+# target to preprocess a source file
+ThirdOrderCurvatureEvaluator.i:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/ThirdOrderCurvatureEvaluator.i
+.PHONY : ThirdOrderCurvatureEvaluator.i
+
+# target to generate assembly for a file
+ThirdOrderCurvatureEvaluator.s:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/ThirdOrderCurvatureEvaluator.s
+.PHONY : ThirdOrderCurvatureEvaluator.s
 
 # Help Target
 help:
@@ -144,8 +236,28 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... CurvatureEvaluator"
-	@echo "... CurvatureEvaluator_UnitTest"
+	@echo "... Project"
+	@echo "... BsplineToBezier.o"
+	@echo "... BsplineToBezier.i"
+	@echo "... BsplineToBezier.s"
+	@echo "... CubicEquationSolver.o"
+	@echo "... CubicEquationSolver.i"
+	@echo "... CubicEquationSolver.s"
+	@echo "... FifthOrderCurvatureEvaluator.o"
+	@echo "... FifthOrderCurvatureEvaluator.i"
+	@echo "... FifthOrderCurvatureEvaluator.s"
+	@echo "... MDMAlgorithm.o"
+	@echo "... MDMAlgorithm.i"
+	@echo "... MDMAlgorithm.s"
+	@echo "... MDMAlgorithmClass.o"
+	@echo "... MDMAlgorithmClass.i"
+	@echo "... MDMAlgorithmClass.s"
+	@echo "... SecondOrderCurvatureEvaluator.o"
+	@echo "... SecondOrderCurvatureEvaluator.i"
+	@echo "... SecondOrderCurvatureEvaluator.s"
+	@echo "... ThirdOrderCurvatureEvaluator.o"
+	@echo "... ThirdOrderCurvatureEvaluator.i"
+	@echo "... ThirdOrderCurvatureEvaluator.s"
 .PHONY : help
 
 

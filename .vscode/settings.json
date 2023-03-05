@@ -43,6 +43,17 @@
         "streambuf": "cpp",
         "typeinfo": "cpp",
         "optional": "cpp",
-        "bit": "cpp"
+        "bit": "cpp",
+        "core": "cpp",
+        "complex": "cpp",
+        "chrono": "cpp",
+        "cstdarg": "cpp",
+        "cstring": "cpp",
+        "deque": "cpp",
+        "map": "cpp",
+        "numeric": "cpp",
+        "ratio": "cpp",
+        "set": "cpp",
+        "cinttypes": "cpp"
     }
 }

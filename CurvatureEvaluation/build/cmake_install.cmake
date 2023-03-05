@@ -1,4 +1,4 @@
-# Install script for directory: /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation
+# Install script for directory: /home/david/Code/curvature_constraints/CurvatureEvaluation/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -37,16 +37,6 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/src/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests/cmake_install.cmake")
-endif()
-
 if(CMAKE_INSTALL_COMPONENT)
   set(CMAKE_INSTALL_MANIFEST "install_manifest_${CMAKE_INSTALL_COMPONENT}.txt")
 else()
@@ -55,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/david/Code/curvature_constraints/CurvatureEvaluation/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
