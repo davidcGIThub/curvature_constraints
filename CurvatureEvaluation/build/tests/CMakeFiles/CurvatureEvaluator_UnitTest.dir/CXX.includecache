@@ -23,10 +23,12 @@ eigen3/Eigen/Dense
 -
 CubicEquationSolver.hpp
 ../src/CubicEquationSolver.hpp
+gtest/gtest_prod.h
+../src/gtest/gtest_prod.h
 
-/home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestThirdOrderCurvatureEvaluator.cpp
+/home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestThirdOrderCurvatureEvaluator.cpp
 gtest/gtest.h
-/home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/gtest/gtest.h
+/home/david/Code/curvature_constraints/CurvatureEvaluation/tests/gtest/gtest.h
 ThirdOrderCurvatureEvaluator.hpp
-/home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/ThirdOrderCurvatureEvaluator.hpp
+/home/david/Code/curvature_constraints/CurvatureEvaluation/tests/ThirdOrderCurvatureEvaluator.hpp
 

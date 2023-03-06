@@ -24,7 +24,7 @@ TEST(ThirdOrderCurvatureTest, CrossCoeficients2D)
 
 TEST(ThirdOrderCurvatureTest, CrossCoeficients3D)
 {
-    ThirdOrderCurvatureEvaluator<2> c_eval{};
+    ThirdOrderCurvatureEvaluator<3> c_eval{};
     double c_3 = 830.5;
     double c_2 = -354.75;
     double c_1 = 789.25;

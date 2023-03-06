@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation
+CMAKE_SOURCE_DIR = /home/david/Code/curvature_constraints/CurvatureEvaluation
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build
+CMAKE_BINARY_DIR = /home/david/Code/curvature_constraints/CurvatureEvaluation/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/CMakeFiles /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/src/CMakeFiles/progress.marks
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f CMakeFiles/Makefile2 src/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/CMakeFiles 0
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/david/Code/curvature_constraints/CurvatureEvaluation/build/CMakeFiles /home/david/Code/curvature_constraints/CurvatureEvaluation/build/src/CMakeFiles/progress.marks
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f CMakeFiles/Makefile2 src/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/david/Code/curvature_constraints/CurvatureEvaluation/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f CMakeFiles/Makefile2 src/clean
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f CMakeFiles/Makefile2 src/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,22 +97,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 src/CMakeFiles/CurvatureEvaluator.dir/rule:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/CurvatureEvaluator.dir/rule
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/CurvatureEvaluator.dir/rule
 .PHONY : src/CMakeFiles/CurvatureEvaluator.dir/rule
 
 # Convenience name for target.
@@ -122,7 +122,7 @@ CurvatureEvaluator: src/CMakeFiles/CurvatureEvaluator.dir/rule
 
 # fast build rule for target.
 CurvatureEvaluator/fast:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/build
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/build
 .PHONY : CurvatureEvaluator/fast
 
 BsplineToBezier.o: BsplineToBezier.cpp.o
@@ -131,7 +131,7 @@ BsplineToBezier.o: BsplineToBezier.cpp.o
 
 # target to build an object file
 BsplineToBezier.cpp.o:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/BsplineToBezier.cpp.o
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/BsplineToBezier.cpp.o
 .PHONY : BsplineToBezier.cpp.o
 
 BsplineToBezier.i: BsplineToBezier.cpp.i
@@ -140,7 +140,7 @@ BsplineToBezier.i: BsplineToBezier.cpp.i
 
 # target to preprocess a source file
 BsplineToBezier.cpp.i:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/BsplineToBezier.cpp.i
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/BsplineToBezier.cpp.i
 .PHONY : BsplineToBezier.cpp.i
 
 BsplineToBezier.s: BsplineToBezier.cpp.s
@@ -149,7 +149,7 @@ BsplineToBezier.s: BsplineToBezier.cpp.s
 
 # target to generate assembly for a file
 BsplineToBezier.cpp.s:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/BsplineToBezier.cpp.s
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/BsplineToBezier.cpp.s
 .PHONY : BsplineToBezier.cpp.s
 
 CubicEquationSolver.o: CubicEquationSolver.cpp.o
@@ -158,7 +158,7 @@ CubicEquationSolver.o: CubicEquationSolver.cpp.o
 
 # target to build an object file
 CubicEquationSolver.cpp.o:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/CubicEquationSolver.cpp.o
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/CubicEquationSolver.cpp.o
 .PHONY : CubicEquationSolver.cpp.o
 
 CubicEquationSolver.i: CubicEquationSolver.cpp.i
@@ -167,7 +167,7 @@ CubicEquationSolver.i: CubicEquationSolver.cpp.i
 
 # target to preprocess a source file
 CubicEquationSolver.cpp.i:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/CubicEquationSolver.cpp.i
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/CubicEquationSolver.cpp.i
 .PHONY : CubicEquationSolver.cpp.i
 
 CubicEquationSolver.s: CubicEquationSolver.cpp.s
@@ -176,7 +176,7 @@ CubicEquationSolver.s: CubicEquationSolver.cpp.s
 
 # target to generate assembly for a file
 CubicEquationSolver.cpp.s:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/CubicEquationSolver.cpp.s
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/CubicEquationSolver.cpp.s
 .PHONY : CubicEquationSolver.cpp.s
 
 FifthOrderCurvatureEvaluator.o: FifthOrderCurvatureEvaluator.cpp.o
@@ -185,7 +185,7 @@ FifthOrderCurvatureEvaluator.o: FifthOrderCurvatureEvaluator.cpp.o
 
 # target to build an object file
 FifthOrderCurvatureEvaluator.cpp.o:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/FifthOrderCurvatureEvaluator.cpp.o
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/FifthOrderCurvatureEvaluator.cpp.o
 .PHONY : FifthOrderCurvatureEvaluator.cpp.o
 
 FifthOrderCurvatureEvaluator.i: FifthOrderCurvatureEvaluator.cpp.i
@@ -194,7 +194,7 @@ FifthOrderCurvatureEvaluator.i: FifthOrderCurvatureEvaluator.cpp.i
 
 # target to preprocess a source file
 FifthOrderCurvatureEvaluator.cpp.i:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/FifthOrderCurvatureEvaluator.cpp.i
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/FifthOrderCurvatureEvaluator.cpp.i
 .PHONY : FifthOrderCurvatureEvaluator.cpp.i
 
 FifthOrderCurvatureEvaluator.s: FifthOrderCurvatureEvaluator.cpp.s
@@ -203,7 +203,7 @@ FifthOrderCurvatureEvaluator.s: FifthOrderCurvatureEvaluator.cpp.s
 
 # target to generate assembly for a file
 FifthOrderCurvatureEvaluator.cpp.s:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/FifthOrderCurvatureEvaluator.cpp.s
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/FifthOrderCurvatureEvaluator.cpp.s
 .PHONY : FifthOrderCurvatureEvaluator.cpp.s
 
 MDMAlgorithm.o: MDMAlgorithm.cpp.o
@@ -212,7 +212,7 @@ MDMAlgorithm.o: MDMAlgorithm.cpp.o
 
 # target to build an object file
 MDMAlgorithm.cpp.o:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/MDMAlgorithm.cpp.o
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/MDMAlgorithm.cpp.o
 .PHONY : MDMAlgorithm.cpp.o
 
 MDMAlgorithm.i: MDMAlgorithm.cpp.i
@@ -221,7 +221,7 @@ MDMAlgorithm.i: MDMAlgorithm.cpp.i
 
 # target to preprocess a source file
 MDMAlgorithm.cpp.i:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/MDMAlgorithm.cpp.i
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/MDMAlgorithm.cpp.i
 .PHONY : MDMAlgorithm.cpp.i
 
 MDMAlgorithm.s: MDMAlgorithm.cpp.s
@@ -230,7 +230,7 @@ MDMAlgorithm.s: MDMAlgorithm.cpp.s
 
 # target to generate assembly for a file
 MDMAlgorithm.cpp.s:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/MDMAlgorithm.cpp.s
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/MDMAlgorithm.cpp.s
 .PHONY : MDMAlgorithm.cpp.s
 
 MDMAlgorithmClass.o: MDMAlgorithmClass.cpp.o
@@ -239,7 +239,7 @@ MDMAlgorithmClass.o: MDMAlgorithmClass.cpp.o
 
 # target to build an object file
 MDMAlgorithmClass.cpp.o:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/MDMAlgorithmClass.cpp.o
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/MDMAlgorithmClass.cpp.o
 .PHONY : MDMAlgorithmClass.cpp.o
 
 MDMAlgorithmClass.i: MDMAlgorithmClass.cpp.i
@@ -248,7 +248,7 @@ MDMAlgorithmClass.i: MDMAlgorithmClass.cpp.i
 
 # target to preprocess a source file
 MDMAlgorithmClass.cpp.i:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/MDMAlgorithmClass.cpp.i
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/MDMAlgorithmClass.cpp.i
 .PHONY : MDMAlgorithmClass.cpp.i
 
 MDMAlgorithmClass.s: MDMAlgorithmClass.cpp.s
@@ -257,7 +257,7 @@ MDMAlgorithmClass.s: MDMAlgorithmClass.cpp.s
 
 # target to generate assembly for a file
 MDMAlgorithmClass.cpp.s:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/MDMAlgorithmClass.cpp.s
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/MDMAlgorithmClass.cpp.s
 .PHONY : MDMAlgorithmClass.cpp.s
 
 SecondOrderCurvatureEvaluator.o: SecondOrderCurvatureEvaluator.cpp.o
@@ -266,7 +266,7 @@ SecondOrderCurvatureEvaluator.o: SecondOrderCurvatureEvaluator.cpp.o
 
 # target to build an object file
 SecondOrderCurvatureEvaluator.cpp.o:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/SecondOrderCurvatureEvaluator.cpp.o
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/SecondOrderCurvatureEvaluator.cpp.o
 .PHONY : SecondOrderCurvatureEvaluator.cpp.o
 
 SecondOrderCurvatureEvaluator.i: SecondOrderCurvatureEvaluator.cpp.i
@@ -275,7 +275,7 @@ SecondOrderCurvatureEvaluator.i: SecondOrderCurvatureEvaluator.cpp.i
 
 # target to preprocess a source file
 SecondOrderCurvatureEvaluator.cpp.i:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/SecondOrderCurvatureEvaluator.cpp.i
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/SecondOrderCurvatureEvaluator.cpp.i
 .PHONY : SecondOrderCurvatureEvaluator.cpp.i
 
 SecondOrderCurvatureEvaluator.s: SecondOrderCurvatureEvaluator.cpp.s
@@ -284,7 +284,7 @@ SecondOrderCurvatureEvaluator.s: SecondOrderCurvatureEvaluator.cpp.s
 
 # target to generate assembly for a file
 SecondOrderCurvatureEvaluator.cpp.s:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/SecondOrderCurvatureEvaluator.cpp.s
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/SecondOrderCurvatureEvaluator.cpp.s
 .PHONY : SecondOrderCurvatureEvaluator.cpp.s
 
 ThirdOrderCurvatureEvaluator.o: ThirdOrderCurvatureEvaluator.cpp.o
@@ -293,7 +293,7 @@ ThirdOrderCurvatureEvaluator.o: ThirdOrderCurvatureEvaluator.cpp.o
 
 # target to build an object file
 ThirdOrderCurvatureEvaluator.cpp.o:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/ThirdOrderCurvatureEvaluator.cpp.o
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/ThirdOrderCurvatureEvaluator.cpp.o
 .PHONY : ThirdOrderCurvatureEvaluator.cpp.o
 
 ThirdOrderCurvatureEvaluator.i: ThirdOrderCurvatureEvaluator.cpp.i
@@ -302,7 +302,7 @@ ThirdOrderCurvatureEvaluator.i: ThirdOrderCurvatureEvaluator.cpp.i
 
 # target to preprocess a source file
 ThirdOrderCurvatureEvaluator.cpp.i:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/ThirdOrderCurvatureEvaluator.cpp.i
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/ThirdOrderCurvatureEvaluator.cpp.i
 .PHONY : ThirdOrderCurvatureEvaluator.cpp.i
 
 ThirdOrderCurvatureEvaluator.s: ThirdOrderCurvatureEvaluator.cpp.s
@@ -311,7 +311,7 @@ ThirdOrderCurvatureEvaluator.s: ThirdOrderCurvatureEvaluator.cpp.s
 
 # target to generate assembly for a file
 ThirdOrderCurvatureEvaluator.cpp.s:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/ThirdOrderCurvatureEvaluator.cpp.s
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f src/CMakeFiles/CurvatureEvaluator.dir/build.make src/CMakeFiles/CurvatureEvaluator.dir/ThirdOrderCurvatureEvaluator.cpp.s
 .PHONY : ThirdOrderCurvatureEvaluator.cpp.s
 
 # Help Target
@@ -355,6 +355,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

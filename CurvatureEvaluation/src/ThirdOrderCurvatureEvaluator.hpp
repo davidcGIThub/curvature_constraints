@@ -18,8 +18,8 @@ class ThirdOrderCurvatureEvaluator
         std::array<double,2> find_minimum_velocity_and_time(Eigen::Matrix<double,D,4> &control_points, double &scale_factor);
         double find_maximum_acceleration(Eigen::Matrix<double,D,4> &control_points);
         double find_maximum_cross_term(Eigen::Matrix<double,D,4> &control_points, double &scale_factor);
-        Eigen::Vector4d get_2D_cross_coefficients(Eigen::Matrix<double,2,4> &control_points);
-        Eigen::Vector4d get_3D_cross_coefficients(Eigen::Matrix<double,3,4> &control_points);
+        Eigen::Vector4d get_2D_cross_coefficients(Eigen::Matrix<double,D,4> &control_points);
+        Eigen::Vector4d get_3D_cross_coefficients(Eigen::Matrix<double,D,4> &control_points);
         double calculate_velocity_magnitude(double &t, Eigen::Matrix<double,D,4> &control_points, double &scale_factor);
         double calculate_acceleration_magnitude(double &t, Eigen::Matrix<double,D,4> &control_points);
         double calculate_cross_term_magnitude(double &t, Eigen::Matrix<double,D,4> &control_points, double &scale_factor);

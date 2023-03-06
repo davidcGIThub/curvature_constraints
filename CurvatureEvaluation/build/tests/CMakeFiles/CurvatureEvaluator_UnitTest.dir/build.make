@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation
+CMAKE_SOURCE_DIR = /home/david/Code/curvature_constraints/CurvatureEvaluation
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build
+CMAKE_BINARY_DIR = /home/david/Code/curvature_constraints/CurvatureEvaluation/build
 
 # Include any dependencies generated for this target.
 include tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/depend.make
@@ -59,94 +59,94 @@ include tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/flags.make
 
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestBsplineToBezier.cpp.o: tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/flags.make
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestBsplineToBezier.cpp.o: ../tests/UnitTestBsplineToBezier.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestBsplineToBezier.cpp.o"
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestBsplineToBezier.cpp.o -c /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestBsplineToBezier.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/CurvatureEvaluation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestBsplineToBezier.cpp.o"
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestBsplineToBezier.cpp.o -c /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestBsplineToBezier.cpp
 
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestBsplineToBezier.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestBsplineToBezier.cpp.i"
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestBsplineToBezier.cpp > CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestBsplineToBezier.cpp.i
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestBsplineToBezier.cpp > CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestBsplineToBezier.cpp.i
 
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestBsplineToBezier.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestBsplineToBezier.cpp.s"
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestBsplineToBezier.cpp -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestBsplineToBezier.cpp.s
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestBsplineToBezier.cpp -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestBsplineToBezier.cpp.s
 
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestCubicEquationSolver.cpp.o: tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/flags.make
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestCubicEquationSolver.cpp.o: ../tests/UnitTestCubicEquationSolver.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestCubicEquationSolver.cpp.o"
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestCubicEquationSolver.cpp.o -c /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestCubicEquationSolver.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/CurvatureEvaluation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestCubicEquationSolver.cpp.o"
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestCubicEquationSolver.cpp.o -c /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestCubicEquationSolver.cpp
 
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestCubicEquationSolver.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestCubicEquationSolver.cpp.i"
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestCubicEquationSolver.cpp > CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestCubicEquationSolver.cpp.i
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestCubicEquationSolver.cpp > CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestCubicEquationSolver.cpp.i
 
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestCubicEquationSolver.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestCubicEquationSolver.cpp.s"
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestCubicEquationSolver.cpp -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestCubicEquationSolver.cpp.s
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestCubicEquationSolver.cpp -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestCubicEquationSolver.cpp.s
 
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestSecondOrderCurvatureEvaluator.cpp.o: tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/flags.make
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestSecondOrderCurvatureEvaluator.cpp.o: ../tests/UnitTestSecondOrderCurvatureEvaluator.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestSecondOrderCurvatureEvaluator.cpp.o"
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestSecondOrderCurvatureEvaluator.cpp.o -c /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestSecondOrderCurvatureEvaluator.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/CurvatureEvaluation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestSecondOrderCurvatureEvaluator.cpp.o"
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestSecondOrderCurvatureEvaluator.cpp.o -c /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestSecondOrderCurvatureEvaluator.cpp
 
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestSecondOrderCurvatureEvaluator.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestSecondOrderCurvatureEvaluator.cpp.i"
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestSecondOrderCurvatureEvaluator.cpp > CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestSecondOrderCurvatureEvaluator.cpp.i
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestSecondOrderCurvatureEvaluator.cpp > CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestSecondOrderCurvatureEvaluator.cpp.i
 
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestSecondOrderCurvatureEvaluator.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestSecondOrderCurvatureEvaluator.cpp.s"
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestSecondOrderCurvatureEvaluator.cpp -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestSecondOrderCurvatureEvaluator.cpp.s
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestSecondOrderCurvatureEvaluator.cpp -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestSecondOrderCurvatureEvaluator.cpp.s
 
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.o: tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/flags.make
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.o: ../tests/UnitTestThirdOrderCurvatureEvaluator.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.o"
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.o -c /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestThirdOrderCurvatureEvaluator.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/CurvatureEvaluation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.o"
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.o -c /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestThirdOrderCurvatureEvaluator.cpp
 
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.i"
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestThirdOrderCurvatureEvaluator.cpp > CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.i
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestThirdOrderCurvatureEvaluator.cpp > CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.i
 
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.s"
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestThirdOrderCurvatureEvaluator.cpp -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.s
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestThirdOrderCurvatureEvaluator.cpp -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.s
 
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithm.cpp.o: tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/flags.make
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithm.cpp.o: ../tests/UnitTestMDMAlgorithm.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithm.cpp.o"
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithm.cpp.o -c /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestMDMAlgorithm.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/CurvatureEvaluation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithm.cpp.o"
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithm.cpp.o -c /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestMDMAlgorithm.cpp
 
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithm.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithm.cpp.i"
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestMDMAlgorithm.cpp > CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithm.cpp.i
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestMDMAlgorithm.cpp > CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithm.cpp.i
 
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithm.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithm.cpp.s"
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestMDMAlgorithm.cpp -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithm.cpp.s
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestMDMAlgorithm.cpp -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithm.cpp.s
 
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.o: tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/flags.make
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.o: ../tests/UnitTestMDMAlgorithmClass.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.o"
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.o -c /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestMDMAlgorithmClass.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/CurvatureEvaluation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.o"
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.o -c /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestMDMAlgorithmClass.cpp
 
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.i"
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestMDMAlgorithmClass.cpp > CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.i
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestMDMAlgorithmClass.cpp > CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.i
 
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.s"
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestMDMAlgorithmClass.cpp -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.s
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestMDMAlgorithmClass.cpp -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.s
 
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestFifthOrderCurvatureEvaluator.cpp.o: tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/flags.make
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestFifthOrderCurvatureEvaluator.cpp.o: ../tests/UnitTestFifthOrderCurvatureEvaluator.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestFifthOrderCurvatureEvaluator.cpp.o"
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestFifthOrderCurvatureEvaluator.cpp.o -c /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestFifthOrderCurvatureEvaluator.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/CurvatureEvaluation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestFifthOrderCurvatureEvaluator.cpp.o"
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestFifthOrderCurvatureEvaluator.cpp.o -c /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestFifthOrderCurvatureEvaluator.cpp
 
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestFifthOrderCurvatureEvaluator.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestFifthOrderCurvatureEvaluator.cpp.i"
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestFifthOrderCurvatureEvaluator.cpp > CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestFifthOrderCurvatureEvaluator.cpp.i
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestFifthOrderCurvatureEvaluator.cpp > CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestFifthOrderCurvatureEvaluator.cpp.i
 
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestFifthOrderCurvatureEvaluator.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestFifthOrderCurvatureEvaluator.cpp.s"
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestFifthOrderCurvatureEvaluator.cpp -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestFifthOrderCurvatureEvaluator.cpp.s
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestFifthOrderCurvatureEvaluator.cpp -o CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestFifthOrderCurvatureEvaluator.cpp.s
 
 # Object files for target CurvatureEvaluator_UnitTest
 CurvatureEvaluator_UnitTest_OBJECTS = \
@@ -173,8 +173,8 @@ tests/CurvatureEvaluator_UnitTest: /usr/lib/x86_64-linux-gnu/libgtest.a
 tests/CurvatureEvaluator_UnitTest: /usr/lib/x86_64-linux-gnu/libgtest_main.a
 tests/CurvatureEvaluator_UnitTest: src/libCurvatureEvaluator.so
 tests/CurvatureEvaluator_UnitTest: tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable CurvatureEvaluator_UnitTest"
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/CurvatureEvaluator_UnitTest.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/david/Code/curvature_constraints/CurvatureEvaluation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable CurvatureEvaluator_UnitTest"
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/CurvatureEvaluator_UnitTest.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build: tests/CurvatureEvaluator_UnitTest
@@ -182,10 +182,10 @@ tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build: tests/CurvatureEvaluator
 .PHONY : tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build
 
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/clean:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests && $(CMAKE_COMMAND) -P CMakeFiles/CurvatureEvaluator_UnitTest.dir/cmake_clean.cmake
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests && $(CMAKE_COMMAND) -P CMakeFiles/CurvatureEvaluator_UnitTest.dir/cmake_clean.cmake
 .PHONY : tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/clean
 
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/depend:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/david/Code/curvature_constraints/CurvatureEvaluation /home/david/Code/curvature_constraints/CurvatureEvaluation/tests /home/david/Code/curvature_constraints/CurvatureEvaluation/build /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/depend
 

@@ -3,26 +3,26 @@
 
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestBsplineToBezier.cpp.o
  ../src/BsplineToBezier.hpp
- /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestBsplineToBezier.cpp
+ /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestBsplineToBezier.cpp
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestCubicEquationSolver.cpp.o
  ../src/CubicEquationSolver.hpp
- /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestCubicEquationSolver.cpp
+ /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestCubicEquationSolver.cpp
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestFifthOrderCurvatureEvaluator.cpp.o
  ../src/BsplineToBezier.hpp
  ../src/FifthOrderCurvatureEvaluator.hpp
  ../src/MDMAlgorithmClass.hpp
- /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestFifthOrderCurvatureEvaluator.cpp
+ /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestFifthOrderCurvatureEvaluator.cpp
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithm.cpp.o
  ../src/MDMAlgorithm.hpp
- /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestMDMAlgorithm.cpp
+ /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestMDMAlgorithm.cpp
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.o
  ../src/MDMAlgorithmClass.hpp
- /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestMDMAlgorithmClass.cpp
+ /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestMDMAlgorithmClass.cpp
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestSecondOrderCurvatureEvaluator.cpp.o
  ../src/BsplineToBezier.hpp
  ../src/SecondOrderCurvatureEvaluator.hpp
- /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestSecondOrderCurvatureEvaluator.cpp
+ /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestSecondOrderCurvatureEvaluator.cpp
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.o
  ../src/CubicEquationSolver.hpp
  ../src/ThirdOrderCurvatureEvaluator.hpp
- /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests/UnitTestThirdOrderCurvatureEvaluator.cpp
+ /home/david/Code/curvature_constraints/CurvatureEvaluation/tests/UnitTestThirdOrderCurvatureEvaluator.cpp

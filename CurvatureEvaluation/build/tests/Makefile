@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation
+CMAKE_SOURCE_DIR = /home/david/Code/curvature_constraints/CurvatureEvaluation
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build
+CMAKE_BINARY_DIR = /home/david/Code/curvature_constraints/CurvatureEvaluation/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/CMakeFiles /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests/CMakeFiles/progress.marks
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f CMakeFiles/Makefile2 tests/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/CMakeFiles 0
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/david/Code/curvature_constraints/CurvatureEvaluation/build/CMakeFiles /home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests/CMakeFiles/progress.marks
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f CMakeFiles/Makefile2 tests/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/david/Code/curvature_constraints/CurvatureEvaluation/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f CMakeFiles/Makefile2 tests/clean
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f CMakeFiles/Makefile2 tests/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,22 +97,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f CMakeFiles/Makefile2 tests/preinstall
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f CMakeFiles/Makefile2 tests/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f CMakeFiles/Makefile2 tests/preinstall
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f CMakeFiles/Makefile2 tests/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/rule:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/rule
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/rule
 .PHONY : tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/rule
 
 # Convenience name for target.
@@ -122,7 +122,7 @@ CurvatureEvaluator_UnitTest: tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/ru
 
 # fast build rule for target.
 CurvatureEvaluator_UnitTest/fast:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build
 .PHONY : CurvatureEvaluator_UnitTest/fast
 
 UnitTestBsplineToBezier.o: UnitTestBsplineToBezier.cpp.o
@@ -131,7 +131,7 @@ UnitTestBsplineToBezier.o: UnitTestBsplineToBezier.cpp.o
 
 # target to build an object file
 UnitTestBsplineToBezier.cpp.o:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestBsplineToBezier.cpp.o
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestBsplineToBezier.cpp.o
 .PHONY : UnitTestBsplineToBezier.cpp.o
 
 UnitTestBsplineToBezier.i: UnitTestBsplineToBezier.cpp.i
@@ -140,7 +140,7 @@ UnitTestBsplineToBezier.i: UnitTestBsplineToBezier.cpp.i
 
 # target to preprocess a source file
 UnitTestBsplineToBezier.cpp.i:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestBsplineToBezier.cpp.i
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestBsplineToBezier.cpp.i
 .PHONY : UnitTestBsplineToBezier.cpp.i
 
 UnitTestBsplineToBezier.s: UnitTestBsplineToBezier.cpp.s
@@ -149,7 +149,7 @@ UnitTestBsplineToBezier.s: UnitTestBsplineToBezier.cpp.s
 
 # target to generate assembly for a file
 UnitTestBsplineToBezier.cpp.s:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestBsplineToBezier.cpp.s
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestBsplineToBezier.cpp.s
 .PHONY : UnitTestBsplineToBezier.cpp.s
 
 UnitTestCubicEquationSolver.o: UnitTestCubicEquationSolver.cpp.o
@@ -158,7 +158,7 @@ UnitTestCubicEquationSolver.o: UnitTestCubicEquationSolver.cpp.o
 
 # target to build an object file
 UnitTestCubicEquationSolver.cpp.o:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestCubicEquationSolver.cpp.o
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestCubicEquationSolver.cpp.o
 .PHONY : UnitTestCubicEquationSolver.cpp.o
 
 UnitTestCubicEquationSolver.i: UnitTestCubicEquationSolver.cpp.i
@@ -167,7 +167,7 @@ UnitTestCubicEquationSolver.i: UnitTestCubicEquationSolver.cpp.i
 
 # target to preprocess a source file
 UnitTestCubicEquationSolver.cpp.i:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestCubicEquationSolver.cpp.i
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestCubicEquationSolver.cpp.i
 .PHONY : UnitTestCubicEquationSolver.cpp.i
 
 UnitTestCubicEquationSolver.s: UnitTestCubicEquationSolver.cpp.s
@@ -176,7 +176,7 @@ UnitTestCubicEquationSolver.s: UnitTestCubicEquationSolver.cpp.s
 
 # target to generate assembly for a file
 UnitTestCubicEquationSolver.cpp.s:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestCubicEquationSolver.cpp.s
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestCubicEquationSolver.cpp.s
 .PHONY : UnitTestCubicEquationSolver.cpp.s
 
 UnitTestFifthOrderCurvatureEvaluator.o: UnitTestFifthOrderCurvatureEvaluator.cpp.o
@@ -185,7 +185,7 @@ UnitTestFifthOrderCurvatureEvaluator.o: UnitTestFifthOrderCurvatureEvaluator.cpp
 
 # target to build an object file
 UnitTestFifthOrderCurvatureEvaluator.cpp.o:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestFifthOrderCurvatureEvaluator.cpp.o
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestFifthOrderCurvatureEvaluator.cpp.o
 .PHONY : UnitTestFifthOrderCurvatureEvaluator.cpp.o
 
 UnitTestFifthOrderCurvatureEvaluator.i: UnitTestFifthOrderCurvatureEvaluator.cpp.i
@@ -194,7 +194,7 @@ UnitTestFifthOrderCurvatureEvaluator.i: UnitTestFifthOrderCurvatureEvaluator.cpp
 
 # target to preprocess a source file
 UnitTestFifthOrderCurvatureEvaluator.cpp.i:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestFifthOrderCurvatureEvaluator.cpp.i
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestFifthOrderCurvatureEvaluator.cpp.i
 .PHONY : UnitTestFifthOrderCurvatureEvaluator.cpp.i
 
 UnitTestFifthOrderCurvatureEvaluator.s: UnitTestFifthOrderCurvatureEvaluator.cpp.s
@@ -203,7 +203,7 @@ UnitTestFifthOrderCurvatureEvaluator.s: UnitTestFifthOrderCurvatureEvaluator.cpp
 
 # target to generate assembly for a file
 UnitTestFifthOrderCurvatureEvaluator.cpp.s:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestFifthOrderCurvatureEvaluator.cpp.s
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestFifthOrderCurvatureEvaluator.cpp.s
 .PHONY : UnitTestFifthOrderCurvatureEvaluator.cpp.s
 
 UnitTestMDMAlgorithm.o: UnitTestMDMAlgorithm.cpp.o
@@ -212,7 +212,7 @@ UnitTestMDMAlgorithm.o: UnitTestMDMAlgorithm.cpp.o
 
 # target to build an object file
 UnitTestMDMAlgorithm.cpp.o:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithm.cpp.o
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithm.cpp.o
 .PHONY : UnitTestMDMAlgorithm.cpp.o
 
 UnitTestMDMAlgorithm.i: UnitTestMDMAlgorithm.cpp.i
@@ -221,7 +221,7 @@ UnitTestMDMAlgorithm.i: UnitTestMDMAlgorithm.cpp.i
 
 # target to preprocess a source file
 UnitTestMDMAlgorithm.cpp.i:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithm.cpp.i
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithm.cpp.i
 .PHONY : UnitTestMDMAlgorithm.cpp.i
 
 UnitTestMDMAlgorithm.s: UnitTestMDMAlgorithm.cpp.s
@@ -230,7 +230,7 @@ UnitTestMDMAlgorithm.s: UnitTestMDMAlgorithm.cpp.s
 
 # target to generate assembly for a file
 UnitTestMDMAlgorithm.cpp.s:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithm.cpp.s
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithm.cpp.s
 .PHONY : UnitTestMDMAlgorithm.cpp.s
 
 UnitTestMDMAlgorithmClass.o: UnitTestMDMAlgorithmClass.cpp.o
@@ -239,7 +239,7 @@ UnitTestMDMAlgorithmClass.o: UnitTestMDMAlgorithmClass.cpp.o
 
 # target to build an object file
 UnitTestMDMAlgorithmClass.cpp.o:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.o
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.o
 .PHONY : UnitTestMDMAlgorithmClass.cpp.o
 
 UnitTestMDMAlgorithmClass.i: UnitTestMDMAlgorithmClass.cpp.i
@@ -248,7 +248,7 @@ UnitTestMDMAlgorithmClass.i: UnitTestMDMAlgorithmClass.cpp.i
 
 # target to preprocess a source file
 UnitTestMDMAlgorithmClass.cpp.i:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.i
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.i
 .PHONY : UnitTestMDMAlgorithmClass.cpp.i
 
 UnitTestMDMAlgorithmClass.s: UnitTestMDMAlgorithmClass.cpp.s
@@ -257,7 +257,7 @@ UnitTestMDMAlgorithmClass.s: UnitTestMDMAlgorithmClass.cpp.s
 
 # target to generate assembly for a file
 UnitTestMDMAlgorithmClass.cpp.s:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.s
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.s
 .PHONY : UnitTestMDMAlgorithmClass.cpp.s
 
 UnitTestSecondOrderCurvatureEvaluator.o: UnitTestSecondOrderCurvatureEvaluator.cpp.o
@@ -266,7 +266,7 @@ UnitTestSecondOrderCurvatureEvaluator.o: UnitTestSecondOrderCurvatureEvaluator.c
 
 # target to build an object file
 UnitTestSecondOrderCurvatureEvaluator.cpp.o:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestSecondOrderCurvatureEvaluator.cpp.o
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestSecondOrderCurvatureEvaluator.cpp.o
 .PHONY : UnitTestSecondOrderCurvatureEvaluator.cpp.o
 
 UnitTestSecondOrderCurvatureEvaluator.i: UnitTestSecondOrderCurvatureEvaluator.cpp.i
@@ -275,7 +275,7 @@ UnitTestSecondOrderCurvatureEvaluator.i: UnitTestSecondOrderCurvatureEvaluator.c
 
 # target to preprocess a source file
 UnitTestSecondOrderCurvatureEvaluator.cpp.i:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestSecondOrderCurvatureEvaluator.cpp.i
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestSecondOrderCurvatureEvaluator.cpp.i
 .PHONY : UnitTestSecondOrderCurvatureEvaluator.cpp.i
 
 UnitTestSecondOrderCurvatureEvaluator.s: UnitTestSecondOrderCurvatureEvaluator.cpp.s
@@ -284,7 +284,7 @@ UnitTestSecondOrderCurvatureEvaluator.s: UnitTestSecondOrderCurvatureEvaluator.c
 
 # target to generate assembly for a file
 UnitTestSecondOrderCurvatureEvaluator.cpp.s:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestSecondOrderCurvatureEvaluator.cpp.s
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestSecondOrderCurvatureEvaluator.cpp.s
 .PHONY : UnitTestSecondOrderCurvatureEvaluator.cpp.s
 
 UnitTestThirdOrderCurvatureEvaluator.o: UnitTestThirdOrderCurvatureEvaluator.cpp.o
@@ -293,7 +293,7 @@ UnitTestThirdOrderCurvatureEvaluator.o: UnitTestThirdOrderCurvatureEvaluator.cpp
 
 # target to build an object file
 UnitTestThirdOrderCurvatureEvaluator.cpp.o:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.o
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.o
 .PHONY : UnitTestThirdOrderCurvatureEvaluator.cpp.o
 
 UnitTestThirdOrderCurvatureEvaluator.i: UnitTestThirdOrderCurvatureEvaluator.cpp.i
@@ -302,7 +302,7 @@ UnitTestThirdOrderCurvatureEvaluator.i: UnitTestThirdOrderCurvatureEvaluator.cpp
 
 # target to preprocess a source file
 UnitTestThirdOrderCurvatureEvaluator.cpp.i:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.i
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.i
 .PHONY : UnitTestThirdOrderCurvatureEvaluator.cpp.i
 
 UnitTestThirdOrderCurvatureEvaluator.s: UnitTestThirdOrderCurvatureEvaluator.cpp.s
@@ -311,7 +311,7 @@ UnitTestThirdOrderCurvatureEvaluator.s: UnitTestThirdOrderCurvatureEvaluator.cpp
 
 # target to generate assembly for a file
 UnitTestThirdOrderCurvatureEvaluator.cpp.s:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.s
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(MAKE) -f tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/build.make tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.s
 .PHONY : UnitTestThirdOrderCurvatureEvaluator.cpp.s
 
 # Help Target
@@ -355,6 +355,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/david/Code/curvature_constraints/CurvatureEvaluation/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

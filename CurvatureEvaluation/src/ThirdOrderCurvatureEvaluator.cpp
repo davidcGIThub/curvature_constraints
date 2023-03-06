@@ -183,7 +183,7 @@ double ThirdOrderCurvatureEvaluator<D>::find_maximum_cross_term(Eigen::Matrix<do
 }
 
 template <int D>
-Eigen::Vector4d ThirdOrderCurvatureEvaluator<D>::get_2D_cross_coefficients(Eigen::Matrix<double,2,4> &control_points)
+Eigen::Vector4d ThirdOrderCurvatureEvaluator<D>::get_2D_cross_coefficients(Eigen::Matrix<double,D,4> &control_points)
 {
     double p0x = control_points(0,0);
     double p0y = control_points(1,0);
@@ -212,7 +212,7 @@ Eigen::Vector4d ThirdOrderCurvatureEvaluator<D>::get_2D_cross_coefficients(Eigen
 }
 
 template <int D>
-Eigen::Vector4d ThirdOrderCurvatureEvaluator<D>::get_3D_cross_coefficients(Eigen::Matrix<double,3,4> &control_points)
+Eigen::Vector4d ThirdOrderCurvatureEvaluator<D>::get_3D_cross_coefficients(Eigen::Matrix<double,D,4> &control_points)
 {
     double p0x = control_points(0,0);
     double p0y = control_points(1,0);
@@ -305,7 +305,10 @@ double ThirdOrderCurvatureEvaluator<D>::calculate_cross_term_magnitude(double &t
     }
     else
     {
-        cross_term_magnitude = (velocity_vector.cross(acceleration_vector)).norm();
+        float x = velocity_vector(1)*acceleration_vector(2) - velocity_vector(2)*acceleration_vector(1);
+        float y = velocity_vector(2)*acceleration_vector(0) - velocity_vector(0)*acceleration_vector(2);
+        float z = velocity_vector(0)*acceleration_vector(1) - velocity_vector(1)*acceleration_vector(0);
+        cross_term_magnitude = sqrt(x*x + y*y + z*z);
     }
     return cross_term_magnitude;
 }

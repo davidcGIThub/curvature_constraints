@@ -6,5 +6,5 @@ CXX_FLAGS =   -std=gnu++11
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/build/tests -I/home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/tests -I/home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/src/src -I/home/david/Code/bspline_trajectory_generator/CurvatureEvaluation/src 
+CXX_INCLUDES = -I/home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests -I/home/david/Code/curvature_constraints/CurvatureEvaluation/tests -I/home/david/Code/curvature_constraints/CurvatureEvaluation/src/src -I/home/david/Code/curvature_constraints/CurvatureEvaluation/src 
 
