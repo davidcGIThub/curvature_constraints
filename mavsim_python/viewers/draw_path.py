@@ -17,6 +17,7 @@ class DrawPath:
             points = straight_line_points(path, scale)
         elif path.type == 'orbit':
             points = orbit_points(path)
+        print("points: " , points)
         path_color = np.tile(color, (points.shape[0], 1))
         self.path_plot_object = gl.GLLinePlotItem(pos=points,
                                                   color=path_color,

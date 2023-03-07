@@ -14,17 +14,17 @@ import parameters.planner_parameters as PLAN
 from models.mav_dynamics_control import MavDynamics
 from models.wind_simulation import WindSimulation
 from control.autopilot import Autopilot
-from planning.path_follower import PathFollower
-# from chap11.path_manager_cycle import PathManager
-from planning.path_manager import PathManager
-from viewers.data_viewer import DataViewer
-from viewers.mav_waypoint_viewer import MAVAndWaypointViewer
+from planning.spline_path_follower import BsplinePathFollower
+from viewers.path_data_viewer import PathDataViewer
+from viewers.mav_spline_viewer import MAVAndSplineViewer
 from tools.quit_listener import QuitListener
+from message_types.msg_autopilot import MsgAutopilot
+
 
 quitter = QuitListener()
 
 VIDEO = False
-DATA_PLOTS = True
+DATA_PLOTS = False
 ANIMATION = True
 SAVE_PLOT_IMAGE = False
 
@@ -39,33 +39,44 @@ if VIDEO is True:
 if ANIMATION or DATA_PLOTS:
     app = pg.QtWidgets.QApplication([]) # use the same main process for Qt applications
 if ANIMATION:
-    waypoint_view = MAVAndWaypointViewer(app=app)  # initialize the mav waypoint viewer
+    mav_path_view = MAVAndSplineViewer(app=app)  # initialize the mav waypoint viewer
 if DATA_PLOTS:
-    data_view = DataViewer(app=app,dt=SIM.ts_simulation, plot_period=SIM.ts_plot_refresh, 
+    data_view = PathDataViewer(app=app,dt=SIM.ts_simulation, plot_period=SIM.ts_plot_refresh, 
                            data_recording_period=SIM.ts_plot_record_data, time_window_length=30)
 
 # initialize elements of the architecture
 wind = WindSimulation(SIM.ts_simulation)
 mav = MavDynamics(SIM.ts_simulation)
 autopilot = Autopilot(SIM.ts_simulation)
-path_follower = PathFollower()
-path_manager = PathManager()
-
-# waypoint definition
-from message_types.msg_waypoints import MsgWaypoints
-waypoints = MsgWaypoints()
-#waypoints.type = 'straight_line'
-#waypoints.type = 'fillet'
-waypoints.type = 'dubins'
-Va = PLAN.Va0
-waypoints.add(np.array([[0, 0, -100]]).T, Va, np.radians(0), np.inf, 0, 0)
-waypoints.add(np.array([[1000, 0, -100]]).T, Va, np.radians(45), np.inf, 0, 0)
-waypoints.add(np.array([[0, 1000, -100]]).T, Va, np.radians(45), np.inf, 0, 0)
-waypoints.add(np.array([[1000, 1000, -100]]).T, Va, np.radians(-135), np.inf, 0, 0)
+order = 3
+spline_path_follower = BsplinePathFollower(order)
 
 # initialize the simulation time
 sim_time = SIM.start_time
 end_time = 200
+path_update_flag = True
+control_points = np.array([[0,  100, 200, 250, 260 , 250,  200, 100, 0],
+                           [0, 50,  100, 150, 200,   250, 300,   350, 500],
+                           [ 100, 110,  120,   125, 125, 130, 140, 150, 150]]) # 3D
+
+# control_points = np.array([[0,  100, 200, 250, 300 , 400,  500, 600, 700],
+#                            [0, 0,  0, 0, 0,   0, 0,   0, 0],
+#                            [ 100, 110,  120,   125, 125, 130, 140, 150, 150]]) # 3D
+
+commands = MsgAutopilot()
+
+# Va_command = Signals(dc_offset=25.0,
+#                      amplitude=3.0,
+#                      start_time=2.0,
+#                      frequency=0.01)
+# altitude_rate_command = Signals(dc_offset=0.0,
+#                            amplitude=5,
+#                            start_time=0.0,
+#                            frequency=0.02)
+# course_command = Signals(dc_offset=np.radians(180),
+#                          amplitude=np.radians(45),
+#                          start_time=5.0,
+#                          frequency=0.015)
 
 # main simulation loop
 print("Press 'Esc' to exit...")
@@ -73,13 +84,17 @@ while sim_time < end_time:
     # -------observer-------------
 
     # -------path manager-------------
-    path = path_manager.update(waypoints, PLAN.R_min, mav.true_state)
+    # path = path_manager.update(waypoints, PLAN.R_min, mav.true_state)
 
     # -------path follower-------------
-    autopilot_commands = path_follower.update(path, mav.true_state)
+    # autopilot_commands = path_follower.update(path, mav.true_state)
+    position = np.array([[mav.true_state.north],[mav.true_state.east],[mav.true_state.altitude]])
+    desired_airspeed = 30
+    [commands.course_command, commands.altitude_rate_command, commands.airspeed_command] = \
+        spline_path_follower.get_commands(control_points, position, desired_airspeed)
 
     # -------autopilot-------------
-    delta, commanded_state = autopilot.update(autopilot_commands, mav.true_state)
+    delta, commanded_state = autopilot.update(commands, mav.true_state)
 
     # -------physical system-------------
     current_wind = wind.update()  # get the new wind vector
@@ -87,13 +102,15 @@ while sim_time < end_time:
 
     # -------update viewer-------------
     if ANIMATION:
-        waypoint_view.update(mav.true_state, path, waypoints)  # plot path and MAV
+        mav_path_view.update_mav(mav.true_state)  # plot path and MAV
+        if path_update_flag == True:
+            mav_path_view.update_path(control_points, order)
+            path_update_flag = False
+    
     if DATA_PLOTS:
         plot_time = sim_time
         data_view.update(mav.true_state,  # true states
-                         None,  # estimated states
-                         commanded_state,  # commanded states
-                         delta)  # inputs to aircraft
+                         commanded_state)  # commanded states
     if ANIMATION or DATA_PLOTS:
         app.processEvents()
 

@@ -37,7 +37,7 @@ K_theta_DC = pitch_kp * TF.a_theta3 / (TF.a_theta2 + pitch_kp * TF.a_theta3)
 wn_altitude = wn_pitch / 30.0
 zeta_altitude = 1.0
 altitude_kp = 2.0 * zeta_altitude * wn_altitude / K_theta_DC / Va0
-altitude_ki = wn_altitude**2 / K_theta_DC / Va0
+altitude_ki = 2* wn_altitude**2 / K_theta_DC / Va0 
 altitude_zone = 10.0  # moving saturation limit around current altitude
 
 #---------airspeed hold using throttle---------------

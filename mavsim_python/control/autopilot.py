@@ -15,6 +15,7 @@ from control.pd_control_with_rate import PDControlWithRate
 from control.tf_control import TFControl
 from message_types.msg_state import MsgState
 from message_types.msg_delta import MsgDelta
+from control.pid_control import PIDControl
 from tools.rotations import Euler2Rotation
 
 
@@ -63,16 +64,13 @@ class Autopilot:
 
         # lateral autopilot
         chi_c = wrap(cmd.course_command, state.chi)
-        phi_c = self.saturate(
-            cmd.phi_feedforward + self.course_from_roll.update(chi_c, state.chi),
-            -np.radians(30), np.radians(30))
+        phi_c = self.saturate(cmd.phi_feedforward + self.course_from_roll.update(chi_c, state.chi), -np.radians(30), np.radians(30))
         delta_a = self.roll_from_aileron.update(phi_c, state.phi, state.p)
         delta_r = self.yaw_damper.update(state.r)
 
         # longitudinal autopilot
         # saturate the altitude command
-        hdot = state.Va*np.sin(state.theta)
-        theta_c = self.altitude_rate_from_pitch.update(cmd.altitude_rate_command, hdot)
+        theta_c = self.altitude_rate_from_pitch.update(cmd.altitude_rate_command, state.h_dot)
         delta_e = self.pitch_from_elevator.update(theta_c, state.theta, state.q)
         delta_t = self.airspeed_from_throttle.update(cmd.airspeed_command, state.Va)
         delta_t = self.saturate(delta_t, 0.0, 1.0)

@@ -1,6 +1,6 @@
 import numpy as np
 from bsplinegenerator.bsplines import BsplineEvaluation
-from path_following.matrix_evaluation import matrix_bspline_evaluation_for_dataset, get_M_matrix, \
+from planning.matrix_evaluation import matrix_bspline_evaluation_for_dataset, get_M_matrix, \
     get_T_derivative_vector
 
 class BsplinePathFollower:
