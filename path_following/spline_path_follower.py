@@ -80,3 +80,5 @@ class BsplinePathFollower:
 
 #need to trim parths of path when get past certian parts of it
 
+# if the closest point is the endpoint no velocity gain.
+
