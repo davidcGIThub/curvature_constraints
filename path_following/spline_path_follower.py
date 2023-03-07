@@ -72,7 +72,9 @@ class BsplinePathFollower:
 
     
 
+# evaluate the spline ahead of time so don't have to evaluate each time.
 
+# add feedforward term when within tolerance of path (seek position ahead)
 
 # add code for when outside the transition region???
 
