@@ -31,6 +31,7 @@ class PathGenerator:
             self._objective_function_type = "minimize_distance_and_time"
         else:
             self._objective_function_type = "minimize_acceleration"
+        print(self._objective_function_type)
         self._F_composite = get_composite_bspline_to_bezier_conversion_matrix(self._num_control_points, self._order)
 
     def generate_path(self, waypoints, velocities, max_curvature, initial_control_points = None):
@@ -105,10 +106,8 @@ class PathGenerator:
     def __get_objective_function(self):
         if self._objective_function_type == "minimize_distance_and_time":
             return self.__minimize_distance_objective_function
-            # return self.__minimize_acceleration_objective_function
         elif self._objective_function_type == "minimize_acceleration":
             return self.__minimize_acceleration_objective_function
-            # return self.__minimize_distance_objective_function
 
     def __minimize_distance_objective_function(self, variables):
         # for third order splines only
@@ -130,7 +129,6 @@ class PathGenerator:
             integral = np.sum(a/5 + b/4 + c/3 + d/2 + f)
             sum_of_integrals += integral 
         return sum_of_integrals + scale_factor
-    
 
     def __create_objective_variable_bounds(self):
         lower_bounds = np.zeros(self._num_control_points*self._dimension + 1) - np.inf
@@ -152,7 +150,7 @@ class PathGenerator:
             p2 = control_points[:,i+2]
             p3 = control_points[:,i+3]
             sum_of_integrals += np.sum((p0 - 3*p1 + 3*p2 - p3)**2) 
-        return sum_of_integrals + scale_factor
+        return sum_of_integrals #+ scale_factor
 
     def __create_initial_control_points(self, waypoints):
         start_waypoint = waypoints[:,0]
@@ -235,12 +233,10 @@ class PathGenerator:
         max_curvatures = np.zeros(num_intervals)
         for i in range(num_intervals):
             control_points_per_interval = control_points[:,i:i+self._order+1]
-            if self._curvature_method == "roots_of_curvature_derivative":
-                max_curvatures[i] = find_max_curvature_root_finder(control_points_per_interval,self._order,self._M)
-            elif self._curvature_method == "roots_numerator_and_denominator":
+            if self._curvature_method == "roots_numerator_and_denominator":
                 max_curvatures[i] = find_curvature_using_max_numerator_over_min_denominator(control_points_per_interval,self._order,self._M)
-            elif self._curvature_method == "control_point_derivatives":
-                max_curvatures[i] = get_control_point_curvature_bound(control_points_per_interval,self._order)
+            else:
+                print("Error, wrong curvature constraint type")
         return  max_curvatures
 
     def __create_min_velocity_constraint(self, min_velocity):

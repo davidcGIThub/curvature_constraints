@@ -10,15 +10,15 @@ import time
 ## move the max velocity around
 ## try direction constraint
 ## add function to get path length
-max_curvature = 1
+max_curvature = 1.5
 order = 3
 waypoints = np.array([[0,5],[0,0]])
 dimension = np.shape(waypoints)[0]
-velocities = np.array([[1,1],[0,0]]) # 0
+# velocities = np.array([[1,1],[0,0]]) # 0
 velocities = np.array([[1,0],[0,1]]) # 1
-velocities = np.array([[0,0],[1,-1]]) # 2
+# velocities = np.array([[0,0],[1,-1]]) # 2
 # velocities = np.array([[-1,-1],[0,0]]) # 3
-# velocities = np.array([[0,0],[1,1]]) # 4
+velocities = np.array([[0,0],[1,1]]) # 4
 # velocities = np.array([[-1,1],[0,0]]) # 5
 velocities = velocities/np.linalg.norm(velocities,2,0) # normalize velocities
 
@@ -48,10 +48,11 @@ for i in range(len(curvature_methods)):
     end_time = time.time()
     spline_start_time = 0
     bspline = BsplineEvaluation(control_points, order, spline_start_time, scale_factor, False)
-    number_data_points = 10000
+    number_data_points = 1000000
     spline_data, time_data = bspline.get_spline_data(number_data_points)
     spline_at_knot_points, knot_points = bspline.get_spline_at_knot_points()
     curvature_data, time_data = bspline.get_spline_curvature_data(number_data_points)
+    # centripetal_acceleration_data, time_data = bspline.get_centripetal_acceleration_data(number_data_points)
     acceleration_magnitude_data, time_data = bspline.get_derivative_magnitude_data(number_data_points,2)
     ax[0,i].plot(spline_data[0,:],spline_data[1,:],label="path",color=colors[i])
     ratio = 1
@@ -68,14 +69,16 @@ for i in range(len(curvature_methods)):
     elif curvature_methods[i] == "constrain_max_acceleration_and_min_velocity":
         ax[0,i].set_title("Max Acceleration \n and Min Velocity")
     evaluation_time = end_time - start_time
-    path_length = bspline.get_arc_length(1000000)
-    acceleration_integral = np.sum(acceleration_magnitude_data)*time_data[1]
+    path_length = bspline.get_arc_length(number_data_points)
+    # acceleration_integral = np.sum(acceleration_magnitude_data)*time_data[1]
+    # centripetal_acceleration_integral = np.sum(centripetal_acceleration_data)*time_data[1]/time_data[-1]
+    curvature_integral = np.sum(curvature_data)*time_data[1]
     curvature_extrema = np.max(curvature_data)
     width = 0.5
     ax[1,0].bar([i], [evaluation_time] , color=colors[i] )
     ax[1,1].bar([i], [path_length] , color=colors[i])
     ax[1,2].bar([i], [curvature_extrema] , color=colors[i])
-    ax[1,3].bar([i], [acceleration_integral] , color=colors[i])
+    ax[1,3].bar([i], [curvature_integral] , color=colors[i])
     head_width = 0.3
     head_length = 0.25
     ax[0,i].arrow(waypoints[0,0], waypoints[1,0], velocities[0,0]/2, velocities[1,0]/2,
@@ -95,7 +98,7 @@ ax[1,2].plot([-1,4],[max_curvature, max_curvature], color='k')
 ax[1,2].text(-0.5,max_curvature+0.15,"max curvature", backgroundcolor="w")
 ax[0,0].set_ylabel("Optimized Paths",weight='bold')
 # ax[1,2].legend()
-ax[1,3].set_ylabel("acceleration integral",weight='bold')
+ax[1,3].set_ylabel("curvature_integral",weight='bold')
 
 fig.supxlabel("Curvature Constraint Methods")
 fig.suptitle("Curvature Contrained Path Optimizations: Case 3", weight='bold')

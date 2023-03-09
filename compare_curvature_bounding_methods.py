@@ -5,7 +5,7 @@ from max_curvature_evaluators.helper_files.max_curvature_test_functions import t
 import matplotlib.pyplot as plt
 
 order = 3
-num_iterations = 1000
+num_iterations = 100
 isRestricted = False
 methods = np.array(["discrete_evaluations", "maximize_curvature_equation", "roots_of_curvature_derivative", "roots_of_curvature_numerator_and_denominator", "control_point_derivatives"]) #, "geometric"])
 colors = np.array(["b", "g", "r", "c", "m"])

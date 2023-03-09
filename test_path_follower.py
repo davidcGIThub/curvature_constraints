@@ -1,15 +1,15 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from bsplinegenerator.bsplines import BsplineEvaluation
-from path_following.spline_path_follower import BsplinePathFollower
+from mavsim_python.planning.spline_path_follower import BsplinePathFollower
 
 
-# control_points = np.array([[-3,-4,-2,-.5,1,0,2,3.5,3,5,6.5],
-#                             [.5,3.5,6,5.5,3.7,2,-1,2,5,5.5,5]]) # 2 D
+control_points = np.array([[-3,-4,-2,-.5,1,0,2,3.5,3,5,6.5],
+                            [.5,3.5,6,5.5,3.7,2,-1,2,5,5.5,5]]) # 2 D
 
-control_points = np.array([[-3,  -4, -2, -.5, 1  ,   0,  2, 3.5, 3],
-                           [.5, 3.5,  6, 5.5, 3.7,   2, -1,   2, 5],
-                           [ 1, 3.2,  5,   0, 3.3, 1.5, -1, 2.5, 4]]) # 3D
+# control_points = np.array([[-3,  -4, -2, -.5, 1  ,   0,  2, 3.5, 3],
+#                            [.5, 3.5,  6, 5.5, 3.7,   2, -1,   2, 5],
+#                            [ 1, 3.2,  5,   0, 3.3, 1.5, -1, 2.5, 4]]) # 3D
 
 
 order = 3

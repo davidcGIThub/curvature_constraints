@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 
 
 ### Parameters
-num_test_cases = 10000
+num_test_cases = 1000
 start_time = 0
 scale_factor = 1
 clamped = False
