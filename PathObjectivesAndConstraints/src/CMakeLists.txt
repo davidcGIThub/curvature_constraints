@@ -1,0 +1,15 @@
+add_library(${PROJECT_NAME} SHARED 
+    BsplineToBezier.cpp
+    BsplineToBezier.hpp
+    CubicEquationSolver.cpp
+    CubicEquationSolver.hpp
+    DerivativeEvaluator.cpp 
+    DerivativeEvaluator.hpp
+    ThirdOrderCurvatureEvaluator.cpp
+    ThirdOrderCurvatureEvaluator.hpp
+    MDMAlgorithm.cpp
+    MDMAlgorithm.hpp
+    MDMAlgorithmClass.cpp
+    MDMAlgorithmClass.hpp)
+
+target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src")

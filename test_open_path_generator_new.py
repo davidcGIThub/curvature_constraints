@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 from bsplinegenerator.bsplines import BsplineEvaluation
-from path_generation.path_generator_new import PathGenerator
+from path_generation.path_generator_compare import PathGenerator
 import time
 
 ## try different initial conditions

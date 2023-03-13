@@ -39,12 +39,12 @@ class PathGenerator:
         # create initial conditions
         self._dimension = np.shape(waypoints)[0]
 
-        initial_control_points = self.__create_initial_control_points(waypoints,joint_sfcs,self._num_control_points)
+        initial_control_points = self.__create_initial_control_points(waypoints,self._num_control_points)
         initial_scale_factor = 1
         optimization_variables = np.concatenate((initial_control_points.flatten(),[initial_scale_factor]))
         # define constraints and objective function and constraints
         waypoint_constraint = self.__create_waypoint_constraint(waypoints, self._num_control_points)
-        velocity_constraint = self.__create_waypoint_velocity_constraint(waypoint_directions, self._num_control_points)
+        velocity_constraint = self.__create_waypoint_direction_constraint(waypoint_directions, self._num_control_points)
         curvature_constraint = self.__create_curvature_constraint(max_curvature, self._num_control_points)
         objectiveFunction = self.__minimize_acceleration_objective_function
         objective_variable_bounds = self.__create_objective_variable_bounds(self._num_control_points)
@@ -85,7 +85,7 @@ class PathGenerator:
             p2 = control_points[:,i+2]
             p3 = control_points[:,i+3]
             sum_of_integrals += np.sum((p0 - 3*p1 + 3*p2 - p3)**2) 
-        return sum_of_integrals
+        return sum_of_integrals + scale_factor
 
     def __create_initial_control_points(self, waypoints):
         start_waypoint = waypoints[:,0]
@@ -112,7 +112,7 @@ class PathGenerator:
         constraint = LinearConstraint(constraint_matrix, lb=waypoints.flatten(), ub=waypoints.flatten())
         return constraint
 
-    def __create_waypoint_velocity_constraint(self, velocities, num_control_points):
+    def __create_waypoint_direction_constraint(self, direction_vectors, num_control_points):
         def velocity_constraint_function(variables):
             constraints = np.zeros(self._dimension*2)
             control_points = np.reshape(variables[0:num_control_points*self._dimension], \
@@ -122,12 +122,12 @@ class PathGenerator:
             scale_factor = variables[-1]
             T_0 = get_T_derivative_vector(self._order,0,0,1,scale_factor)
             T_f = get_T_derivative_vector(self._order,scale_factor,0,1,scale_factor)
-            start_velocity = np.dot(segement_1_control_points,np.dot(self._M,T_0)).flatten()
-            end_velocity = np.dot(segement_2_control_points,np.dot(self._M,T_f)).flatten()
-            desired_start_velocity = velocities[:,0]
-            desired_end_velocity = velocities[:,1]
-            constraints[0:self._dimension] = start_velocity - desired_start_velocity
-            constraints[self._dimension:] = end_velocity - desired_end_velocity
+            start_direction = np.dot(segement_1_control_points,np.dot(self._M,T_0)).flatten()
+            end_direction = np.dot(segement_2_control_points,np.dot(self._M,T_f)).flatten()
+            desired_start_direction = direction_vectors[:,0]
+            desired_end_direction = direction_vectors[:,1]
+            constraints[0:self._dimension] = start_direction - desired_start_direction
+            constraints[self._dimension:] = end_direction - desired_end_direction
             return constraints
         lower_bound = 0
         upper_bound = 0

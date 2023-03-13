@@ -1,8 +1,0 @@
-/home/david/Code/curvature_constraints/CurvatureEvaluation/build/CMakeFiles/rebuild_cache.dir
-/home/david/Code/curvature_constraints/CurvatureEvaluation/build/CMakeFiles/edit_cache.dir
-/home/david/Code/curvature_constraints/CurvatureEvaluation/build/src/CMakeFiles/rebuild_cache.dir
-/home/david/Code/curvature_constraints/CurvatureEvaluation/build/src/CMakeFiles/edit_cache.dir
-/home/david/Code/curvature_constraints/CurvatureEvaluation/build/src/CMakeFiles/CurvatureEvaluator.dir
-/home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests/CMakeFiles/rebuild_cache.dir
-/home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests/CMakeFiles/edit_cache.dir
-/home/david/Code/curvature_constraints/CurvatureEvaluation/build/tests/CMakeFiles/CurvatureEvaluator_UnitTest.dir
