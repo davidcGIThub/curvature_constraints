@@ -18,6 +18,7 @@ src/CMakeFiles/PathObjectivesAndConstraints.dir/MDMAlgorithmClass.cpp.o: ../src/
 src/CMakeFiles/PathObjectivesAndConstraints.dir/MDMAlgorithmClass.cpp.o: ../src/MDMAlgorithmClass.hpp
 
 src/CMakeFiles/PathObjectivesAndConstraints.dir/ThirdOrderCurvatureEvaluator.cpp.o: ../src/CubicEquationSolver.hpp
+src/CMakeFiles/PathObjectivesAndConstraints.dir/ThirdOrderCurvatureEvaluator.cpp.o: ../src/DerivativeEvaluator.hpp
 src/CMakeFiles/PathObjectivesAndConstraints.dir/ThirdOrderCurvatureEvaluator.cpp.o: ../src/ThirdOrderCurvatureEvaluator.cpp
 src/CMakeFiles/PathObjectivesAndConstraints.dir/ThirdOrderCurvatureEvaluator.cpp.o: ../src/ThirdOrderCurvatureEvaluator.hpp
 

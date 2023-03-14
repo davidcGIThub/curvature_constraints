@@ -1,5 +1,6 @@
 #include "ThirdOrderCurvatureEvaluator.hpp"
 #include "CubicEquationSolver.hpp"
+#include "DerivativeEvaluator.hpp"
 #include <iostream>
 #include <stdexcept>
 
@@ -45,40 +46,22 @@ Eigen::Matrix<double,D,4> ThirdOrderCurvatureEvaluator<D>::array_section_to_eige
 }
 
 template <int D>
-double ThirdOrderCurvatureEvaluator<D>::find_min_velocity_of_spline(double cont_pts[], int num_control_points, double scale_factor)
-{   
-    
-    double min_velocity = std::numeric_limits<double>::max();
-    double velocity;
-    for (int i = 0; i < num_control_points-3; i++)
-    {
-        int step = num_control_points;
-        Eigen::Matrix<double,D,4> interval_control_points = array_section_to_eigen(cont_pts, num_control_points, i);
-        std::array<double,2> vel_and_time = find_minimum_velocity_and_time(interval_control_points, scale_factor);
-        velocity = vel_and_time[0];
-        if (velocity < min_velocity)
-        {
-            min_velocity = velocity;
-        }
-    }
-    return min_velocity;
-}
-
-template <int D>
 double ThirdOrderCurvatureEvaluator<D>::evaluate_interval_curvature(Eigen::Matrix<double,D,4> &control_points)
 {
     double scale_factor = 1;
-    std::array<double,2> min_velocity_and_time = find_minimum_velocity_and_time(control_points,scale_factor);
+    DerivativeEvaluator<D> d_dt_eval{};
+    std::array<double,2> min_velocity_and_time = d_dt_eval.find_min_velocity_and_time(control_points,scale_factor);
     double min_velocity = min_velocity_and_time[0];
     double time_at_min_velocity = min_velocity_and_time[1];
     double max_cross_term = find_maximum_cross_term(control_points,scale_factor);
-    double max_acceleration = find_maximum_acceleration(control_points);
+    std::array<double,2> max_acceleration_and_time = d_dt_eval.find_max_acceleration_and_time(control_points, scale_factor);
+    double max_acceleration = max_acceleration_and_time[0];
     double curvature_bound;
     if (min_velocity <= 1.0e-15)
     {
         double acceleration_at_min_vel = 
-            calculate_acceleration_magnitude(time_at_min_velocity,
-                control_points);
+            d_dt_eval.calculate_acceleration_magnitude(time_at_min_velocity,
+                control_points, scale_factor);
         if(acceleration_at_min_vel == 0)
         {
             curvature_bound = 0;
@@ -98,57 +81,6 @@ double ThirdOrderCurvatureEvaluator<D>::evaluate_interval_curvature(Eigen::Matri
         }
     }
     return curvature_bound;
-}
-
-template <int D>
-std::array<double,2> ThirdOrderCurvatureEvaluator<D>::find_minimum_velocity_and_time(Eigen::Matrix<double,D,4> &control_points, double &scale_factor)
-{
-    Eigen::Matrix<double, 4,4> M = get_third_order_M_matrix();
-    Eigen::Matrix<double, 4,4> J = M.transpose()*control_points.transpose()*control_points*M;
-    double A = 36*J(0,0);
-    double B = 12*J(0,1) + 24*J(1,0);
-    double C = 8*J(1,1) + 12*J(2,0);
-    double D_ = 4*J(2,1);
-    std::array<double,3> roots = CubicEquationSolver::solve_equation(A, B, C, D_);
-    double t0 = 0;
-    double tf = 1.0;
-    double time_at_min = t0;
-    double min_velocity = calculate_velocity_magnitude(t0,control_points,scale_factor);
-    double velocity_at_tf = calculate_velocity_magnitude(tf,control_points,scale_factor);
-    if (velocity_at_tf < min_velocity)
-    {
-        min_velocity = velocity_at_tf;
-        double time_at_min = tf;
-    }
-    for(int index = 0; index < 3; index++)
-    {
-        double root = roots[index];
-        if(root > 0 && root < 1.0)
-        {
-            double velocity =  calculate_velocity_magnitude(root, control_points,scale_factor);
-            if (velocity < min_velocity)
-            {
-                min_velocity = velocity;
-                double time_at_min = root;
-            }
-        }
-    }
-    std::array<double,2> min_velocity_and_time = {min_velocity, time_at_min};
-    return min_velocity_and_time;
-}
-
-template <int D>
-double ThirdOrderCurvatureEvaluator<D>::find_maximum_acceleration(Eigen::Matrix<double,D,4> &control_points)
-{
-    double t0 = 0;
-    double tf = 1.0;
-    double max_acceleration = calculate_acceleration_magnitude(t0,control_points);
-    double acceleration_at_tf = calculate_acceleration_magnitude(tf, control_points);
-    if (acceleration_at_tf > max_acceleration)
-    {
-        max_acceleration = acceleration_at_tf;
-    }
-    return max_acceleration;
 }
 
 template <int D>
@@ -271,33 +203,11 @@ Eigen::Vector4d ThirdOrderCurvatureEvaluator<D>::get_3D_cross_coefficients(Eigen
 }
 
 template <int D>
-double ThirdOrderCurvatureEvaluator<D>::calculate_velocity_magnitude(double &t, Eigen::Matrix<double,D,4> &control_points, double &scale_factor)
-{
-    Eigen::Vector4d dT = get_third_order_T_derivative_vector(t, scale_factor);
-    Eigen::Matrix<double, 4,4> M = get_third_order_M_matrix();
-    Eigen::Matrix<double,D,1> velocity_vector = control_points*M*dT;
-    double velocity_magnitude = velocity_vector.norm();
-    return velocity_magnitude;
-}
-
-template <int D>
-double ThirdOrderCurvatureEvaluator<D>::calculate_acceleration_magnitude(double &t, Eigen::Matrix<double,D,4> &control_points)
-{
-    Eigen::Vector4d ddT = get_third_order_T_second_derivative_vector(t);
-    Eigen::Matrix<double, 4,4> M = get_third_order_M_matrix();
-    Eigen::Matrix<double,D,1> acceleration_vector = control_points*M*ddT;
-    double acceleration_magnitude = acceleration_vector.norm();
-    return acceleration_magnitude;
-}
-
-template <int D>
 double ThirdOrderCurvatureEvaluator<D>::calculate_cross_term_magnitude(double &t, Eigen::Matrix<double,D,4> &control_points, double &scale_factor)
 {
-    Eigen::Matrix<double, 4,4> M = get_third_order_M_matrix();
-    Eigen::Vector4d ddT = get_third_order_T_second_derivative_vector(t);
-    Eigen::Matrix<double,D,1> acceleration_vector = control_points*M*ddT;
-    Eigen::Vector4d dT = get_third_order_T_derivative_vector(t,scale_factor);
-    Eigen::Matrix<double,D,1> velocity_vector = control_points*M*dT;
+    DerivativeEvaluator<D> d_dt_eval{};
+    Eigen::Matrix<double,D,1> velocity_vector = d_dt_eval.calculate_velocity_vector(t, control_points, scale_factor);
+    Eigen::Matrix<double,D,1> acceleration_vector = d_dt_eval.calculate_acceleration_vector(t, control_points, scale_factor);
     double cross_term_magnitude;
     if (D == 2)
     { 
@@ -311,47 +221,6 @@ double ThirdOrderCurvatureEvaluator<D>::calculate_cross_term_magnitude(double &t
         cross_term_magnitude = sqrt(x*x + y*y + z*z);
     }
     return cross_term_magnitude;
-}
-
-template <int D>
-Eigen::Matrix<double, 4,4> ThirdOrderCurvatureEvaluator<D>::get_third_order_M_matrix()
-{
-    Eigen::Matrix<double, 4,4> M;
-    M <<  -1/6.0 ,   1/2.0 , -1/2.0 , 1/6.0,
-            1/2.0 ,      -1 ,  0     , 2/3.0,
-            -1/2.0 ,   1/2.0 ,  1/2.0 , 1/6.0,
-            1/6.0 ,  0      ,  0     , 0;
-    return M;
-}
-
-template <int D>
-Eigen::Vector4d ThirdOrderCurvatureEvaluator<D>::get_third_order_T_derivative_vector(double &t, double &scale_factor)
-{
-    Eigen::Vector4d t_vector;
-    if (t < 0 || t > 1)
-    {
-        throw std::invalid_argument("t value should be between 0 and 1");
-    }
-    else
-    {
-        t_vector << 3*t*t , 2*t , 1 , 0;
-    }
-    return t_vector;
-}
-
-template <int D>
-Eigen::Vector4d ThirdOrderCurvatureEvaluator<D>::get_third_order_T_second_derivative_vector(double &t)
-{
-    Eigen::Vector4d t_vector;
-    if (t < 0 || t > 1)
-    {
-        throw std::invalid_argument("t value should be between 0 and 1");
-    }
-    else
-    {
-        t_vector << 6*t , 2 , 0 , 0;
-    }
-    return t_vector;
 }
 
 //Explicit template instantiations

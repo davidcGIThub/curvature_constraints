@@ -26,9 +26,25 @@ CubicEquationSolver.hpp
 gtest/gtest_prod.h
 ../src/gtest/gtest_prod.h
 
+../src/ThirdOrderCurvatureEvaluator.hpp
+array
+-
+eigen3/Eigen/Core
+-
+eigen3/Eigen/Dense
+-
+gtest/gtest_prod.h
+../src/gtest/gtest_prod.h
+
 /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestDerivativeEvaluator.cpp
 gtest/gtest.h
 /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/gtest/gtest.h
 DerivativeEvaluator.hpp
 /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/DerivativeEvaluator.hpp
+
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestThirdOrderCurvatureEvaluator.cpp
+gtest/gtest.h
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/gtest/gtest.h
+ThirdOrderCurvatureEvaluator.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/ThirdOrderCurvatureEvaluator.hpp
 

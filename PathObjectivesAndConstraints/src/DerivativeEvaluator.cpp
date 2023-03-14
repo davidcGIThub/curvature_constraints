@@ -121,21 +121,35 @@ std::array<double,2> DerivativeEvaluator<D>::find_max_acceleration_and_time(Eige
 }
 
 template <int D>
-double DerivativeEvaluator<D>::calculate_velocity_magnitude(double &t, Eigen::Matrix<double,D,4> &control_points, double &scale_factor)
+Eigen::Matrix<double,D,1> DerivativeEvaluator<D>::calculate_velocity_vector(double &t, Eigen::Matrix<double,D,4> &control_points, double &scale_factor)
 {
     Eigen::Vector4d dT = get_third_order_T_derivative_vector(t, scale_factor);
-    Eigen::Matrix<double, 4,4> M = get_third_order_M_matrix();
+    Eigen::Matrix<double,4,4> M = get_third_order_M_matrix();
     Eigen::Matrix<double,D,1> velocity_vector = control_points*M*dT;
+    return velocity_vector;
+}
+
+template <int D>
+double DerivativeEvaluator<D>::calculate_velocity_magnitude(double &t, Eigen::Matrix<double,D,4> &control_points, double &scale_factor)
+{
+    Eigen::Matrix<double,D,1> velocity_vector = calculate_velocity_vector(t, control_points, scale_factor);
     double velocity_magnitude = velocity_vector.norm();
     return velocity_magnitude;
 }
 
 template <int D>
-double DerivativeEvaluator<D>::calculate_acceleration_magnitude(double &t, Eigen::Matrix<double,D,4> &control_points, double &scale_factor)
+Eigen::Matrix<double,D,1> DerivativeEvaluator<D>::calculate_acceleration_vector(double &t, Eigen::Matrix<double,D,4> &control_points, double &scale_factor)
 {
     Eigen::Vector4d ddT = get_third_order_T_second_derivative_vector(t, scale_factor);
     Eigen::Matrix<double, 4,4> M = get_third_order_M_matrix();
     Eigen::Matrix<double,D,1> acceleration_vector = control_points*M*ddT;
+    return acceleration_vector;
+}
+
+template <int D>
+double DerivativeEvaluator<D>::calculate_acceleration_magnitude(double &t, Eigen::Matrix<double,D,4> &control_points, double &scale_factor)
+{
+    Eigen::Matrix<double,D,1> acceleration_vector = calculate_acceleration_vector(t, control_points, scale_factor);
     double acceleration_magnitude = acceleration_vector.norm();
     return acceleration_magnitude;
 }
@@ -164,7 +178,7 @@ Eigen::Vector4d DerivativeEvaluator<D>::get_third_order_T_derivative_vector(doub
         }
         else
         {
-            t_vector << 3*t*t , 2*t , 1 , 0;
+            t_vector << 3*t*t , 2*t , 1, 0;
         }
     }
     else

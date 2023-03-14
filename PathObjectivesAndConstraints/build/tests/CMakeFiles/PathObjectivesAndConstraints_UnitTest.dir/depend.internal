@@ -18,6 +18,5 @@ tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestMDMAlgorithmC
  ../src/MDMAlgorithmClass.hpp
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestMDMAlgorithmClass.cpp
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.o
- ../src/CubicEquationSolver.hpp
  ../src/ThirdOrderCurvatureEvaluator.hpp
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestThirdOrderCurvatureEvaluator.cpp
