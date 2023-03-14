@@ -202,3 +202,16 @@ TEST(ThirdOrderCurvatureTest, SplineCurvatureBound2)
     double tolerance = 0.0000001;
     EXPECT_NEAR(true_max_curvature, max_curvature, tolerance);
 }
+
+TEST(ThirdOrderCurvatureTest, SplineCurvatureBound3)
+{
+    ThirdOrderCurvatureEvaluator<3> c_eval{};
+    double true_max_curvature = 2.4603294220963416;
+    int num_control_points = 4;
+    double control_points[] = {4, 1, 4, 5,
+                                2, 2, 0, 4,
+                                7, 0, 1, 7};
+    double max_curvature = c_eval.find_spline_curvature_bound(control_points, num_control_points);
+    double tolerance = 0.0000001;
+    EXPECT_NEAR(true_max_curvature, max_curvature, tolerance);
+}
