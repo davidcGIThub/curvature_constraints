@@ -38,7 +38,6 @@ class PathGenerator:
     def generate_minimum_acceleration_path(self, waypoints, waypoint_directions, max_curvature, sfcs):
         # create initial conditions
         self._dimension = np.shape(waypoints)[0]
-
         initial_control_points = self.__create_initial_control_points(waypoints,self._num_control_points)
         initial_scale_factor = 1
         optimization_variables = np.concatenate((initial_control_points.flatten(),[initial_scale_factor]))

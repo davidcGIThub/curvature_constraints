@@ -9,33 +9,15 @@ DerivativeEvaluator<D>::DerivativeEvaluator()
 
 }
 
-template<int D>
-Eigen::Matrix<double,D,4> DerivativeEvaluator<D>::array_section_to_eigen(double cont_pts[], int step, unsigned int index)
-{
-    Eigen::Matrix<double,D,4> interval_control_points;
-    if (D == 2)
-    {
-        interval_control_points << cont_pts[index], cont_pts[index+1], cont_pts[index+2], cont_pts[index+3],
-            cont_pts[step+index], cont_pts[step+index+1], cont_pts[step+index+2], cont_pts[step+index+3];
-    }
-    else
-    {
-        interval_control_points << cont_pts[index], cont_pts[index+1], cont_pts[index+2], cont_pts[index+3],
-            cont_pts[step+index], cont_pts[step+index+1], cont_pts[step+index+2], cont_pts[step+index+3],
-            cont_pts[2*step+index], cont_pts[2*step+index+1], cont_pts[2*step+index+2], cont_pts[2*step+index+3];
-    }
-    return interval_control_points;
-}
-
 template <int D>
 double DerivativeEvaluator<D>::find_min_velocity_of_spline(double cont_pts[], int num_control_points, double scale_factor)
 {   
     double min_velocity = std::numeric_limits<double>::max();
     double velocity;
+    int step = num_control_points;
     for (int i = 0; i < num_control_points-3; i++)
     {
-        int step = num_control_points;
-        Eigen::Matrix<double,D,4> interval_control_points = array_section_to_eigen(cont_pts, num_control_points, i);
+        Eigen::Matrix<double,D,4> interval_control_points = cbind_help.array_section_to_eigen(cont_pts, num_control_points, i);
         std::array<double,2> vel_and_time = find_min_velocity_and_time(interval_control_points, scale_factor);
         velocity = vel_and_time[0];
         if (velocity < min_velocity)
@@ -51,10 +33,10 @@ double DerivativeEvaluator<D>::find_max_acceleration_of_spline(double cont_pts[]
 {   
     double max_acceleration = std::numeric_limits<double>::min();
     double acceleration;
+    int step = num_control_points;
     for (int i = 0; i < num_control_points-3; i++)
     {
-        int step = num_control_points;
-        Eigen::Matrix<double,D,4> interval_control_points = array_section_to_eigen(cont_pts, num_control_points, i);
+        Eigen::Matrix<double,D,4> interval_control_points = cbind_help.array_section_to_eigen(cont_pts, num_control_points, i);
         std::array<double,2> accel_and_time = find_max_acceleration_and_time(interval_control_points, scale_factor);
         acceleration = accel_and_time[0];
         if (acceleration > max_acceleration)

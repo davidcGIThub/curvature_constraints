@@ -6,7 +6,9 @@ add_executable(${TEST_NAME}
     UnitTestThirdOrderCurvatureEvaluator.cpp
     UnitTestMDMAlgorithm.cpp
     UnitTestMDMAlgorithmClass.cpp
-    UnitTestDerivativeEvaluator.cpp)
+    UnitTestDerivativeEvaluator.cpp
+    UnitTestObjectiveFunctions.cpp
+    UnitTestWaypointConstraints.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC "${PROJECT_SOURCE_DIR}/src")
 

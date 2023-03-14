@@ -8,6 +8,7 @@ tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestCubicEquation
  ../src/CubicEquationSolver.hpp
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestCubicEquationSolver.cpp
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestDerivativeEvaluator.cpp.o
+ ../src/CBindingHelper.hpp
  ../src/CubicEquationSolver.hpp
  ../src/DerivativeEvaluator.hpp
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestDerivativeEvaluator.cpp
@@ -17,6 +18,17 @@ tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestMDMAlgorithm.
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.o
  ../src/MDMAlgorithmClass.hpp
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestMDMAlgorithmClass.cpp
+tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestObjectiveFunctions.cpp.o
+ ../src/CBindingHelper.hpp
+ ../src/ObjectiveFunctions.hpp
+ /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestObjectiveFunctions.cpp
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.o
+ ../src/CBindingHelper.hpp
  ../src/ThirdOrderCurvatureEvaluator.hpp
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestThirdOrderCurvatureEvaluator.cpp
+tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestWaypointConstraints.cpp.o
+ ../src/CBindingHelper.hpp
+ ../src/CubicEquationSolver.hpp
+ ../src/DerivativeEvaluator.hpp
+ ../src/WaypointConstraints.hpp
+ /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestWaypointConstraints.cpp

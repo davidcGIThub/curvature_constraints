@@ -10,6 +10,12 @@ add_library(${PROJECT_NAME} SHARED
     MDMAlgorithm.cpp
     MDMAlgorithm.hpp
     MDMAlgorithmClass.cpp
-    MDMAlgorithmClass.hpp)
+    MDMAlgorithmClass.hpp
+    WaypointConstraints.cpp
+    WaypointConstraints.hpp
+    ObjectiveFunctions.cpp
+    ObjectiveFunctions.hpp
+    CBindingHelper.cpp
+    CBindingHelper.hpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src")

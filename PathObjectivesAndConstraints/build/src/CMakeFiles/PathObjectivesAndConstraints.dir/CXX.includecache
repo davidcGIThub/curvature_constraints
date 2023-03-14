@@ -6,6 +6,14 @@
 
 #IncludeRegexTransform: 
 
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CBindingHelper.hpp
+eigen3/Eigen/Core
+-
+eigen3/Eigen/Dense
+-
+gtest/gtest_prod.h
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/gtest/gtest_prod.h
+
 /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CubicEquationSolver.hpp
 array
 -
@@ -25,26 +33,18 @@ CubicEquationSolver.hpp
 /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CubicEquationSolver.hpp
 gtest/gtest_prod.h
 /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/gtest/gtest_prod.h
+CBindingHelper.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CBindingHelper.hpp
 
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ThirdOrderCurvatureEvaluator.cpp
-ThirdOrderCurvatureEvaluator.hpp
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ThirdOrderCurvatureEvaluator.hpp
-CubicEquationSolver.hpp
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CubicEquationSolver.hpp
-DerivativeEvaluator.hpp
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/DerivativeEvaluator.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/WaypointConstraints.cpp
+WaypointConstraints.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/WaypointConstraints.hpp
 iostream
 -
-stdexcept
--
 
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ThirdOrderCurvatureEvaluator.hpp
-array
--
-eigen3/Eigen/Core
--
-eigen3/Eigen/Dense
--
-gtest/gtest_prod.h
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/gtest/gtest_prod.h
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/WaypointConstraints.hpp
+DerivativeEvaluator.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/DerivativeEvaluator.hpp
+CBindingHelper.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CBindingHelper.hpp
 

@@ -9,7 +9,9 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestDerivativeEvaluator.cpp" "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestDerivativeEvaluator.cpp.o"
   "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestMDMAlgorithm.cpp" "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestMDMAlgorithm.cpp.o"
   "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestMDMAlgorithmClass.cpp" "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.o"
+  "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestObjectiveFunctions.cpp" "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestObjectiveFunctions.cpp.o"
   "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestThirdOrderCurvatureEvaluator.cpp" "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.o"
+  "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestWaypointConstraints.cpp" "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestWaypointConstraints.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

@@ -135,6 +135,45 @@ src/CMakeFiles/PathObjectivesAndConstraints.dir/MDMAlgorithmClass.cpp.s: cmake_f
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PathObjectivesAndConstraints.dir/MDMAlgorithmClass.cpp.s"
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/MDMAlgorithmClass.cpp -o CMakeFiles/PathObjectivesAndConstraints.dir/MDMAlgorithmClass.cpp.s
 
+src/CMakeFiles/PathObjectivesAndConstraints.dir/WaypointConstraints.cpp.o: src/CMakeFiles/PathObjectivesAndConstraints.dir/flags.make
+src/CMakeFiles/PathObjectivesAndConstraints.dir/WaypointConstraints.cpp.o: ../src/WaypointConstraints.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object src/CMakeFiles/PathObjectivesAndConstraints.dir/WaypointConstraints.cpp.o"
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PathObjectivesAndConstraints.dir/WaypointConstraints.cpp.o -c /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/WaypointConstraints.cpp
+
+src/CMakeFiles/PathObjectivesAndConstraints.dir/WaypointConstraints.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/PathObjectivesAndConstraints.dir/WaypointConstraints.cpp.i"
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/WaypointConstraints.cpp > CMakeFiles/PathObjectivesAndConstraints.dir/WaypointConstraints.cpp.i
+
+src/CMakeFiles/PathObjectivesAndConstraints.dir/WaypointConstraints.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PathObjectivesAndConstraints.dir/WaypointConstraints.cpp.s"
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/WaypointConstraints.cpp -o CMakeFiles/PathObjectivesAndConstraints.dir/WaypointConstraints.cpp.s
+
+src/CMakeFiles/PathObjectivesAndConstraints.dir/ObjectiveFunctions.cpp.o: src/CMakeFiles/PathObjectivesAndConstraints.dir/flags.make
+src/CMakeFiles/PathObjectivesAndConstraints.dir/ObjectiveFunctions.cpp.o: ../src/ObjectiveFunctions.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object src/CMakeFiles/PathObjectivesAndConstraints.dir/ObjectiveFunctions.cpp.o"
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PathObjectivesAndConstraints.dir/ObjectiveFunctions.cpp.o -c /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ObjectiveFunctions.cpp
+
+src/CMakeFiles/PathObjectivesAndConstraints.dir/ObjectiveFunctions.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/PathObjectivesAndConstraints.dir/ObjectiveFunctions.cpp.i"
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ObjectiveFunctions.cpp > CMakeFiles/PathObjectivesAndConstraints.dir/ObjectiveFunctions.cpp.i
+
+src/CMakeFiles/PathObjectivesAndConstraints.dir/ObjectiveFunctions.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PathObjectivesAndConstraints.dir/ObjectiveFunctions.cpp.s"
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ObjectiveFunctions.cpp -o CMakeFiles/PathObjectivesAndConstraints.dir/ObjectiveFunctions.cpp.s
+
+src/CMakeFiles/PathObjectivesAndConstraints.dir/CBindingHelper.cpp.o: src/CMakeFiles/PathObjectivesAndConstraints.dir/flags.make
+src/CMakeFiles/PathObjectivesAndConstraints.dir/CBindingHelper.cpp.o: ../src/CBindingHelper.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object src/CMakeFiles/PathObjectivesAndConstraints.dir/CBindingHelper.cpp.o"
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PathObjectivesAndConstraints.dir/CBindingHelper.cpp.o -c /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CBindingHelper.cpp
+
+src/CMakeFiles/PathObjectivesAndConstraints.dir/CBindingHelper.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/PathObjectivesAndConstraints.dir/CBindingHelper.cpp.i"
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CBindingHelper.cpp > CMakeFiles/PathObjectivesAndConstraints.dir/CBindingHelper.cpp.i
+
+src/CMakeFiles/PathObjectivesAndConstraints.dir/CBindingHelper.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PathObjectivesAndConstraints.dir/CBindingHelper.cpp.s"
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CBindingHelper.cpp -o CMakeFiles/PathObjectivesAndConstraints.dir/CBindingHelper.cpp.s
+
 # Object files for target PathObjectivesAndConstraints
 PathObjectivesAndConstraints_OBJECTS = \
 "CMakeFiles/PathObjectivesAndConstraints.dir/BsplineToBezier.cpp.o" \
@@ -142,7 +181,10 @@ PathObjectivesAndConstraints_OBJECTS = \
 "CMakeFiles/PathObjectivesAndConstraints.dir/DerivativeEvaluator.cpp.o" \
 "CMakeFiles/PathObjectivesAndConstraints.dir/ThirdOrderCurvatureEvaluator.cpp.o" \
 "CMakeFiles/PathObjectivesAndConstraints.dir/MDMAlgorithm.cpp.o" \
-"CMakeFiles/PathObjectivesAndConstraints.dir/MDMAlgorithmClass.cpp.o"
+"CMakeFiles/PathObjectivesAndConstraints.dir/MDMAlgorithmClass.cpp.o" \
+"CMakeFiles/PathObjectivesAndConstraints.dir/WaypointConstraints.cpp.o" \
+"CMakeFiles/PathObjectivesAndConstraints.dir/ObjectiveFunctions.cpp.o" \
+"CMakeFiles/PathObjectivesAndConstraints.dir/CBindingHelper.cpp.o"
 
 # External object files for target PathObjectivesAndConstraints
 PathObjectivesAndConstraints_EXTERNAL_OBJECTS =
@@ -153,9 +195,12 @@ src/libPathObjectivesAndConstraints.so: src/CMakeFiles/PathObjectivesAndConstrai
 src/libPathObjectivesAndConstraints.so: src/CMakeFiles/PathObjectivesAndConstraints.dir/ThirdOrderCurvatureEvaluator.cpp.o
 src/libPathObjectivesAndConstraints.so: src/CMakeFiles/PathObjectivesAndConstraints.dir/MDMAlgorithm.cpp.o
 src/libPathObjectivesAndConstraints.so: src/CMakeFiles/PathObjectivesAndConstraints.dir/MDMAlgorithmClass.cpp.o
+src/libPathObjectivesAndConstraints.so: src/CMakeFiles/PathObjectivesAndConstraints.dir/WaypointConstraints.cpp.o
+src/libPathObjectivesAndConstraints.so: src/CMakeFiles/PathObjectivesAndConstraints.dir/ObjectiveFunctions.cpp.o
+src/libPathObjectivesAndConstraints.so: src/CMakeFiles/PathObjectivesAndConstraints.dir/CBindingHelper.cpp.o
 src/libPathObjectivesAndConstraints.so: src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make
 src/libPathObjectivesAndConstraints.so: src/CMakeFiles/PathObjectivesAndConstraints.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX shared library libPathObjectivesAndConstraints.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX shared library libPathObjectivesAndConstraints.so"
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/PathObjectivesAndConstraints.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

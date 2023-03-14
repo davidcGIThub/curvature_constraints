@@ -103,14 +103,17 @@ class PathGenerator:
         return optimized_control_points, optimized_scale_factor
 
     def __get_objective_function(self):
-        if self._objective_function_type == "minimize_distance_and_time":
-            return self.__minimize_distance_objective_function
-            # return self.__minimize_acceleration_objective_function
-        elif self._objective_function_type == "minimize_acceleration":
-            return self.__minimize_acceleration_objective_function
-            # return self.__minimize_distance_objective_function
+        # return self.__minimize_acceleration_and_distance_objective_function
+        # return self.__minimize_acceleration_and_time_objective_function
+        # return self.__minimize_acceleration_objective_function
+        # if self._objective_function_type == "minimize_distance_and_time":
+        return self.__minimize_distance_and_time_objective_function
+        #     # return self.__minimize_acceleration_objective_function
+        # elif self._objective_function_type == "minimize_acceleration":
+        #     return self.__minimize_acceleration_objective_function
+        #     # return self.__minimize_distance_objective_function
 
-    def __minimize_distance_objective_function(self, variables):
+    def __minimize_distance_and_time_objective_function(self, variables):
         # for third order splines only
         control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
             (self._dimension,self._num_control_points))
@@ -129,6 +132,10 @@ class PathGenerator:
             f =  (p0/2 - p2/2)**2
             integral = np.sum(a/5 + b/4 + c/3 + d/2 + f)
             sum_of_integrals += integral 
+        print("control_points: " , control_points)
+        print("scale_factor: " , scale_factor)
+        print("answer: " , sum_of_integrals + scale_factor )
+        print(" ")
         return sum_of_integrals + scale_factor
     
 
@@ -152,7 +159,48 @@ class PathGenerator:
             p2 = control_points[:,i+2]
             p3 = control_points[:,i+3]
             sum_of_integrals += np.sum((p0 - 3*p1 + 3*p2 - p3)**2) 
+        return sum_of_integrals
+    
+    def __minimize_acceleration_and_time_objective_function(self, variables):
+        # for third order splines only
+        control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
+            (self._dimension,self._num_control_points))
+        scale_factor = variables[-1]
+        num_intervals = self._num_control_points - self._order
+        sum_of_integrals = 0
+        for i in range(num_intervals):
+            p0 = control_points[:,i]
+            p1 = control_points[:,i+1]
+            p2 = control_points[:,i+2]
+            p3 = control_points[:,i+3]
+            sum_of_integrals += np.sum((p0 - 3*p1 + 3*p2 - p3)**2) 
+        print("control_points: " , control_points)
+        print("scale_factor: " , scale_factor)
+        print("answer: " , sum_of_integrals + scale_factor )
+        print(" ")
         return sum_of_integrals + scale_factor
+    
+    def __minimize_acceleration_and_distance_objective_function(self, variables):
+        # for third order splines only
+        control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
+            (self._dimension,self._num_control_points))
+        scale_factor = variables[-1]
+        num_intervals = self._num_control_points - self._order
+        sum_of_acceleration_integrals = 0
+        sum_of_distance_integrals = 0
+        for i in range(num_intervals):
+            p0 = control_points[:,i]
+            p1 = control_points[:,i+1]
+            p2 = control_points[:,i+2]
+            p3 = control_points[:,i+3]
+            sum_of_acceleration_integrals += np.sum((p0 - 3*p1 + 3*p2 - p3)**2) 
+            a = (p0/2 - (3*p1)/2 + (3*p2)/2 - p3/2)**2
+            b = -2*(p0 - 2*p1 + p2)*(p0/2 - (3*p1)/2 + (3*p2)/2 - p3/2)
+            c = (p0 - 2*p1 + p2)**2 + 2*(p0/2 - p2/2)*(p0/2 - (3*p1)/2 + (3*p2)/2 - p3/2)
+            d = -2*(p0/2 - p2/2)*(p0 - 2*p1 + p2)
+            f =  (p0/2 - p2/2)**2
+            sum_of_distance_integrals += np.sum(a/5 + b/4 + c/3 + d/2 + f)
+        return sum_of_acceleration_integrals + sum_of_distance_integrals
 
     def __create_initial_control_points(self, waypoints):
         start_waypoint = waypoints[:,0]
