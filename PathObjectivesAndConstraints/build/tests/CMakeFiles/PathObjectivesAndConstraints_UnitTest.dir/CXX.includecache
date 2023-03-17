@@ -6,45 +6,17 @@
 
 #IncludeRegexTransform: 
 
-../src/CBindingHelper.hpp
-eigen3/Eigen/Core
--
-eigen3/Eigen/Dense
--
-gtest/gtest_prod.h
-../src/gtest/gtest_prod.h
-
-../src/CubicEquationSolver.hpp
-array
--
-list
--
-limits
--
-
-../src/DerivativeEvaluator.hpp
-array
+../src/RectPrismCollisionChecker.hpp
+vector
 -
 eigen3/Eigen/Core
 -
 eigen3/Eigen/Dense
 -
-CubicEquationSolver.hpp
-../src/CubicEquationSolver.hpp
-gtest/gtest_prod.h
-../src/gtest/gtest_prod.h
-CBindingHelper.hpp
-../src/CBindingHelper.hpp
 
-../src/WaypointConstraints.hpp
-DerivativeEvaluator.hpp
-../src/DerivativeEvaluator.hpp
-CBindingHelper.hpp
-../src/CBindingHelper.hpp
-
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestWaypointConstraints.cpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestRectPrismCollisionChecker.cpp
 gtest/gtest.h
 /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/gtest/gtest.h
-WaypointConstraints.hpp
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/WaypointConstraints.hpp
+RectPrismCollisionChecker.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/RectPrismCollisionChecker.hpp
 

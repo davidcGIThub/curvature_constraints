@@ -4,11 +4,11 @@ add_executable(${TEST_NAME}
     UnitTestBsplineToBezier.cpp
     UnitTestCubicEquationSolver.cpp
     UnitTestThirdOrderCurvatureEvaluator.cpp
-    UnitTestMDMAlgorithm.cpp
     UnitTestMDMAlgorithmClass.cpp
     UnitTestDerivativeEvaluator.cpp
     UnitTestObjectiveFunctions.cpp
-    UnitTestWaypointConstraints.cpp)
+    UnitTestWaypointConstraints.cpp
+    UnitTestRectPrismCollisionChecker.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC "${PROJECT_SOURCE_DIR}/src")
 

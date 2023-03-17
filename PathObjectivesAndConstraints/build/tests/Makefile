@@ -206,33 +206,6 @@ UnitTestDerivativeEvaluator.cpp.s:
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestDerivativeEvaluator.cpp.s
 .PHONY : UnitTestDerivativeEvaluator.cpp.s
 
-UnitTestMDMAlgorithm.o: UnitTestMDMAlgorithm.cpp.o
-
-.PHONY : UnitTestMDMAlgorithm.o
-
-# target to build an object file
-UnitTestMDMAlgorithm.cpp.o:
-	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestMDMAlgorithm.cpp.o
-.PHONY : UnitTestMDMAlgorithm.cpp.o
-
-UnitTestMDMAlgorithm.i: UnitTestMDMAlgorithm.cpp.i
-
-.PHONY : UnitTestMDMAlgorithm.i
-
-# target to preprocess a source file
-UnitTestMDMAlgorithm.cpp.i:
-	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestMDMAlgorithm.cpp.i
-.PHONY : UnitTestMDMAlgorithm.cpp.i
-
-UnitTestMDMAlgorithm.s: UnitTestMDMAlgorithm.cpp.s
-
-.PHONY : UnitTestMDMAlgorithm.s
-
-# target to generate assembly for a file
-UnitTestMDMAlgorithm.cpp.s:
-	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestMDMAlgorithm.cpp.s
-.PHONY : UnitTestMDMAlgorithm.cpp.s
-
 UnitTestMDMAlgorithmClass.o: UnitTestMDMAlgorithmClass.cpp.o
 
 .PHONY : UnitTestMDMAlgorithmClass.o
@@ -286,6 +259,33 @@ UnitTestObjectiveFunctions.s: UnitTestObjectiveFunctions.cpp.s
 UnitTestObjectiveFunctions.cpp.s:
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestObjectiveFunctions.cpp.s
 .PHONY : UnitTestObjectiveFunctions.cpp.s
+
+UnitTestRectPrismCollisionChecker.o: UnitTestRectPrismCollisionChecker.cpp.o
+
+.PHONY : UnitTestRectPrismCollisionChecker.o
+
+# target to build an object file
+UnitTestRectPrismCollisionChecker.cpp.o:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestRectPrismCollisionChecker.cpp.o
+.PHONY : UnitTestRectPrismCollisionChecker.cpp.o
+
+UnitTestRectPrismCollisionChecker.i: UnitTestRectPrismCollisionChecker.cpp.i
+
+.PHONY : UnitTestRectPrismCollisionChecker.i
+
+# target to preprocess a source file
+UnitTestRectPrismCollisionChecker.cpp.i:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestRectPrismCollisionChecker.cpp.i
+.PHONY : UnitTestRectPrismCollisionChecker.cpp.i
+
+UnitTestRectPrismCollisionChecker.s: UnitTestRectPrismCollisionChecker.cpp.s
+
+.PHONY : UnitTestRectPrismCollisionChecker.s
+
+# target to generate assembly for a file
+UnitTestRectPrismCollisionChecker.cpp.s:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestRectPrismCollisionChecker.cpp.s
+.PHONY : UnitTestRectPrismCollisionChecker.cpp.s
 
 UnitTestThirdOrderCurvatureEvaluator.o: UnitTestThirdOrderCurvatureEvaluator.cpp.o
 
@@ -359,15 +359,15 @@ help:
 	@echo "... UnitTestDerivativeEvaluator.o"
 	@echo "... UnitTestDerivativeEvaluator.i"
 	@echo "... UnitTestDerivativeEvaluator.s"
-	@echo "... UnitTestMDMAlgorithm.o"
-	@echo "... UnitTestMDMAlgorithm.i"
-	@echo "... UnitTestMDMAlgorithm.s"
 	@echo "... UnitTestMDMAlgorithmClass.o"
 	@echo "... UnitTestMDMAlgorithmClass.i"
 	@echo "... UnitTestMDMAlgorithmClass.s"
 	@echo "... UnitTestObjectiveFunctions.o"
 	@echo "... UnitTestObjectiveFunctions.i"
 	@echo "... UnitTestObjectiveFunctions.s"
+	@echo "... UnitTestRectPrismCollisionChecker.o"
+	@echo "... UnitTestRectPrismCollisionChecker.i"
+	@echo "... UnitTestRectPrismCollisionChecker.s"
 	@echo "... UnitTestThirdOrderCurvatureEvaluator.o"
 	@echo "... UnitTestThirdOrderCurvatureEvaluator.i"
 	@echo "... UnitTestThirdOrderCurvatureEvaluator.s"

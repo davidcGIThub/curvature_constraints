@@ -15,15 +15,15 @@ src/CMakeFiles/PathObjectivesAndConstraints.dir/DerivativeEvaluator.cpp.o: ../sr
 src/CMakeFiles/PathObjectivesAndConstraints.dir/DerivativeEvaluator.cpp.o: ../src/DerivativeEvaluator.cpp
 src/CMakeFiles/PathObjectivesAndConstraints.dir/DerivativeEvaluator.cpp.o: ../src/DerivativeEvaluator.hpp
 
-src/CMakeFiles/PathObjectivesAndConstraints.dir/MDMAlgorithm.cpp.o: ../src/MDMAlgorithm.cpp
-src/CMakeFiles/PathObjectivesAndConstraints.dir/MDMAlgorithm.cpp.o: ../src/MDMAlgorithm.hpp
-
 src/CMakeFiles/PathObjectivesAndConstraints.dir/MDMAlgorithmClass.cpp.o: ../src/MDMAlgorithmClass.cpp
 src/CMakeFiles/PathObjectivesAndConstraints.dir/MDMAlgorithmClass.cpp.o: ../src/MDMAlgorithmClass.hpp
 
 src/CMakeFiles/PathObjectivesAndConstraints.dir/ObjectiveFunctions.cpp.o: ../src/CBindingHelper.hpp
 src/CMakeFiles/PathObjectivesAndConstraints.dir/ObjectiveFunctions.cpp.o: ../src/ObjectiveFunctions.cpp
 src/CMakeFiles/PathObjectivesAndConstraints.dir/ObjectiveFunctions.cpp.o: ../src/ObjectiveFunctions.hpp
+
+src/CMakeFiles/PathObjectivesAndConstraints.dir/RectPrismCollisionChecker.cpp.o: ../src/RectPrismCollisionChecker.cpp
+src/CMakeFiles/PathObjectivesAndConstraints.dir/RectPrismCollisionChecker.cpp.o: ../src/RectPrismCollisionChecker.hpp
 
 src/CMakeFiles/PathObjectivesAndConstraints.dir/ThirdOrderCurvatureEvaluator.cpp.o: ../src/CBindingHelper.hpp
 src/CMakeFiles/PathObjectivesAndConstraints.dir/ThirdOrderCurvatureEvaluator.cpp.o: ../src/CubicEquationSolver.hpp

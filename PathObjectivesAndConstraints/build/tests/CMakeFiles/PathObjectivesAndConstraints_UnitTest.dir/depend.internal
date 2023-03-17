@@ -12,9 +12,6 @@ tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestDerivativeEva
  ../src/CubicEquationSolver.hpp
  ../src/DerivativeEvaluator.hpp
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestDerivativeEvaluator.cpp
-tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestMDMAlgorithm.cpp.o
- ../src/MDMAlgorithm.hpp
- /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestMDMAlgorithm.cpp
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.o
  ../src/MDMAlgorithmClass.hpp
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestMDMAlgorithmClass.cpp
@@ -22,6 +19,9 @@ tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestObjectiveFunc
  ../src/CBindingHelper.hpp
  ../src/ObjectiveFunctions.hpp
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestObjectiveFunctions.cpp
+tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestRectPrismCollisionChecker.cpp.o
+ ../src/RectPrismCollisionChecker.hpp
+ /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestRectPrismCollisionChecker.cpp
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.o
  ../src/CBindingHelper.hpp
  ../src/ThirdOrderCurvatureEvaluator.hpp

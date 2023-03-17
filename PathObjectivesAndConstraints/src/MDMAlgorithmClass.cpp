@@ -4,16 +4,15 @@
 
 
 
-template <int N, int D>
-MDMAlgorithmClass<N,D>::MDMAlgorithmClass(){}
+template <int D>
+MDMAlgorithmClass<D>::MDMAlgorithmClass(){}
 
-template <int N, int D>
-double MDMAlgorithmClass<N,D>::min_norm(Eigen::Matrix<double, D, N> points, 
-    int max_iterations, unsigned int initial_index, double tolerance)
+template <int D>
+double MDMAlgorithmClass<D>::min_norm(Eigen::MatrixXd points, int num_points,
+            int max_iterations, unsigned int initial_index,double tolerance)
 {
     int iterations{0};
     double delta_p{1.0};
-    int num_points{N};
     double p_vector[num_points] = {0};
     std::vector<int> supp_vector;
     int index{0};
@@ -36,7 +35,7 @@ double MDMAlgorithmClass<N,D>::min_norm(Eigen::Matrix<double, D, N> points,
         int max_index = find_max_index(mult,supp_vector.size());
         max_index = supp_vector[max_index];
         mult = current_vector.transpose()*points;
-        int min_index = find_min_index(mult,N);
+        int min_index = find_min_index(mult,num_points);
         Eigen::Matrix<double,D,1> min_point = points.block(0,min_index,D,1);
         Eigen::Matrix<double,D,1> max_point = points.block(0,max_index,D,1);
         Eigen::Matrix<double,D,1> diff = max_point - min_point;
@@ -69,8 +68,8 @@ double MDMAlgorithmClass<N,D>::min_norm(Eigen::Matrix<double, D, N> points,
     return min_norm;
 }
 
-template <int N, int D>
-int MDMAlgorithmClass<N,D>::find_max_index(Eigen::VectorXd matrix, int length)
+template <int D>
+int MDMAlgorithmClass<D>::find_max_index(Eigen::VectorXd matrix, int length)
 {
     double max_size = std::numeric_limits<double>::min();
     int max_index = 0;
@@ -85,8 +84,8 @@ int MDMAlgorithmClass<N,D>::find_max_index(Eigen::VectorXd matrix, int length)
     return max_index;
 }
 
-template <int N, int D>
-int MDMAlgorithmClass<N,D>::find_min_index(Eigen::VectorXd matrix, int length)
+template <int D>
+int MDMAlgorithmClass<D>::find_min_index(Eigen::VectorXd matrix, int length)
 {
     double min_size = std::numeric_limits<double>::max();
     int min_index = 0;
@@ -101,13 +100,5 @@ int MDMAlgorithmClass<N,D>::find_min_index(Eigen::VectorXd matrix, int length)
     return min_index;
 }
 
-template <int N, int D>
-int MDMAlgorithmClass<N,D>::get_the_max(std::array<int, N> arr)
-{
-    return arr.size();
-}
-
-template class MDMAlgorithmClass<5,2>;
-template class MDMAlgorithmClass<6,2>;
-// template class MDMAlgorithmClass<5,3>;
-// template class MDMAlgorithmClass<6,3>;
+template class MDMAlgorithmClass<2>;
+template class MDMAlgorithmClass<3>;

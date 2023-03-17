@@ -233,33 +233,6 @@ DerivativeEvaluator.cpp.s:
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/DerivativeEvaluator.cpp.s
 .PHONY : DerivativeEvaluator.cpp.s
 
-MDMAlgorithm.o: MDMAlgorithm.cpp.o
-
-.PHONY : MDMAlgorithm.o
-
-# target to build an object file
-MDMAlgorithm.cpp.o:
-	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/MDMAlgorithm.cpp.o
-.PHONY : MDMAlgorithm.cpp.o
-
-MDMAlgorithm.i: MDMAlgorithm.cpp.i
-
-.PHONY : MDMAlgorithm.i
-
-# target to preprocess a source file
-MDMAlgorithm.cpp.i:
-	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/MDMAlgorithm.cpp.i
-.PHONY : MDMAlgorithm.cpp.i
-
-MDMAlgorithm.s: MDMAlgorithm.cpp.s
-
-.PHONY : MDMAlgorithm.s
-
-# target to generate assembly for a file
-MDMAlgorithm.cpp.s:
-	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/MDMAlgorithm.cpp.s
-.PHONY : MDMAlgorithm.cpp.s
-
 MDMAlgorithmClass.o: MDMAlgorithmClass.cpp.o
 
 .PHONY : MDMAlgorithmClass.o
@@ -313,6 +286,33 @@ ObjectiveFunctions.s: ObjectiveFunctions.cpp.s
 ObjectiveFunctions.cpp.s:
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/ObjectiveFunctions.cpp.s
 .PHONY : ObjectiveFunctions.cpp.s
+
+RectPrismCollisionChecker.o: RectPrismCollisionChecker.cpp.o
+
+.PHONY : RectPrismCollisionChecker.o
+
+# target to build an object file
+RectPrismCollisionChecker.cpp.o:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/RectPrismCollisionChecker.cpp.o
+.PHONY : RectPrismCollisionChecker.cpp.o
+
+RectPrismCollisionChecker.i: RectPrismCollisionChecker.cpp.i
+
+.PHONY : RectPrismCollisionChecker.i
+
+# target to preprocess a source file
+RectPrismCollisionChecker.cpp.i:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/RectPrismCollisionChecker.cpp.i
+.PHONY : RectPrismCollisionChecker.cpp.i
+
+RectPrismCollisionChecker.s: RectPrismCollisionChecker.cpp.s
+
+.PHONY : RectPrismCollisionChecker.s
+
+# target to generate assembly for a file
+RectPrismCollisionChecker.cpp.s:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/RectPrismCollisionChecker.cpp.s
+.PHONY : RectPrismCollisionChecker.cpp.s
 
 ThirdOrderCurvatureEvaluator.o: ThirdOrderCurvatureEvaluator.cpp.o
 
@@ -389,15 +389,15 @@ help:
 	@echo "... DerivativeEvaluator.o"
 	@echo "... DerivativeEvaluator.i"
 	@echo "... DerivativeEvaluator.s"
-	@echo "... MDMAlgorithm.o"
-	@echo "... MDMAlgorithm.i"
-	@echo "... MDMAlgorithm.s"
 	@echo "... MDMAlgorithmClass.o"
 	@echo "... MDMAlgorithmClass.i"
 	@echo "... MDMAlgorithmClass.s"
 	@echo "... ObjectiveFunctions.o"
 	@echo "... ObjectiveFunctions.i"
 	@echo "... ObjectiveFunctions.s"
+	@echo "... RectPrismCollisionChecker.o"
+	@echo "... RectPrismCollisionChecker.i"
+	@echo "... RectPrismCollisionChecker.s"
 	@echo "... ThirdOrderCurvatureEvaluator.o"
 	@echo "... ThirdOrderCurvatureEvaluator.i"
 	@echo "... ThirdOrderCurvatureEvaluator.s"

@@ -15,9 +15,6 @@ src/CMakeFiles/PathObjectivesAndConstraints.dir/DerivativeEvaluator.cpp.o
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CubicEquationSolver.hpp
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/DerivativeEvaluator.cpp
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/DerivativeEvaluator.hpp
-src/CMakeFiles/PathObjectivesAndConstraints.dir/MDMAlgorithm.cpp.o
- /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/MDMAlgorithm.cpp
- /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/MDMAlgorithm.hpp
 src/CMakeFiles/PathObjectivesAndConstraints.dir/MDMAlgorithmClass.cpp.o
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/MDMAlgorithmClass.cpp
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/MDMAlgorithmClass.hpp
@@ -25,6 +22,9 @@ src/CMakeFiles/PathObjectivesAndConstraints.dir/ObjectiveFunctions.cpp.o
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CBindingHelper.hpp
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ObjectiveFunctions.cpp
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ObjectiveFunctions.hpp
+src/CMakeFiles/PathObjectivesAndConstraints.dir/RectPrismCollisionChecker.cpp.o
+ /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/RectPrismCollisionChecker.cpp
+ /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/RectPrismCollisionChecker.hpp
 src/CMakeFiles/PathObjectivesAndConstraints.dir/ThirdOrderCurvatureEvaluator.cpp.o
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CBindingHelper.hpp
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CubicEquationSolver.hpp

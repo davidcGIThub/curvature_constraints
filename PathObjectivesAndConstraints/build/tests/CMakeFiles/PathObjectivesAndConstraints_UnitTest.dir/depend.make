@@ -12,15 +12,15 @@ tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestDerivativeEva
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestDerivativeEvaluator.cpp.o: ../src/DerivativeEvaluator.hpp
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestDerivativeEvaluator.cpp.o: ../tests/UnitTestDerivativeEvaluator.cpp
 
-tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestMDMAlgorithm.cpp.o: ../src/MDMAlgorithm.hpp
-tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestMDMAlgorithm.cpp.o: ../tests/UnitTestMDMAlgorithm.cpp
-
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.o: ../src/MDMAlgorithmClass.hpp
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.o: ../tests/UnitTestMDMAlgorithmClass.cpp
 
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestObjectiveFunctions.cpp.o: ../src/CBindingHelper.hpp
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestObjectiveFunctions.cpp.o: ../src/ObjectiveFunctions.hpp
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestObjectiveFunctions.cpp.o: ../tests/UnitTestObjectiveFunctions.cpp
+
+tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestRectPrismCollisionChecker.cpp.o: ../src/RectPrismCollisionChecker.hpp
+tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestRectPrismCollisionChecker.cpp.o: ../tests/UnitTestRectPrismCollisionChecker.cpp
 
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.o: ../src/CBindingHelper.hpp
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.o: ../src/ThirdOrderCurvatureEvaluator.hpp

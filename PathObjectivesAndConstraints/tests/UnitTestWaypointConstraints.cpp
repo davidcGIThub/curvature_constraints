@@ -8,7 +8,7 @@ TEST(WaypointConstraintTests, VelocitiesCase1)
                                1, 6, 2, 2, 1, 4, 1, 4};
     int num_control_points = 8;
     double scale_factor = 1;
-    double true_constraints[] = {-4,  -6.5, -0.5, -4. };
+    double true_constraints[] = {-4, -6.5, -0.5, -4};
     double desired_velocities[] = {7, 3, 1, 4};
     double* constraints = waypoint_const.velocity_at_waypoints(control_points, num_control_points,
                         scale_factor, desired_velocities);
