@@ -5,7 +5,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/BsplineToBezier.cpp" "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/src/CMakeFiles/PathObjectivesAndConstraints.dir/BsplineToBezier.cpp.o"
+  "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/BsplineToMinvo.cpp" "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/src/CMakeFiles/PathObjectivesAndConstraints.dir/BsplineToMinvo.cpp.o"
   "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CBindingHelper.cpp" "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/src/CMakeFiles/PathObjectivesAndConstraints.dir/CBindingHelper.cpp.o"
+  "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ConvexHullCollisionChecker.cpp" "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/src/CMakeFiles/PathObjectivesAndConstraints.dir/ConvexHullCollisionChecker.cpp.o"
   "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CubicEquationSolver.cpp" "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/src/CMakeFiles/PathObjectivesAndConstraints.dir/CubicEquationSolver.cpp.o"
   "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/DerivativeEvaluator.cpp" "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/src/CMakeFiles/PathObjectivesAndConstraints.dir/DerivativeEvaluator.cpp.o"
   "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/MDMAlgorithmClass.cpp" "/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/src/CMakeFiles/PathObjectivesAndConstraints.dir/MDMAlgorithmClass.cpp.o"

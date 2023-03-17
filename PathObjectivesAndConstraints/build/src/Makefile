@@ -152,6 +152,33 @@ BsplineToBezier.cpp.s:
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/BsplineToBezier.cpp.s
 .PHONY : BsplineToBezier.cpp.s
 
+BsplineToMinvo.o: BsplineToMinvo.cpp.o
+
+.PHONY : BsplineToMinvo.o
+
+# target to build an object file
+BsplineToMinvo.cpp.o:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/BsplineToMinvo.cpp.o
+.PHONY : BsplineToMinvo.cpp.o
+
+BsplineToMinvo.i: BsplineToMinvo.cpp.i
+
+.PHONY : BsplineToMinvo.i
+
+# target to preprocess a source file
+BsplineToMinvo.cpp.i:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/BsplineToMinvo.cpp.i
+.PHONY : BsplineToMinvo.cpp.i
+
+BsplineToMinvo.s: BsplineToMinvo.cpp.s
+
+.PHONY : BsplineToMinvo.s
+
+# target to generate assembly for a file
+BsplineToMinvo.cpp.s:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/BsplineToMinvo.cpp.s
+.PHONY : BsplineToMinvo.cpp.s
+
 CBindingHelper.o: CBindingHelper.cpp.o
 
 .PHONY : CBindingHelper.o
@@ -178,6 +205,33 @@ CBindingHelper.s: CBindingHelper.cpp.s
 CBindingHelper.cpp.s:
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/CBindingHelper.cpp.s
 .PHONY : CBindingHelper.cpp.s
+
+ConvexHullCollisionChecker.o: ConvexHullCollisionChecker.cpp.o
+
+.PHONY : ConvexHullCollisionChecker.o
+
+# target to build an object file
+ConvexHullCollisionChecker.cpp.o:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/ConvexHullCollisionChecker.cpp.o
+.PHONY : ConvexHullCollisionChecker.cpp.o
+
+ConvexHullCollisionChecker.i: ConvexHullCollisionChecker.cpp.i
+
+.PHONY : ConvexHullCollisionChecker.i
+
+# target to preprocess a source file
+ConvexHullCollisionChecker.cpp.i:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/ConvexHullCollisionChecker.cpp.i
+.PHONY : ConvexHullCollisionChecker.cpp.i
+
+ConvexHullCollisionChecker.s: ConvexHullCollisionChecker.cpp.s
+
+.PHONY : ConvexHullCollisionChecker.s
+
+# target to generate assembly for a file
+ConvexHullCollisionChecker.cpp.s:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/ConvexHullCollisionChecker.cpp.s
+.PHONY : ConvexHullCollisionChecker.cpp.s
 
 CubicEquationSolver.o: CubicEquationSolver.cpp.o
 
@@ -380,9 +434,15 @@ help:
 	@echo "... BsplineToBezier.o"
 	@echo "... BsplineToBezier.i"
 	@echo "... BsplineToBezier.s"
+	@echo "... BsplineToMinvo.o"
+	@echo "... BsplineToMinvo.i"
+	@echo "... BsplineToMinvo.s"
 	@echo "... CBindingHelper.o"
 	@echo "... CBindingHelper.i"
 	@echo "... CBindingHelper.s"
+	@echo "... ConvexHullCollisionChecker.o"
+	@echo "... ConvexHullCollisionChecker.i"
+	@echo "... ConvexHullCollisionChecker.s"
 	@echo "... CubicEquationSolver.o"
 	@echo "... CubicEquationSolver.i"
 	@echo "... CubicEquationSolver.s"

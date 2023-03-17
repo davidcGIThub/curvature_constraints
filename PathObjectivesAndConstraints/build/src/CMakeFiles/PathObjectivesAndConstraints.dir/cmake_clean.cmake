@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/PathObjectivesAndConstraints.dir/BsplineToBezier.cpp.o"
+  "CMakeFiles/PathObjectivesAndConstraints.dir/BsplineToMinvo.cpp.o"
   "CMakeFiles/PathObjectivesAndConstraints.dir/CBindingHelper.cpp.o"
+  "CMakeFiles/PathObjectivesAndConstraints.dir/ConvexHullCollisionChecker.cpp.o"
   "CMakeFiles/PathObjectivesAndConstraints.dir/CubicEquationSolver.cpp.o"
   "CMakeFiles/PathObjectivesAndConstraints.dir/DerivativeEvaluator.cpp.o"
   "CMakeFiles/PathObjectivesAndConstraints.dir/MDMAlgorithmClass.cpp.o"

@@ -1,6 +1,8 @@
 add_library(${PROJECT_NAME} SHARED 
     BsplineToBezier.cpp
     BsplineToBezier.hpp
+    BsplineToMinvo.cpp
+    BsplineToMinvo.hpp
     CubicEquationSolver.cpp
     CubicEquationSolver.hpp
     DerivativeEvaluator.cpp 
@@ -16,6 +18,8 @@ add_library(${PROJECT_NAME} SHARED
     CBindingHelper.cpp
     CBindingHelper.hpp
     RectPrismCollisionChecker.cpp
-    RectPrismCollisionChecker.hpp)
+    RectPrismCollisionChecker.hpp
+    ConvexHullCollisionChecker.cpp
+    ConvexHullCollisionChecker.hpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src")

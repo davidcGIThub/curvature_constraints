@@ -5,7 +5,7 @@ template <int D>
 class ObstacleConstraints
 {
     public:
-        
+        obstacleDistancesToSpline()
     private:
 }
 

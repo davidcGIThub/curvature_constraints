@@ -57,9 +57,22 @@ include tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/progress.make
 # Include the compile flags for this target's objects.
 include tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/flags.make
 
+tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToMinvo.cpp.o: tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/flags.make
+tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToMinvo.cpp.o: ../tests/UnitTestBsplineToMinvo.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToMinvo.cpp.o"
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToMinvo.cpp.o -c /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestBsplineToMinvo.cpp
+
+tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToMinvo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToMinvo.cpp.i"
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestBsplineToMinvo.cpp > CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToMinvo.cpp.i
+
+tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToMinvo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToMinvo.cpp.s"
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestBsplineToMinvo.cpp -o CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToMinvo.cpp.s
+
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToBezier.cpp.o: tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/flags.make
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToBezier.cpp.o: ../tests/UnitTestBsplineToBezier.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToBezier.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToBezier.cpp.o"
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToBezier.cpp.o -c /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestBsplineToBezier.cpp
 
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToBezier.cpp.i: cmake_force
@@ -72,7 +85,7 @@ tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToBezi
 
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestCubicEquationSolver.cpp.o: tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/flags.make
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestCubicEquationSolver.cpp.o: ../tests/UnitTestCubicEquationSolver.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestCubicEquationSolver.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestCubicEquationSolver.cpp.o"
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestCubicEquationSolver.cpp.o -c /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestCubicEquationSolver.cpp
 
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestCubicEquationSolver.cpp.i: cmake_force
@@ -85,7 +98,7 @@ tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestCubicEquation
 
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.o: tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/flags.make
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.o: ../tests/UnitTestThirdOrderCurvatureEvaluator.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.o"
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.o -c /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestThirdOrderCurvatureEvaluator.cpp
 
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.i: cmake_force
@@ -98,7 +111,7 @@ tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestThirdOrderCur
 
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.o: tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/flags.make
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.o: ../tests/UnitTestMDMAlgorithmClass.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.o"
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.o -c /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestMDMAlgorithmClass.cpp
 
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestMDMAlgorithmClass.cpp.i: cmake_force
@@ -111,7 +124,7 @@ tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestMDMAlgorithmC
 
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestDerivativeEvaluator.cpp.o: tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/flags.make
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestDerivativeEvaluator.cpp.o: ../tests/UnitTestDerivativeEvaluator.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestDerivativeEvaluator.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestDerivativeEvaluator.cpp.o"
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestDerivativeEvaluator.cpp.o -c /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestDerivativeEvaluator.cpp
 
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestDerivativeEvaluator.cpp.i: cmake_force
@@ -124,7 +137,7 @@ tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestDerivativeEva
 
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestObjectiveFunctions.cpp.o: tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/flags.make
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestObjectiveFunctions.cpp.o: ../tests/UnitTestObjectiveFunctions.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestObjectiveFunctions.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestObjectiveFunctions.cpp.o"
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestObjectiveFunctions.cpp.o -c /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestObjectiveFunctions.cpp
 
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestObjectiveFunctions.cpp.i: cmake_force
@@ -137,7 +150,7 @@ tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestObjectiveFunc
 
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestWaypointConstraints.cpp.o: tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/flags.make
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestWaypointConstraints.cpp.o: ../tests/UnitTestWaypointConstraints.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestWaypointConstraints.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestWaypointConstraints.cpp.o"
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestWaypointConstraints.cpp.o -c /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestWaypointConstraints.cpp
 
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestWaypointConstraints.cpp.i: cmake_force
@@ -150,7 +163,7 @@ tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestWaypointConst
 
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestRectPrismCollisionChecker.cpp.o: tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/flags.make
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestRectPrismCollisionChecker.cpp.o: ../tests/UnitTestRectPrismCollisionChecker.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestRectPrismCollisionChecker.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestRectPrismCollisionChecker.cpp.o"
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestRectPrismCollisionChecker.cpp.o -c /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestRectPrismCollisionChecker.cpp
 
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestRectPrismCollisionChecker.cpp.i: cmake_force
@@ -161,8 +174,22 @@ tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestRectPrismColl
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestRectPrismCollisionChecker.cpp.s"
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestRectPrismCollisionChecker.cpp -o CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestRectPrismCollisionChecker.cpp.s
 
+tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestConvexHullCollisionChecker.cpp.o: tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/flags.make
+tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestConvexHullCollisionChecker.cpp.o: ../tests/UnitTestConvexHullCollisionChecker.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestConvexHullCollisionChecker.cpp.o"
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestConvexHullCollisionChecker.cpp.o -c /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestConvexHullCollisionChecker.cpp
+
+tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestConvexHullCollisionChecker.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestConvexHullCollisionChecker.cpp.i"
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestConvexHullCollisionChecker.cpp > CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestConvexHullCollisionChecker.cpp.i
+
+tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestConvexHullCollisionChecker.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestConvexHullCollisionChecker.cpp.s"
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestConvexHullCollisionChecker.cpp -o CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestConvexHullCollisionChecker.cpp.s
+
 # Object files for target PathObjectivesAndConstraints_UnitTest
 PathObjectivesAndConstraints_UnitTest_OBJECTS = \
+"CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToMinvo.cpp.o" \
 "CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToBezier.cpp.o" \
 "CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestCubicEquationSolver.cpp.o" \
 "CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.o" \
@@ -170,11 +197,13 @@ PathObjectivesAndConstraints_UnitTest_OBJECTS = \
 "CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestDerivativeEvaluator.cpp.o" \
 "CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestObjectiveFunctions.cpp.o" \
 "CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestWaypointConstraints.cpp.o" \
-"CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestRectPrismCollisionChecker.cpp.o"
+"CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestRectPrismCollisionChecker.cpp.o" \
+"CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestConvexHullCollisionChecker.cpp.o"
 
 # External object files for target PathObjectivesAndConstraints_UnitTest
 PathObjectivesAndConstraints_UnitTest_EXTERNAL_OBJECTS =
 
+tests/PathObjectivesAndConstraints_UnitTest: tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToMinvo.cpp.o
 tests/PathObjectivesAndConstraints_UnitTest: tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToBezier.cpp.o
 tests/PathObjectivesAndConstraints_UnitTest: tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestCubicEquationSolver.cpp.o
 tests/PathObjectivesAndConstraints_UnitTest: tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.o
@@ -183,12 +212,13 @@ tests/PathObjectivesAndConstraints_UnitTest: tests/CMakeFiles/PathObjectivesAndC
 tests/PathObjectivesAndConstraints_UnitTest: tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestObjectiveFunctions.cpp.o
 tests/PathObjectivesAndConstraints_UnitTest: tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestWaypointConstraints.cpp.o
 tests/PathObjectivesAndConstraints_UnitTest: tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestRectPrismCollisionChecker.cpp.o
+tests/PathObjectivesAndConstraints_UnitTest: tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestConvexHullCollisionChecker.cpp.o
 tests/PathObjectivesAndConstraints_UnitTest: tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make
 tests/PathObjectivesAndConstraints_UnitTest: /usr/lib/x86_64-linux-gnu/libgtest.a
 tests/PathObjectivesAndConstraints_UnitTest: /usr/lib/x86_64-linux-gnu/libgtest_main.a
 tests/PathObjectivesAndConstraints_UnitTest: src/libPathObjectivesAndConstraints.so
 tests/PathObjectivesAndConstraints_UnitTest: tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable PathObjectivesAndConstraints_UnitTest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable PathObjectivesAndConstraints_UnitTest"
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build/tests && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -6,14 +6,14 @@
 
 #IncludeRegexTransform: 
 
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/RectPrismCollisionChecker.cpp
-RectPrismCollisionChecker.hpp
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/RectPrismCollisionChecker.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/BsplineToMinvo.cpp
+BsplineToMinvo.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/BsplineToMinvo.hpp
 iostream
 -
 
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/RectPrismCollisionChecker.hpp
-vector
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/BsplineToMinvo.hpp
+array
 -
 eigen3/Eigen/Core
 -

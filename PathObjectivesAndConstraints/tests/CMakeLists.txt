@@ -1,6 +1,7 @@
 set(TEST_NAME ${PROJECT_NAME}_UnitTest)
 
 add_executable(${TEST_NAME}
+    UnitTestBsplineToMinvo.cpp
     UnitTestBsplineToBezier.cpp
     UnitTestCubicEquationSolver.cpp
     UnitTestThirdOrderCurvatureEvaluator.cpp
@@ -8,7 +9,8 @@ add_executable(${TEST_NAME}
     UnitTestDerivativeEvaluator.cpp
     UnitTestObjectiveFunctions.cpp
     UnitTestWaypointConstraints.cpp
-    UnitTestRectPrismCollisionChecker.cpp)
+    UnitTestRectPrismCollisionChecker.cpp
+    UnitTestConvexHullCollisionChecker.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC "${PROJECT_SOURCE_DIR}/src")
 

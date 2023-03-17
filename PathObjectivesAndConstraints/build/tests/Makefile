@@ -152,6 +152,60 @@ UnitTestBsplineToBezier.cpp.s:
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToBezier.cpp.s
 .PHONY : UnitTestBsplineToBezier.cpp.s
 
+UnitTestBsplineToMinvo.o: UnitTestBsplineToMinvo.cpp.o
+
+.PHONY : UnitTestBsplineToMinvo.o
+
+# target to build an object file
+UnitTestBsplineToMinvo.cpp.o:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToMinvo.cpp.o
+.PHONY : UnitTestBsplineToMinvo.cpp.o
+
+UnitTestBsplineToMinvo.i: UnitTestBsplineToMinvo.cpp.i
+
+.PHONY : UnitTestBsplineToMinvo.i
+
+# target to preprocess a source file
+UnitTestBsplineToMinvo.cpp.i:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToMinvo.cpp.i
+.PHONY : UnitTestBsplineToMinvo.cpp.i
+
+UnitTestBsplineToMinvo.s: UnitTestBsplineToMinvo.cpp.s
+
+.PHONY : UnitTestBsplineToMinvo.s
+
+# target to generate assembly for a file
+UnitTestBsplineToMinvo.cpp.s:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToMinvo.cpp.s
+.PHONY : UnitTestBsplineToMinvo.cpp.s
+
+UnitTestConvexHullCollisionChecker.o: UnitTestConvexHullCollisionChecker.cpp.o
+
+.PHONY : UnitTestConvexHullCollisionChecker.o
+
+# target to build an object file
+UnitTestConvexHullCollisionChecker.cpp.o:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestConvexHullCollisionChecker.cpp.o
+.PHONY : UnitTestConvexHullCollisionChecker.cpp.o
+
+UnitTestConvexHullCollisionChecker.i: UnitTestConvexHullCollisionChecker.cpp.i
+
+.PHONY : UnitTestConvexHullCollisionChecker.i
+
+# target to preprocess a source file
+UnitTestConvexHullCollisionChecker.cpp.i:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestConvexHullCollisionChecker.cpp.i
+.PHONY : UnitTestConvexHullCollisionChecker.cpp.i
+
+UnitTestConvexHullCollisionChecker.s: UnitTestConvexHullCollisionChecker.cpp.s
+
+.PHONY : UnitTestConvexHullCollisionChecker.s
+
+# target to generate assembly for a file
+UnitTestConvexHullCollisionChecker.cpp.s:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestConvexHullCollisionChecker.cpp.s
+.PHONY : UnitTestConvexHullCollisionChecker.cpp.s
+
 UnitTestCubicEquationSolver.o: UnitTestCubicEquationSolver.cpp.o
 
 .PHONY : UnitTestCubicEquationSolver.o
@@ -353,6 +407,12 @@ help:
 	@echo "... UnitTestBsplineToBezier.o"
 	@echo "... UnitTestBsplineToBezier.i"
 	@echo "... UnitTestBsplineToBezier.s"
+	@echo "... UnitTestBsplineToMinvo.o"
+	@echo "... UnitTestBsplineToMinvo.i"
+	@echo "... UnitTestBsplineToMinvo.s"
+	@echo "... UnitTestConvexHullCollisionChecker.o"
+	@echo "... UnitTestConvexHullCollisionChecker.i"
+	@echo "... UnitTestConvexHullCollisionChecker.s"
 	@echo "... UnitTestCubicEquationSolver.o"
 	@echo "... UnitTestCubicEquationSolver.i"
 	@echo "... UnitTestCubicEquationSolver.s"

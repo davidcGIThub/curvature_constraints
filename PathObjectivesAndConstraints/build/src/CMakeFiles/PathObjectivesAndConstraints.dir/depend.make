@@ -4,8 +4,15 @@
 src/CMakeFiles/PathObjectivesAndConstraints.dir/BsplineToBezier.cpp.o: ../src/BsplineToBezier.cpp
 src/CMakeFiles/PathObjectivesAndConstraints.dir/BsplineToBezier.cpp.o: ../src/BsplineToBezier.hpp
 
+src/CMakeFiles/PathObjectivesAndConstraints.dir/BsplineToMinvo.cpp.o: ../src/BsplineToMinvo.cpp
+src/CMakeFiles/PathObjectivesAndConstraints.dir/BsplineToMinvo.cpp.o: ../src/BsplineToMinvo.hpp
+
 src/CMakeFiles/PathObjectivesAndConstraints.dir/CBindingHelper.cpp.o: ../src/CBindingHelper.cpp
 src/CMakeFiles/PathObjectivesAndConstraints.dir/CBindingHelper.cpp.o: ../src/CBindingHelper.hpp
+
+src/CMakeFiles/PathObjectivesAndConstraints.dir/ConvexHullCollisionChecker.cpp.o: ../src/ConvexHullCollisionChecker.cpp
+src/CMakeFiles/PathObjectivesAndConstraints.dir/ConvexHullCollisionChecker.cpp.o: ../src/ConvexHullCollisionChecker.hpp
+src/CMakeFiles/PathObjectivesAndConstraints.dir/ConvexHullCollisionChecker.cpp.o: ../src/MDMAlgorithmClass.hpp
 
 src/CMakeFiles/PathObjectivesAndConstraints.dir/CubicEquationSolver.cpp.o: ../src/CubicEquationSolver.cpp
 src/CMakeFiles/PathObjectivesAndConstraints.dir/CubicEquationSolver.cpp.o: ../src/CubicEquationSolver.hpp

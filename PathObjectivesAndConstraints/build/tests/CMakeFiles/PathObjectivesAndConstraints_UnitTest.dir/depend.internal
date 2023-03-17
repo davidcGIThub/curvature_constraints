@@ -4,6 +4,13 @@
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToBezier.cpp.o
  ../src/BsplineToBezier.hpp
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestBsplineToBezier.cpp
+tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToMinvo.cpp.o
+ ../src/BsplineToMinvo.hpp
+ /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestBsplineToMinvo.cpp
+tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestConvexHullCollisionChecker.cpp.o
+ ../src/ConvexHullCollisionChecker.hpp
+ ../src/MDMAlgorithmClass.hpp
+ /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestConvexHullCollisionChecker.cpp
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestCubicEquationSolver.cpp.o
  ../src/CubicEquationSolver.hpp
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestCubicEquationSolver.cpp

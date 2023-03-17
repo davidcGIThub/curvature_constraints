@@ -6,17 +6,17 @@
 
 #IncludeRegexTransform: 
 
-../src/RectPrismCollisionChecker.hpp
-vector
+../src/BsplineToMinvo.hpp
+array
 -
 eigen3/Eigen/Core
 -
 eigen3/Eigen/Dense
 -
 
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestRectPrismCollisionChecker.cpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestBsplineToMinvo.cpp
 gtest/gtest.h
 /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/gtest/gtest.h
-RectPrismCollisionChecker.hpp
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/RectPrismCollisionChecker.hpp
+BsplineToMinvo.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/BsplineToMinvo.hpp
 
