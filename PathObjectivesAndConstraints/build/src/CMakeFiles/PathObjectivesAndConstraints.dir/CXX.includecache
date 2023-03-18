@@ -6,15 +6,21 @@
 
 #IncludeRegexTransform: 
 
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/BsplineToMinvo.cpp
-BsplineToMinvo.hpp
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/BsplineToMinvo.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ConvexHullCollisionChecker.cpp
+ConvexHullCollisionChecker.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ConvexHullCollisionChecker.hpp
 iostream
 -
 
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/BsplineToMinvo.hpp
-array
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ConvexHullCollisionChecker.hpp
+eigen3/Eigen/Core
 -
+eigen3/Eigen/Dense
+-
+MDMAlgorithmClass.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/MDMAlgorithmClass.hpp
+
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/MDMAlgorithmClass.hpp
 eigen3/Eigen/Core
 -
 eigen3/Eigen/Dense

@@ -2,7 +2,6 @@ set(TEST_NAME ${PROJECT_NAME}_UnitTest)
 
 add_executable(${TEST_NAME}
     UnitTestBsplineToMinvo.cpp
-    UnitTestBsplineToBezier.cpp
     UnitTestCubicEquationSolver.cpp
     UnitTestThirdOrderCurvatureEvaluator.cpp
     UnitTestMDMAlgorithmClass.cpp

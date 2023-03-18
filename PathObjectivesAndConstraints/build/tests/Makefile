@@ -125,33 +125,6 @@ PathObjectivesAndConstraints_UnitTest/fast:
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build
 .PHONY : PathObjectivesAndConstraints_UnitTest/fast
 
-UnitTestBsplineToBezier.o: UnitTestBsplineToBezier.cpp.o
-
-.PHONY : UnitTestBsplineToBezier.o
-
-# target to build an object file
-UnitTestBsplineToBezier.cpp.o:
-	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToBezier.cpp.o
-.PHONY : UnitTestBsplineToBezier.cpp.o
-
-UnitTestBsplineToBezier.i: UnitTestBsplineToBezier.cpp.i
-
-.PHONY : UnitTestBsplineToBezier.i
-
-# target to preprocess a source file
-UnitTestBsplineToBezier.cpp.i:
-	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToBezier.cpp.i
-.PHONY : UnitTestBsplineToBezier.cpp.i
-
-UnitTestBsplineToBezier.s: UnitTestBsplineToBezier.cpp.s
-
-.PHONY : UnitTestBsplineToBezier.s
-
-# target to generate assembly for a file
-UnitTestBsplineToBezier.cpp.s:
-	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestBsplineToBezier.cpp.s
-.PHONY : UnitTestBsplineToBezier.cpp.s
-
 UnitTestBsplineToMinvo.o: UnitTestBsplineToMinvo.cpp.o
 
 .PHONY : UnitTestBsplineToMinvo.o
@@ -404,9 +377,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... PathObjectivesAndConstraints_UnitTest"
-	@echo "... UnitTestBsplineToBezier.o"
-	@echo "... UnitTestBsplineToBezier.i"
-	@echo "... UnitTestBsplineToBezier.s"
 	@echo "... UnitTestBsplineToMinvo.o"
 	@echo "... UnitTestBsplineToMinvo.i"
 	@echo "... UnitTestBsplineToMinvo.s"

@@ -5,15 +5,15 @@ TEST(ConvexHullCollisionTests, NotColliding)
 {
     const int D{2};
     ConvexHullCollisionChecker<D> checker{};
-    Eigen::Matrix<double,D,1> obstacle_center;
-    obstacle_center << 17, 15;
-    double obstacle_radius = 3; 
-    const int num_points = 6;
-    Eigen::Matrix<double, D, num_points> points; 
-    points << 8,  5, 13, 10,  8, 14,
+    Eigen::Matrix<double,D,1> sphere_center;
+    sphere_center << 17, 15;
+    double sphere_radius = 3; 
+    const int num_spline_points = 6;
+    Eigen::Matrix<double, D, num_spline_points> spline_points; 
+    spline_points << 8,  5, 13, 10,  8, 14,
               8,  9, 10, 10, 12, 10;
-    double distance = checker.getDistanceToObstacle(obstacle_center, obstacle_radius, 
-                                                    points, num_points);
+    double distance = checker.getDistanceToSphere(sphere_center, sphere_radius, 
+                                                    spline_points, num_spline_points);
     double true_distance = 2.8309518976313477;
     double tolerance = 0.0000001;
     EXPECT_NEAR(true_distance, distance, tolerance);
@@ -30,7 +30,7 @@ TEST(ConvexHullCollisionTests, RadiusColliding)
     Eigen::Matrix<double, D, num_points> points; 
     points << 8,  4, 13, 10,  8, 14,
               8, 10, 10, 10, 12, 10;
-    double distance = checker.getDistanceToObstacle(obstacle_center, obstacle_radius, 
+    double distance = checker.getDistanceToSphere(obstacle_center, obstacle_radius, 
                                                     points, num_points);
     double true_distance = -2.316718414998114;
     double tolerance = 0.0000001;
@@ -48,9 +48,9 @@ TEST(ConvexHullCollisionTests, CenterColliding)
     Eigen::Matrix<double, D, num_points> points; 
     points << 8,  4, 13, 10,  8, 14,
               8, 10, 10, 10, 12, 10;
-    double distance = checker.getDistanceToObstacle(obstacle_center, obstacle_radius, 
+    double distance = checker.getDistanceToSphere(obstacle_center, obstacle_radius, 
                                                     points, num_points);
-    double true_distance = -3;
+    double true_distance = -3.5;
     double tolerance = 0.0000001;
     EXPECT_NEAR(true_distance, distance, tolerance);
 }
@@ -67,7 +67,7 @@ TEST(ConvexHullCollisionTests, Colliding3D)
     points << 8,   4,    13,  10,     8,  14,
               8,  10,    10,  10,    12,  10,
               2,   7,   3.7,   4,   7.9,  3.4;
-    double distance = checker.getDistanceToObstacle(obstacle_center, obstacle_radius, 
+    double distance = checker.getDistanceToSphere(obstacle_center, obstacle_radius, 
                                                     points, num_points);
     double true_distance = -0.21699707756002873;
     double tolerance = 0.0000001;
@@ -86,7 +86,7 @@ TEST(ConvexHullCollisionTests, NotColliding3D)
     points << 8,   4,    13,  10,     8,  14,
               8,  10,    10,  10,    12,  10,
               2,   7,   3.7,   4,   7.9,  3.4;
-    double distance = checker.getDistanceToObstacle(obstacle_center, obstacle_radius, 
+    double distance = checker.getDistanceToSphere(obstacle_center, obstacle_radius, 
                                                     points, num_points);
     double true_distance = 6.429670248464965;
     double tolerance = 0.0000001;

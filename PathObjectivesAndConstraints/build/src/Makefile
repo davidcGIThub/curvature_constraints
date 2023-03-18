@@ -125,33 +125,6 @@ PathObjectivesAndConstraints/fast:
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/build
 .PHONY : PathObjectivesAndConstraints/fast
 
-BsplineToBezier.o: BsplineToBezier.cpp.o
-
-.PHONY : BsplineToBezier.o
-
-# target to build an object file
-BsplineToBezier.cpp.o:
-	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/BsplineToBezier.cpp.o
-.PHONY : BsplineToBezier.cpp.o
-
-BsplineToBezier.i: BsplineToBezier.cpp.i
-
-.PHONY : BsplineToBezier.i
-
-# target to preprocess a source file
-BsplineToBezier.cpp.i:
-	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/BsplineToBezier.cpp.i
-.PHONY : BsplineToBezier.cpp.i
-
-BsplineToBezier.s: BsplineToBezier.cpp.s
-
-.PHONY : BsplineToBezier.s
-
-# target to generate assembly for a file
-BsplineToBezier.cpp.s:
-	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/BsplineToBezier.cpp.s
-.PHONY : BsplineToBezier.cpp.s
-
 BsplineToMinvo.o: BsplineToMinvo.cpp.o
 
 .PHONY : BsplineToMinvo.o
@@ -431,9 +404,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... PathObjectivesAndConstraints"
-	@echo "... BsplineToBezier.o"
-	@echo "... BsplineToBezier.i"
-	@echo "... BsplineToBezier.s"
 	@echo "... BsplineToMinvo.o"
 	@echo "... BsplineToMinvo.i"
 	@echo "... BsplineToMinvo.s"

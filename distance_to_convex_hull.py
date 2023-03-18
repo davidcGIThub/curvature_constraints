@@ -33,28 +33,35 @@ def min_norm(point_set):
 
 n_points = 10
 n_dim = 2
-# point_set = np.random.rand(n_dim,n_points)*10 - 2
 
-#Case not colliding
+
 point = np.array([[17],[15]])
 radius = 3
 point_set = np.array([[8, 5, 13, 10,  8, 14],
                    [8, 9, 10, 10, 12, 10]])
 
-#Case colliding
-point = np.array([[4],[7]])
-radius = 5
-point_set = np.array([[8, 4, 13, 10,  8, 14],
-                   [8, 10, 10, 10, 12, 10]])
+# point_set = np.random.rand(n_dim,n_points)*10 - 2
 
-#3D Case colliding
-point = np.array([[4],[7], [1.5]])
-point = np.array([[2],[4], [0]])
+# #Case not colliding
+# point = np.array([[17],[15]])
+# radius = 3
+# point_set = np.array([[8, 5, 13, 10,  8, 14],
+#                    [8, 9, 10, 10, 12, 10]])
 
-radius = 1
-point_set = np.array([[8, 4 , 13 , 10,  8 , 14],
-                      [8, 10, 10 , 10, 12 , 10],
-                      [2, 7 , 3.7, 4 , 7.9, 3.4]])
+# #Case colliding
+# point = np.array([[4],[7]])
+# radius = 5
+# point_set = np.array([[8, 4, 13, 10,  8, 14],
+#                    [8, 10, 10, 10, 12, 10]])
+
+# #3D Case colliding
+# point = np.array([[4],[7], [1.5]])
+# point = np.array([[2],[4], [0]])
+
+# radius = 1
+# point_set = np.array([[8, 4 , 13 , 10,  8 , 14],
+#                       [8, 10, 10 , 10, 12 , 10],
+#                       [2, 7 , 3.7, 4 , 7.9, 3.4]])
 
 
 point_set_translated = point_set - point

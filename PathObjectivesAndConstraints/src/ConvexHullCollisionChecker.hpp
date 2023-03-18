@@ -9,13 +9,11 @@ class ConvexHullCollisionChecker
 {
     public:
         ConvexHullCollisionChecker();
-        double getDistanceToObstacle(Eigen::Matrix<double,D,1> obstacle_center, 
-                                    double radius, Eigen::MatrixXd points, int num_points);
+        double getDistanceToSphere(Eigen::Matrix<double,D,1> sphere_center, 
+                                    double sphere_radius, Eigen::MatrixXd spline_points, int num_spline_points);
     private:
-
-        double getDistanceToPoint(Eigen::Matrix<double,D,1> obstacle_center, 
-                                   Eigen::MatrixXd points, int num_points);
+        double getDistanceToPoint(Eigen::Matrix<double,D,1> point, 
+                                   Eigen::MatrixXd spline_points, int num_spline_points);
         MDMAlgorithmClass<D> mdm{};
 };
-
 #endif

@@ -1,5 +1,4 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/PathObjectivesAndConstraints.dir/BsplineToBezier.cpp.o"
   "CMakeFiles/PathObjectivesAndConstraints.dir/BsplineToMinvo.cpp.o"
   "CMakeFiles/PathObjectivesAndConstraints.dir/CBindingHelper.cpp.o"
   "CMakeFiles/PathObjectivesAndConstraints.dir/ConvexHullCollisionChecker.cpp.o"

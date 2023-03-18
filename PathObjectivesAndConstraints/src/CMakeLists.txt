@@ -1,6 +1,4 @@
 add_library(${PROJECT_NAME} SHARED 
-    BsplineToBezier.cpp
-    BsplineToBezier.hpp
     BsplineToMinvo.cpp
     BsplineToMinvo.hpp
     CubicEquationSolver.cpp
