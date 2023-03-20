@@ -24,6 +24,20 @@ Eigen::Matrix<double,D,4> CBindingHelper<D>::array_section_to_eigen(double cont_
     return interval_control_points;
 }
 
+template <int D>
+Eigen::MatrixXd CBindingHelper<D>::array_to_eigen(double cont_pts[], int num_cps)
+{
+    Eigen::MatrixXd control_points(D,num_cps);
+    for(unsigned int i = 0; i < num_cps; i++)
+    {
+        for (unsigned int j = 0; j < num_cps; j++)
+        {
+            control_points(i,j) = cont_pts[i + num_cps*j];
+        }
+    }
+    return control_points;
+};
+
 // explicit instantiations
 template class CBindingHelper<2>;
 template class CBindingHelper<3>;

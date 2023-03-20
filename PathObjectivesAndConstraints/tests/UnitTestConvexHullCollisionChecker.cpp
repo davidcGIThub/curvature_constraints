@@ -42,15 +42,14 @@ TEST(ConvexHullCollisionTests, CenterColliding)
     const int D{2};
     ConvexHullCollisionChecker<D> checker{};
     Eigen::Matrix<double,D,1> obstacle_center;
-    obstacle_center << 9, 10;
+    obstacle_center << 9, 10.4;
     double obstacle_radius = 3; 
     const int num_points = 6;
     Eigen::Matrix<double, D, num_points> points; 
-    points << 8,  4, 13, 10,  8, 14,
-              8, 10, 10, 10, 12, 10;
+    points << 8,  4, 13, 10,  8, 14, 8, 10, 10, 10, 12, 10;
     double distance = checker.getDistanceToSphere(obstacle_center, obstacle_radius, 
                                                     points, num_points);
-    double true_distance = -3.5;
+    double true_distance = -7.859687576256714;
     double tolerance = 0.0000001;
     EXPECT_NEAR(true_distance, distance, tolerance);
 }
@@ -89,6 +88,44 @@ TEST(ConvexHullCollisionTests, NotColliding3D)
     double distance = checker.getDistanceToSphere(obstacle_center, obstacle_radius, 
                                                     points, num_points);
     double true_distance = 6.429670248464965;
+    double tolerance = 0.0000001;
+    EXPECT_NEAR(true_distance, distance, tolerance);
+}
+
+TEST(ConvexHullCollisionTests, ConservativeNotColliding3D)
+{
+    const int D{3};
+    ConvexHullCollisionChecker<D> checker{};
+    Eigen::Matrix<double,D,1> obstacle_center;
+    obstacle_center << 2, 4, 0;
+    double obstacle_radius = 1; 
+    const int num_points = 6;
+    Eigen::Matrix<double, D, num_points> points; 
+    points << 8,   4,    13,  10,     8,  14,
+              8,  10,    10,  10,    12,  10, 
+              2,   7,   3.7,   4,   7.9,  3.4;
+    double distance = checker.getConservativeDistanceToSphere(obstacle_center,
+                 obstacle_radius, points, num_points);
+    double true_distance = 12.404153024776605;
+    double tolerance = 0.0000001;
+    EXPECT_NEAR(true_distance, distance, tolerance);
+}
+
+TEST(ConvexHullCollisionTests, ConservativeColliding3D)
+{
+    const int D{3};
+    ConvexHullCollisionChecker<D> checker{};
+    Eigen::Matrix<double,D,1> obstacle_center;
+    obstacle_center << 9, 10, 5;
+    double obstacle_radius = 1; 
+    const int num_points = 6;
+    Eigen::Matrix<double, D, num_points> points; 
+    points << 8,   4,    13,  10,     8,  14,
+              8,  10,    10,  10,    12,  10, 
+              2,   7,   3.7,   4,   7.9,  3.4;
+    double distance = checker.getConservativeDistanceToSphere(obstacle_center,
+                 obstacle_radius, points, num_points);
+    double true_distance = -1;
     double tolerance = 0.0000001;
     EXPECT_NEAR(true_distance, distance, tolerance);
 }

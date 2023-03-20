@@ -2,7 +2,6 @@
 #define OBJECTIVEFUNCTIONS_HPP
 #include <eigen3/Eigen/Core>
 #include <eigen3/Eigen/Dense>
-#include "gtest/gtest_prod.h"
 #include "CBindingHelper.hpp"
 
 template <int D>

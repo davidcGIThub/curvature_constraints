@@ -13,12 +13,33 @@ double ConvexHullCollisionChecker<D>::getDistanceToSphere(Eigen::Matrix<double,D
     if(distance_to_point < 0.000001)
     {
         Eigen::Matrix<double,D,1> mean_of_points = points.rowwise().mean();
-        double point_to_sphere_center = (mean_of_points - sphere_center).norm();
-        distance_to_obstacle = distance_to_point - sphere_radius - point_to_sphere_center;
+        double points_pseudo_radius = ((points.colwise() - mean_of_points).colwise().norm()).maxCoeff();
+        double points_mean_to_sphere_center = (mean_of_points - sphere_center).norm();
+        distance_to_obstacle = distance_to_point - sphere_radius + points_mean_to_sphere_center
+            - points_pseudo_radius;
     }
     else
     {
         distance_to_obstacle = distance_to_point - sphere_radius;
+    }
+    return distance_to_obstacle;
+}
+
+template<int D>
+double ConvexHullCollisionChecker<D>::getConservativeDistanceToSphere(Eigen::Matrix<double,D,1> sphere_center, 
+                                                double sphere_radius, Eigen::MatrixXd points, int num_points)
+{
+    double distance_to_point = getDistanceToPoint(sphere_center, points, num_points);
+    double distance_to_obstacle;
+    if(distance_to_point < (sphere_radius + 0.000001))
+    {
+        distance_to_obstacle = -sphere_radius;
+    }
+    else
+    {
+        Eigen::Matrix<double,D,1> mean_of_points = points.rowwise().mean();
+        double points_pseudo_radius = ((points.colwise() - mean_of_points).colwise().norm()).maxCoeff();
+        distance_to_obstacle = distance_to_point - sphere_radius + points_pseudo_radius;
     }
     return distance_to_obstacle;
 }
