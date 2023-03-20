@@ -287,6 +287,33 @@ UnitTestObjectiveFunctions.cpp.s:
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestObjectiveFunctions.cpp.s
 .PHONY : UnitTestObjectiveFunctions.cpp.s
 
+UnitTestObstacleConstraints.o: UnitTestObstacleConstraints.cpp.o
+
+.PHONY : UnitTestObstacleConstraints.o
+
+# target to build an object file
+UnitTestObstacleConstraints.cpp.o:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestObstacleConstraints.cpp.o
+.PHONY : UnitTestObstacleConstraints.cpp.o
+
+UnitTestObstacleConstraints.i: UnitTestObstacleConstraints.cpp.i
+
+.PHONY : UnitTestObstacleConstraints.i
+
+# target to preprocess a source file
+UnitTestObstacleConstraints.cpp.i:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestObstacleConstraints.cpp.i
+.PHONY : UnitTestObstacleConstraints.cpp.i
+
+UnitTestObstacleConstraints.s: UnitTestObstacleConstraints.cpp.s
+
+.PHONY : UnitTestObstacleConstraints.s
+
+# target to generate assembly for a file
+UnitTestObstacleConstraints.cpp.s:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestObstacleConstraints.cpp.s
+.PHONY : UnitTestObstacleConstraints.cpp.s
+
 UnitTestRectPrismCollisionChecker.o: UnitTestRectPrismCollisionChecker.cpp.o
 
 .PHONY : UnitTestRectPrismCollisionChecker.o
@@ -395,6 +422,9 @@ help:
 	@echo "... UnitTestObjectiveFunctions.o"
 	@echo "... UnitTestObjectiveFunctions.i"
 	@echo "... UnitTestObjectiveFunctions.s"
+	@echo "... UnitTestObstacleConstraints.o"
+	@echo "... UnitTestObstacleConstraints.i"
+	@echo "... UnitTestObstacleConstraints.s"
 	@echo "... UnitTestRectPrismCollisionChecker.o"
 	@echo "... UnitTestRectPrismCollisionChecker.i"
 	@echo "... UnitTestRectPrismCollisionChecker.s"

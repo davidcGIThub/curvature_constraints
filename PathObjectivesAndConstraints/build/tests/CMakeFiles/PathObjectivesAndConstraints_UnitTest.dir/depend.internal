@@ -23,6 +23,13 @@ tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestObjectiveFunc
  ../src/CBindingHelper.hpp
  ../src/ObjectiveFunctions.hpp
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestObjectiveFunctions.cpp
+tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestObstacleConstraints.cpp.o
+ ../src/BsplineToMinvo.hpp
+ ../src/CBindingHelper.hpp
+ ../src/ConvexHullCollisionChecker.hpp
+ ../src/MDMAlgorithmClass.hpp
+ ../src/ObstacleConstraints.hpp
+ /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestObstacleConstraints.cpp
 tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestRectPrismCollisionChecker.cpp.o
  ../src/RectPrismCollisionChecker.hpp
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestRectPrismCollisionChecker.cpp

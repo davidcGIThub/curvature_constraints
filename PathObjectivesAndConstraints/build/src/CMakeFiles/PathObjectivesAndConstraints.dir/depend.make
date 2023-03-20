@@ -26,6 +26,13 @@ src/CMakeFiles/PathObjectivesAndConstraints.dir/ObjectiveFunctions.cpp.o: ../src
 src/CMakeFiles/PathObjectivesAndConstraints.dir/ObjectiveFunctions.cpp.o: ../src/ObjectiveFunctions.cpp
 src/CMakeFiles/PathObjectivesAndConstraints.dir/ObjectiveFunctions.cpp.o: ../src/ObjectiveFunctions.hpp
 
+src/CMakeFiles/PathObjectivesAndConstraints.dir/ObstacleConstraints.cpp.o: ../src/BsplineToMinvo.hpp
+src/CMakeFiles/PathObjectivesAndConstraints.dir/ObstacleConstraints.cpp.o: ../src/CBindingHelper.hpp
+src/CMakeFiles/PathObjectivesAndConstraints.dir/ObstacleConstraints.cpp.o: ../src/ConvexHullCollisionChecker.hpp
+src/CMakeFiles/PathObjectivesAndConstraints.dir/ObstacleConstraints.cpp.o: ../src/MDMAlgorithmClass.hpp
+src/CMakeFiles/PathObjectivesAndConstraints.dir/ObstacleConstraints.cpp.o: ../src/ObstacleConstraints.cpp
+src/CMakeFiles/PathObjectivesAndConstraints.dir/ObstacleConstraints.cpp.o: ../src/ObstacleConstraints.hpp
+
 src/CMakeFiles/PathObjectivesAndConstraints.dir/RectPrismCollisionChecker.cpp.o: ../src/RectPrismCollisionChecker.cpp
 src/CMakeFiles/PathObjectivesAndConstraints.dir/RectPrismCollisionChecker.cpp.o: ../src/RectPrismCollisionChecker.hpp
 

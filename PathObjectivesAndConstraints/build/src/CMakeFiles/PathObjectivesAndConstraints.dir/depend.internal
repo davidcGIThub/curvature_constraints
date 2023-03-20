@@ -26,6 +26,13 @@ src/CMakeFiles/PathObjectivesAndConstraints.dir/ObjectiveFunctions.cpp.o
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CBindingHelper.hpp
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ObjectiveFunctions.cpp
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ObjectiveFunctions.hpp
+src/CMakeFiles/PathObjectivesAndConstraints.dir/ObstacleConstraints.cpp.o
+ /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/BsplineToMinvo.hpp
+ /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CBindingHelper.hpp
+ /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ConvexHullCollisionChecker.hpp
+ /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/MDMAlgorithmClass.hpp
+ /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ObstacleConstraints.cpp
+ /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ObstacleConstraints.hpp
 src/CMakeFiles/PathObjectivesAndConstraints.dir/RectPrismCollisionChecker.cpp.o
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/RectPrismCollisionChecker.cpp
  /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/RectPrismCollisionChecker.hpp

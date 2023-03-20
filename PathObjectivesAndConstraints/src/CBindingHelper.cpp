@@ -1,4 +1,5 @@
 #include "CBindingHelper.hpp"
+#include <iostream>
 
 template<int D>
 CBindingHelper<D>::CBindingHelper()
@@ -30,9 +31,9 @@ Eigen::MatrixXd CBindingHelper<D>::array_to_eigen(double cont_pts[], int num_cps
     Eigen::MatrixXd control_points(D,num_cps);
     for(unsigned int i = 0; i < num_cps; i++)
     {
-        for (unsigned int j = 0; j < num_cps; j++)
+        for (unsigned int j = 0; j < D; j++)
         {
-            control_points(i,j) = cont_pts[i + num_cps*j];
+            control_points(j,i) = cont_pts[i + num_cps*j];
         }
     }
     return control_points;

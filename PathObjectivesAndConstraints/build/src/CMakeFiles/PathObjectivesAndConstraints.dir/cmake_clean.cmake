@@ -6,6 +6,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/PathObjectivesAndConstraints.dir/DerivativeEvaluator.cpp.o"
   "CMakeFiles/PathObjectivesAndConstraints.dir/MDMAlgorithmClass.cpp.o"
   "CMakeFiles/PathObjectivesAndConstraints.dir/ObjectiveFunctions.cpp.o"
+  "CMakeFiles/PathObjectivesAndConstraints.dir/ObstacleConstraints.cpp.o"
   "CMakeFiles/PathObjectivesAndConstraints.dir/RectPrismCollisionChecker.cpp.o"
   "CMakeFiles/PathObjectivesAndConstraints.dir/ThirdOrderCurvatureEvaluator.cpp.o"
   "CMakeFiles/PathObjectivesAndConstraints.dir/WaypointConstraints.cpp.o"

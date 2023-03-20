@@ -314,6 +314,33 @@ ObjectiveFunctions.cpp.s:
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/ObjectiveFunctions.cpp.s
 .PHONY : ObjectiveFunctions.cpp.s
 
+ObstacleConstraints.o: ObstacleConstraints.cpp.o
+
+.PHONY : ObstacleConstraints.o
+
+# target to build an object file
+ObstacleConstraints.cpp.o:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/ObstacleConstraints.cpp.o
+.PHONY : ObstacleConstraints.cpp.o
+
+ObstacleConstraints.i: ObstacleConstraints.cpp.i
+
+.PHONY : ObstacleConstraints.i
+
+# target to preprocess a source file
+ObstacleConstraints.cpp.i:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/ObstacleConstraints.cpp.i
+.PHONY : ObstacleConstraints.cpp.i
+
+ObstacleConstraints.s: ObstacleConstraints.cpp.s
+
+.PHONY : ObstacleConstraints.s
+
+# target to generate assembly for a file
+ObstacleConstraints.cpp.s:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/ObstacleConstraints.cpp.s
+.PHONY : ObstacleConstraints.cpp.s
+
 RectPrismCollisionChecker.o: RectPrismCollisionChecker.cpp.o
 
 .PHONY : RectPrismCollisionChecker.o
@@ -425,6 +452,9 @@ help:
 	@echo "... ObjectiveFunctions.o"
 	@echo "... ObjectiveFunctions.i"
 	@echo "... ObjectiveFunctions.s"
+	@echo "... ObstacleConstraints.o"
+	@echo "... ObstacleConstraints.i"
+	@echo "... ObstacleConstraints.s"
 	@echo "... RectPrismCollisionChecker.o"
 	@echo "... RectPrismCollisionChecker.i"
 	@echo "... RectPrismCollisionChecker.s"

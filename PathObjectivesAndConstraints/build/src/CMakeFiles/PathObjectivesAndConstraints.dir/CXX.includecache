@@ -6,6 +6,22 @@
 
 #IncludeRegexTransform: 
 
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/BsplineToMinvo.hpp
+array
+-
+eigen3/Eigen/Core
+-
+eigen3/Eigen/Dense
+-
+
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CBindingHelper.hpp
+eigen3/Eigen/Core
+-
+eigen3/Eigen/Dense
+-
+gtest/gtest_prod.h
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/gtest/gtest_prod.h
+
 /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ConvexHullCollisionChecker.cpp
 ConvexHullCollisionChecker.hpp
 /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ConvexHullCollisionChecker.hpp
@@ -25,4 +41,22 @@ eigen3/Eigen/Core
 -
 eigen3/Eigen/Dense
 -
+
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ObstacleConstraints.cpp
+ObstacleConstraints.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ObstacleConstraints.hpp
+iostream
+-
+
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ObstacleConstraints.hpp
+eigen3/Eigen/Core
+-
+eigen3/Eigen/Dense
+-
+ConvexHullCollisionChecker.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ConvexHullCollisionChecker.hpp
+CBindingHelper.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CBindingHelper.hpp
+BsplineToMinvo.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/BsplineToMinvo.hpp
 
