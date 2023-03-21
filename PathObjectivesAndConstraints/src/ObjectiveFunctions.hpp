@@ -9,12 +9,12 @@ class ObjectiveFunctions
 {
     public:
         ObjectiveFunctions();
-        double minimize_acceleration_and_time(double cont_pts[], int num_control_points, double scale_factor);
-        double minimize_distance_and_time(double cont_pts[], int num_control_points, double scale_factor);
+        float minimize_acceleration_and_time(float cont_pts[], int num_control_points, float scale_factor);
+        float minimize_distance_and_time(float cont_pts[], int num_control_points, float scale_factor);
     private:
         CBindingHelper<D> cbind_help{};
-        double minimize_acceleration(double cont_pts[], int &num_control_points);
-        double minimize_distance(double cont_pts[], int &num_control_points);
+        float minimize_acceleration(float cont_pts[], int &num_control_points);
+        float minimize_distance(float cont_pts[], int &num_control_points);
 };
 
 

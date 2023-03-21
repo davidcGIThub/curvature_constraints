@@ -12,19 +12,19 @@ class DerivativeEvaluator
 {
     public:
         DerivativeEvaluator();
-        double find_min_velocity_of_spline(double cont_pts[], int num_control_points, double scale_factor);
-        double find_max_acceleration_of_spline(double cont_pts[], int num_control_points, double scale_factor);
-        std::array<double,2> find_min_velocity_and_time(Eigen::Matrix<double,D,4> &control_points, double scale_factor);
-        std::array<double,2> find_max_acceleration_and_time(Eigen::Matrix<double,D,4> &control_points, double scale_factor);
-        Eigen::Matrix<double,D,1> calculate_velocity_vector(double &t, Eigen::Matrix<double,D,4> &control_points, double &scale_factor);
-        double calculate_velocity_magnitude(double &t, Eigen::Matrix<double,D,4> &control_points, double &scale_factor);
-        Eigen::Matrix<double,D,1> calculate_acceleration_vector(double &t, Eigen::Matrix<double,D,4> &control_points, double &scale_factor);
-        double calculate_acceleration_magnitude(double &t, Eigen::Matrix<double,D,4> &control_points, double &scale_factor);
+        float find_min_velocity_of_spline(float cont_pts[], int num_control_points, float scale_factor);
+        float find_max_acceleration_of_spline(float cont_pts[], int num_control_points, float scale_factor);
+        std::array<float,2> find_min_velocity_and_time(Eigen::Matrix<float,D,4> &control_points, float &scale_factor);
+        std::array<float,2> find_max_acceleration_and_time(Eigen::Matrix<float,D,4> &control_points, float &scale_factor);
+        Eigen::Matrix<float,D,1> calculate_velocity_vector(float &t, Eigen::Matrix<float,D,4> &control_points, float &scale_factor);
+        float calculate_velocity_magnitude(float &t, Eigen::Matrix<float,D,4> &control_points, float &scale_factor);
+        Eigen::Matrix<float,D,1> calculate_acceleration_vector(float &t, Eigen::Matrix<float,D,4> &control_points, float &scale_factor);
+        float calculate_acceleration_magnitude(float &t, Eigen::Matrix<float,D,4> &control_points, float &scale_factor);
     private:
         CBindingHelper<D> cbind_help{};
-        Eigen::Matrix<double, 4,4> get_third_order_M_matrix();
-        Eigen::Vector4d get_third_order_T_derivative_vector(double &t, double &scale_factor);
-        Eigen::Vector4d get_third_order_T_second_derivative_vector(double &t, double &scale_factor);
+        Eigen::Matrix<float, 4,4> get_third_order_M_matrix();
+        Eigen::Vector4f get_third_order_T_derivative_vector(float &t, float &scale_factor);
+        Eigen::Vector4f get_third_order_T_second_derivative_vector(float &t, float &scale_factor);
     FRIEND_TEST(DerivativeTest, MatrixRetrieval);
     FRIEND_TEST(DerivativeTest, DerivativeVectorRetrieval);
     FRIEND_TEST(DerivativeTest, SecondDerivativeVectorRetrieval);

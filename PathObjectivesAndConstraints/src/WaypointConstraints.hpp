@@ -8,8 +8,8 @@ class WaypointConstraints
 {
     public:
         WaypointConstraints();
-        double* velocity_at_waypoints(double cont_pts[], int num_control_points,
-                                    double scale_factor, double desired_velocities[]);
+        float* velocity_at_waypoints(float cont_pts[], int num_control_points,
+                                    float scale_factor, float desired_velocities[]);
 };
 
 #endif

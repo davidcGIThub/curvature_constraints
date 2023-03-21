@@ -11,19 +11,19 @@ class ObstacleConstraints
 {
     public:
         ObstacleConstraints();
-        double* getObstacleDistancesToSpline(double cont_pts[], int num_control_points,
-                                          double obstacle_radii[], double obstacle_centers[],
-                                          int num_obstacles);
-        double getObstacleDistanceToSpline(double cont_pts[], int num_control_points,
-                                double obstacle_radius, Eigen::Matrix<double,D,1> obstacle_center);
+        float* getObstacleDistancesToSpline(float cont_pts[], int num_control_points,
+                                          float obstacle_radii[], float obstacle_centers[],
+                                          unsigned int num_obstacles);
+        float getObstacleDistanceToSpline(float cont_pts[], int num_control_points,
+                                float obstacle_radius, float obstacle_center[]);
     private:
         ConvexHullCollisionChecker<D> collision_checker{};
         BsplineToMinvo<D> cp_converter{};
         CBindingHelper<D> helper{};
-        double getDistanceToClosestInterval(Eigen::MatrixXd control_points, int num_control_points,
-                                double  obstacle_radius, Eigen::Matrix<double,D,1> obstacle_center);
-        Eigen::Matrix<double,D,1> getObstacleCenterFromArray(double obstacle_centers[], int obstacle_num,
-                                                            int num_obstacles);
+        float getDistanceToClosestInterval(Eigen::MatrixXf &control_points, int &num_control_points,
+                                float &obstacle_radius, Eigen::Matrix<float,D,1> &obstacle_center);
+        Eigen::Matrix<float,D,1> getObstacleCenterFromArray(float obstacle_centers[], unsigned int &obstacle_num,
+                                                            unsigned int &num_obstacles);
 };
 
 #endif

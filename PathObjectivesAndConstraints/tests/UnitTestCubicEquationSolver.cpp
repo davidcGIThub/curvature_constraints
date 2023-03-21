@@ -58,11 +58,11 @@ TEST(CubicSolverTests, CubicProblem1)
     float c_term = -6;
     float d_term = -2;
     std::array<float,3> true_answer = {1.075972408704097, -1.520314680974536, -0.3056577277295605};
-    auto start = std::chrono::system_clock::now();
+    // auto start = std::chrono::system_clock::now();
     std::array<float,3> answer = CubicEquationSolver::solve_cubic_equation(a_term,b_term,c_term,d_term);
-    auto end = std::chrono::system_clock::now();
-    std::chrono::duration<float> elapsed_seconds = end-start;
-    std::cout << "elapsed time: " << elapsed_seconds.count() << "s" << std::endl;
+    // auto end = std::chrono::system_clock::now();
+    // std::chrono::duration<float> elapsed_seconds = end-start;
+    // std::cout << "elapsed time: " << elapsed_seconds.count() << "s" << std::endl;
     EXPECT_NEAR(answer[0], true_answer[0],0.000001);
     EXPECT_NEAR(answer[1], true_answer[1],0.000001);
     EXPECT_NEAR(answer[2], true_answer[2],0.000001);

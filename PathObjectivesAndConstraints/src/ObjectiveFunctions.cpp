@@ -8,32 +8,32 @@ ObjectiveFunctions<D>::ObjectiveFunctions()
 }
 
 template <int D>
-double ObjectiveFunctions<D>::minimize_acceleration_and_time(double cont_pts[], int num_control_points, double scale_factor)
+float ObjectiveFunctions<D>::minimize_acceleration_and_time(float cont_pts[], int num_control_points, float scale_factor)
 {
-    double acceleration_integral = minimize_acceleration(cont_pts, num_control_points);
+    float acceleration_integral = minimize_acceleration(cont_pts, num_control_points);
     return acceleration_integral + scale_factor;
 }
 
 template <int D>
-double ObjectiveFunctions<D>::minimize_distance_and_time(double cont_pts[], int num_control_points, double scale_factor)
+float ObjectiveFunctions<D>::minimize_distance_and_time(float cont_pts[], int num_control_points, float scale_factor)
 {
-    double distance_integral = minimize_distance(cont_pts, num_control_points);
+    float distance_integral = minimize_distance(cont_pts, num_control_points);
     return distance_integral + scale_factor;
 }
 
 template <int D>
-double ObjectiveFunctions<D>::minimize_acceleration(double cont_pts[], int &num_control_points)
+float ObjectiveFunctions<D>::minimize_acceleration(float cont_pts[], int &num_control_points)
 {
     int step = num_control_points;
     int order = 3;
     int num_intervals = num_control_points - order;
-    double sum_of_integrals{0};
-    Eigen::Matrix<double,D,4> interval_control_points;
-    Eigen::Matrix<double, D, 1> p0;
-    Eigen::Matrix<double, D, 1> p1;
-    Eigen::Matrix<double, D, 1> p2;
-    Eigen::Matrix<double, D, 1> p3; 
-    Eigen::Matrix<double, D, 1> integral_vector;
+    float sum_of_integrals{0};
+    Eigen::Matrix<float,D,4> interval_control_points;
+    Eigen::Matrix<float, D, 1> p0;
+    Eigen::Matrix<float, D, 1> p1;
+    Eigen::Matrix<float, D, 1> p2;
+    Eigen::Matrix<float, D, 1> p3; 
+    Eigen::Matrix<float, D, 1> integral_vector;
     for (unsigned int i = 0; i<num_intervals; i++)
     {
         interval_control_points = cbind_help.array_section_to_eigen(cont_pts, num_control_points, i);
@@ -49,26 +49,26 @@ double ObjectiveFunctions<D>::minimize_acceleration(double cont_pts[], int &num_
 }
 
 template <int D>
-double ObjectiveFunctions<D>::minimize_distance(double cont_pts[], int &num_control_points)
+float ObjectiveFunctions<D>::minimize_distance(float cont_pts[], int &num_control_points)
 {
     int step = num_control_points;
     int order = 3;
     int num_intervals = num_control_points - order;
-    double sum_of_integrals{0};
-    Eigen::Matrix<double,D,4> interval_control_points;
-    Eigen::Matrix<double, D, 1> p0; 
-    Eigen::Matrix<double, D, 1> p1;
-    Eigen::Matrix<double, D, 1> p2;
-    Eigen::Matrix<double, D, 1> p3;
-    Eigen::Matrix<double, D, 1> a_temp;
-    Eigen::Matrix<double, D, 1> a;
-    Eigen::Matrix<double, D, 1> b; 
-    Eigen::Matrix<double, D, 1> c_temp; 
-    Eigen::Matrix<double, D, 1> c;
-    Eigen::Matrix<double, D, 1> d;
-    Eigen::Matrix<double, D, 1> f_temp;
-    Eigen::Matrix<double, D, 1> f;
-    Eigen::Matrix<double, D, 1> integral_vector;
+    float sum_of_integrals{0};
+    Eigen::Matrix<float,D,4> interval_control_points;
+    Eigen::Matrix<float, D, 1> p0; 
+    Eigen::Matrix<float, D, 1> p1;
+    Eigen::Matrix<float, D, 1> p2;
+    Eigen::Matrix<float, D, 1> p3;
+    Eigen::Matrix<float, D, 1> a_temp;
+    Eigen::Matrix<float, D, 1> a;
+    Eigen::Matrix<float, D, 1> b; 
+    Eigen::Matrix<float, D, 1> c_temp; 
+    Eigen::Matrix<float, D, 1> c;
+    Eigen::Matrix<float, D, 1> d;
+    Eigen::Matrix<float, D, 1> f_temp;
+    Eigen::Matrix<float, D, 1> f;
+    Eigen::Matrix<float, D, 1> integral_vector;
     for (unsigned int i = 0; i<num_intervals; i++)
     {
         interval_control_points = cbind_help.array_section_to_eigen(cont_pts, num_control_points, i);
