@@ -83,15 +83,68 @@ TEST(ObstacleConstraintTests, OutsideBsplineHull)
     EXPECT_NEAR(true_distance, distance, tolerance);
 }
 
-// distance to closest point:  3.6226424540508386
-// pseudo radius:  5.59673992919606
+TEST(ObstacleConstraintTests, ThreeDimensionTest)
+{
+    const int D{3};
+    ObstacleConstraints<D> obst_const{};
+    Eigen::Matrix<double,D,1> sphere_center;
+    sphere_center << 1.97355228, 4.03641385, 2.56398793;
+    double sphere_radius = 1; 
+    const int num_spline_points = 10;
+    double control_points[] = {0.76042949, 3.42851596, 7.12733203, 5.40578535, 6.19092292, 4.19655381, 7.35779894, 4.71393053, 8.11393068, 1.14161887,
+        1.10422243, 1.74691534, 7.83946679, 6.62205838, 4.60485943, 2.11879405, 3.1969421,  6.9578278,  9.98252687, 7.9863814,
+        4.56558915, 0.69220484, 4.01782909, 8.88922696, 3.95016982, 9.36658683, 2.52569157, 7.46387504, 3.91443386, 2.48021325};
+    double distance = obst_const.getObstacleDistanceToSpline(control_points, num_spline_points, sphere_radius, sphere_center);
+    double true_distance = -1.1481243240992596;
+    double tolerance = 0.000001;
+    EXPECT_NEAR(true_distance, distance, tolerance);
+}
 
-// outside of control point hull
-// control_point_set:  [[5.40876234 3.59385918 8.64430584 1.54778121 3.28521738 6.45670928
-//   2.4775997  2.13578183 5.73122222 4.73792694]
-//  [6.48052042 6.70371021 1.27331269 0.54655433 1.03721891 0.41984464
-//   2.40628853 3.16038393 8.05965801 9.55043722]]
-// point:  [[-1.8820112 ]
-//  [-0.61966279]]
-// dist to object:  9.219382387264192
-// radius:  1
+TEST(ObstacleConstraintTests, TestMultipleObstacles)
+{
+    const int D{2};
+    ObstacleConstraints<D> obst_const{};
+    const int num_spline_points = 10;
+    double control_points[] = {8.33665694, 8.74600799, 0.15411698, 1.03944841, 2.71745767, 5.10167975, 0.49748729, 9.24934927, 2.09060337, 0.3531816,
+        1.40865962, 5.09002261, 8.24619956, 0.06025564, 7.38338304, 6.72558684, 7.26305315, 8.93062143, 2.91758113, 6.65393249};
+    double obstacle_radii[] = {1, 1, 1};
+    int num_obstacles = 3;
+    double obstacle_centers[] = {2.6662532, -1.14261837, 3.31630941, 
+                                6.16021986, 0.02562916, 0.98248971};
+    double* distances = obst_const.getObstacleDistancesToSpline(control_points, num_spline_points,
+                                          obstacle_radii, obstacle_centers, num_obstacles);
+    double true_distance_1 = 2.6063083134151492;
+    double true_distance_2 = -7.605461310820617;
+    double true_distance_3 = -1.4706446781371505;
+    double tolerance = 0.000001;
+    EXPECT_NEAR(true_distance_1, distances[0], tolerance);
+    EXPECT_NEAR(true_distance_2, distances[1], tolerance);
+    EXPECT_NEAR(true_distance_3, distances[2], tolerance);
+}
+
+
+// control_point_set:  [[8.33665694 8.74600799 0.15411698 1.03944841 2.71745767 5.10167975
+//   0.49748729 9.24934927 2.09060337 0.3531816 ]
+//  [1.40865962 5.09002261 8.24619956 0.06025564 7.38338304 6.72558684
+//   7.26305315 8.93062143 2.91758113 6.65393249]]
+// point:  [[2.6662532 ]
+//  [6.16021986]]
+// dist to object:  -0.999999550802472
+
+
+// control_point_set:  [[8.33665694 8.74600799 0.15411698 1.03944841 2.71745767 5.10167975
+//   0.49748729 9.24934927 2.09060337 0.3531816 ]
+//  [1.40865962 5.09002261 8.24619956 0.06025564 7.38338304 6.72558684
+//   7.26305315 8.93062143 2.91758113 6.65393249]]
+// point:  [[-1.14261837]
+//  [ 0.02562916]]
+// dist to object:  7.605461310820617
+
+
+// control_point_set:  [[8.33665694 8.74600799 0.15411698 1.03944841 2.71745767 5.10167975
+//   0.49748729 9.24934927 2.09060337 0.3531816 ]
+//  [1.40865962 5.09002261 8.24619956 0.06025564 7.38338304 6.72558684
+//   7.26305315 8.93062143 2.91758113 6.65393249]]
+// point:  [[3.31630941]
+//  [0.98248971]]
+// dist to object:  1.4706446781371505

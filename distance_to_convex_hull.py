@@ -23,17 +23,17 @@ def min_norm(point_set):
         constraints=(constraint))
     optimized_coeficients = np.array(result.x)
     closest_point = np.dot(point_set,optimized_coeficients.T)
-    inHull = (np.linalg.norm(closest_point,2) < 0.0000001)
+    inHull = (np.linalg.norm(closest_point,2) < 0.00001)
     return optimized_coeficients, closest_point, inHull
 
 n_points = 10
 n_dim = 2
 radius = 1
 # control_point_set= np.random.rand(n_dim,n_points)*10
-control_point_set = np.array([[5.40876234, 3.59385918, 8.64430584, 1.54778121, 3.28521738, 6.45670928, 2.4775997,  2.13578183, 5.73122222, 4.73792694],
-        [6.48052042, 6.70371021, 1.27331269, 0.54655433, 1.03721891, 0.41984464, 2.40628853, 3.16038393, 8.05965801, 9.55043722]])
-# point = np.random.rand(n_dim,1)*10 - 2
-point = np.array([[-1.8820112], [-0.61966279]])
+control_point_set = np.array([[8.33665694, 8.74600799, 0.15411698, 1.03944841, 2.71745767, 5.10167975, 0.49748729, 9.24934927, 2.09060337, 0.3531816],
+                            [1.40865962, 5.09002261, 8.24619956, 0.06025564, 7.38338304, 6.72558684, 7.26305315, 8.93062143, 2.91758113, 6.65393249]])
+point = np.random.rand(n_dim,1)*10 - 2
+point = np.array([[2.6662532], [6.16021986]])
 order = 3
 
 bspline = BsplineEvaluation(control_point_set, order, 0,1)
@@ -76,12 +76,15 @@ else:
             distance = current_distance
             closest_minvo_points = points
             closest_point = current_closest_point
+            print("in hull: " , in_hull)
+            print("distance: " , distance)
+            print("current_distance: " , np.linalg.norm(current_closest_point,2))
             # print("point_set_translated: " , point_set_translated)
             # print("current_closest_point: " , current_closest_point)
             # print("distance to point: " , np.linalg.norm(current_closest_point,2))
 
 print("control_point_set: " , control_point_set)
-# print("closest_minvo_points: " , closest_minvo_points)
+print("closest_minvo_points: " , closest_minvo_points)
 print("point: " , point)
 print("dist to object: " , distance)
 # print("radius: " , radius)

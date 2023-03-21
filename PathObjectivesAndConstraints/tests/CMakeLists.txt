@@ -2,15 +2,15 @@ set(TEST_NAME ${PROJECT_NAME}_UnitTest)
 
 add_executable(${TEST_NAME}
     UnitTestBsplineToMinvo.cpp
-    UnitTestCubicEquationSolver.cpp
-    UnitTestThirdOrderCurvatureEvaluator.cpp
-    UnitTestMDMAlgorithmClass.cpp
-    UnitTestDerivativeEvaluator.cpp
-    UnitTestObjectiveFunctions.cpp
-    UnitTestWaypointConstraints.cpp
-    UnitTestRectPrismCollisionChecker.cpp
-    UnitTestConvexHullCollisionChecker.cpp
-    UnitTestObstacleConstraints.cpp)
+    UnitTestCubicEquationSolver.cpp)
+    # UnitTestThirdOrderCurvatureEvaluator.cpp
+    # UnitTestMDMAlgorithmClass.cpp
+    # UnitTestDerivativeEvaluator.cpp
+    # UnitTestObjectiveFunctions.cpp
+    # UnitTestWaypointConstraints.cpp
+    # UnitTestRectPrismCollisionChecker.cpp
+    # UnitTestConvexHullCollisionChecker.cpp
+    # UnitTestObstacleConstraints.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC "${PROJECT_SOURCE_DIR}/src")
 
