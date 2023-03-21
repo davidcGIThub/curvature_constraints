@@ -23,14 +23,17 @@ def min_norm(point_set):
         constraints=(constraint))
     optimized_coeficients = np.array(result.x)
     closest_point = np.dot(point_set,optimized_coeficients.T)
-    inHull = (np.sum(closest_point) < 0.0000001)
+    inHull = (np.linalg.norm(closest_point,2) < 0.0000001)
     return optimized_coeficients, closest_point, inHull
 
 n_points = 10
 n_dim = 2
 radius = 1
-control_point_set= np.random.rand(n_dim,n_points)*10
-point = np.random.rand(n_dim,1)*10 - 2
+# control_point_set= np.random.rand(n_dim,n_points)*10
+control_point_set = np.array([[5.40876234, 3.59385918, 8.64430584, 1.54778121, 3.28521738, 6.45670928, 2.4775997,  2.13578183, 5.73122222, 4.73792694],
+        [6.48052042, 6.70371021, 1.27331269, 0.54655433, 1.03721891, 0.41984464, 2.40628853, 3.16038393, 8.05965801, 9.55043722]])
+# point = np.random.rand(n_dim,1)*10 - 2
+point = np.array([[-1.8820112], [-0.61966279]])
 order = 3
 
 bspline = BsplineEvaluation(control_point_set, order, 0,1)
@@ -43,13 +46,13 @@ closest_point = []
 bspline_point_set_translated = control_point_set - point
 coeficients_, closest_point_, in_hull_ = min_norm(bspline_point_set_translated)
 object_in_hull = np.linalg.norm(closest_point_,2) < radius
-print("object in hull: " , object_in_hull)
+# print("object in hull: " , object_in_hull)
 if (not object_in_hull):
     closest_point = closest_point_
     mean_bspline_points = np.mean(control_point_set,1)[:,None]
     pseudo_radius = np.max(np.linalg.norm(mean_bspline_points - control_point_set,2,0))
-    print("#### pseudo_radius: ", pseudo_radius)
-    distance = np.linalg.norm(closest_point,2) + pseudo_radius
+    # print("#### pseudo_radius: ", pseudo_radius)
+    distance = np.linalg.norm(closest_point,2) + pseudo_radius - radius
 else:
     for i in range(n_points - order):
         points = minvo_cps[:,i*(order+1):i*(order+1)+order+1]
@@ -59,20 +62,29 @@ else:
         pseudo_radius = np.max(np.linalg.norm((mean_points - points),2,0))
         coeficients, current_closest_point, in_hull = min_norm(point_set_translated)
         current_distance = np.linalg.norm(current_closest_point,2)
+        # print("in_hull: " , in_hull)
+        # print("current distance 1: " , current_distance)
         if in_hull:
             current_distance = current_distance - radius - pseudo_radius + mean_to_point
         else:
             current_distance = current_distance - radius
+            # print("current distance 2: " , current_distance)
+            # print("radius: " , radius)
+            # print("point not in hull")
+
         if current_distance < distance:
             distance = current_distance
             closest_minvo_points = points
             closest_point = current_closest_point
+            # print("point_set_translated: " , point_set_translated)
+            # print("current_closest_point: " , current_closest_point)
+            # print("distance to point: " , np.linalg.norm(current_closest_point,2))
 
 print("control_point_set: " , control_point_set)
-# print("minvo_control_points: " , minvo_cps)
+# print("closest_minvo_points: " , closest_minvo_points)
 print("point: " , point)
 print("dist to object: " , distance)
-print("radius: " , radius)
+# print("radius: " , radius)
 
 circle = plt.Circle((point.item(0), point.item(1)), radius, color='b',fill=False)
 fig, ax = plt.subplots() 

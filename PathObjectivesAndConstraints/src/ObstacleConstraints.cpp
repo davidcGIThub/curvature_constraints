@@ -54,7 +54,7 @@ double ObstacleConstraints<D>::getObstacleDistanceToSpline(double cont_pts[], in
 template <int D>
 double ObstacleConstraints<D>::getDistanceToClosestInterval(Eigen::MatrixXd control_points, int num_control_points,
                                 double obstacle_radius, Eigen::Matrix<double,D,1> obstacle_center)
-{
+{ 
     const int order = 3;
     const int NUM_POINTS = order+1;
     double min_distance{std::numeric_limits<double>::max()};
