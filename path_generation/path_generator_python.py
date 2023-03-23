@@ -150,7 +150,7 @@ class PathGenerator:
             p2 = control_points[:,i+2]
             p3 = control_points[:,i+3]
             sum_of_integrals += np.sum((p0 - 3*p1 + 3*p2 - p3)**2) 
-        return sum_of_integrals #+ scale_factor
+        return sum_of_integrals + scale_factor
 
     def __create_initial_control_points(self, waypoints):
         start_waypoint = waypoints[:,0]

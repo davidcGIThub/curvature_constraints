@@ -11,26 +11,26 @@ lib = ctypes.CDLL(libname / "libPathObjectivesAndConstraints.so")
 class ObjectiveFunctions(object):
 
     def __init__(self, dimension):
-        ND_POINTER_FLOATS = np.ctypeslib.ndpointer(dtype=np.float32, ndim=1,flags="C")
+        ND_POINTER_DOUBLE = np.ctypeslib.ndpointer(dtype=np.float64, ndim=1,flags="C")
         self._dimension = dimension
         if dimension == 2:
             lib.ObjectiveFunctions_2.argtypes = [ctypes.c_void_p]
             lib.ObjectiveFunctions_2.restype = ctypes.c_void_p
-            lib.minimize_acceleration_and_time_2.argtypes = [ctypes.c_void_p, ND_POINTER_FLOATS, ctypes.c_int, 
-                ctypes.c_float]
-            lib.minimize_acceleration_and_time_2.restype = ctypes.c_float
+            lib.minimize_acceleration_and_time_2.argtypes = [ctypes.c_void_p, ND_POINTER_DOUBLE, ctypes.c_int, 
+                ctypes.c_double]
+            lib.minimize_acceleration_and_time_2.restype = ctypes.c_double
             self.obj = lib.ObjectiveFunctions_2(0)
         else: # value == 3
             lib.ObjectiveFunctions_3.argtypes = [ctypes.c_void_p]
             lib.ObjectiveFunctions_3.restype = ctypes.c_void_p
-            lib.minimize_acceleration_and_time_3.argtypes = [ctypes.c_void_p, ND_POINTER_FLOATS, ctypes.c_int, 
-                ctypes.c_float]
-            lib.minimize_acceleration_and_time_3.restype = ctypes.c_float
+            lib.minimize_acceleration_and_time_3.argtypes = [ctypes.c_void_p, ND_POINTER_DOUBLE, ctypes.c_int, 
+                ctypes.c_double]
+            lib.minimize_acceleration_and_time_3.restype = ctypes.c_double
             self.obj = lib.ObjectiveFunctions_3(0)
 
     def minimize_acceleration_and_time(self, cont_pts, scale_factor):
         num_cont_pts = np.shape(cont_pts)[1]
-        cont_pts_array = cont_pts.flatten().astype('float32')
+        cont_pts_array = cont_pts.flatten().astype('float64')
         if self._dimension == 2:
             objective = lib.minimize_acceleration_and_time_2(self.obj, cont_pts_array, num_cont_pts, scale_factor)
         else: # value = 3
@@ -47,3 +47,5 @@ class ObjectiveFunctions(object):
 # obj_func = ObjectiveFunctions(3)
 # objective = obj_func.minimize_acceleration_and_time(control_points, scale_factor)
 # print("objective: " , objective)
+
+

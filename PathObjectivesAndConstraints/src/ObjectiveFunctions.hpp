@@ -9,24 +9,25 @@ class ObjectiveFunctions
 {
     public:
         ObjectiveFunctions();
-        float minimize_acceleration_and_time(float cont_pts[], int num_control_points, float scale_factor);
-        float minimize_distance_and_time(float cont_pts[], int num_control_points, float scale_factor);
+        double minimize_acceleration_and_time(double cont_pts[], int num_control_points, double scale_factor);
+        double minimize_distance_and_time(double cont_pts[], int num_control_points, double scale_factor);
     private:
         CBindingHelper<D> cbind_help{};
-        float minimize_acceleration(float cont_pts[], int &num_control_points);
-        float minimize_distance(float cont_pts[], int &num_control_points);
+        double minimize_acceleration(double cont_pts[], int &num_control_points);
+        double minimize_distance(double cont_pts[], int &num_control_points);
+        Eigen::Matrix<double,D,4> array_section_to_eigen(double cont_pts[], int &num_cps, unsigned int &index);
 };
 
 extern "C"
 {
     ObjectiveFunctions<2>* ObjectiveFunctions_2(){return new ObjectiveFunctions<2>();}
-    float minimize_acceleration_and_time_2(ObjectiveFunctions<2>* obj, float cont_pts[], 
-        int num_control_points, float scale_factor){return obj->minimize_acceleration_and_time(
+    double minimize_acceleration_and_time_2(ObjectiveFunctions<2>* obj, double cont_pts[], 
+        int num_control_points, double scale_factor){return obj->minimize_acceleration_and_time(
             cont_pts, num_control_points, scale_factor);}
 
     ObjectiveFunctions<3>* ObjectiveFunctions_3(){return new ObjectiveFunctions<3>();}
-    float minimize_acceleration_and_time_3(ObjectiveFunctions<3>* obj, float cont_pts[], 
-        int num_control_points, float scale_factor){return obj->minimize_acceleration_and_time(
+    double minimize_acceleration_and_time_3(ObjectiveFunctions<3>* obj, double cont_pts[], 
+        int num_control_points, double scale_factor){return obj->minimize_acceleration_and_time(
             cont_pts, num_control_points, scale_factor);}
 }
 
