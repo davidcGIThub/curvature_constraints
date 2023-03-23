@@ -5,11 +5,12 @@ add_executable(${TEST_NAME}
     UnitTestCubicEquationSolver.cpp
     UnitTestMDMAlgorithmClass.cpp
     UnitTestDerivativeEvaluator.cpp
-    UnitTestThirdOrderCurvatureEvaluator.cpp
+    UnitTestThirdOrderCurvatureBounds.cpp
     UnitTestWaypointConstraints.cpp
     UnitTestObjectiveFunctions.cpp
     UnitTestConvexHullCollisionChecker.cpp
-    UnitTestObstacleConstraints.cpp)
+    UnitTestObstacleConstraints.cpp
+    UnitTestCurvatureConstraints.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC "${PROJECT_SOURCE_DIR}/src")
 

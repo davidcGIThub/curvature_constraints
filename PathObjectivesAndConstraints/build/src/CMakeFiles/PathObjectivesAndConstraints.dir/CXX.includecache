@@ -6,14 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/BsplineToMinvo.hpp
-array
--
-eigen3/Eigen/Core
--
-eigen3/Eigen/Dense
--
-
 /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CBindingHelper.hpp
 eigen3/Eigen/Core
 -
@@ -22,35 +14,37 @@ eigen3/Eigen/Dense
 gtest/gtest_prod.h
 /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/gtest/gtest_prod.h
 
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ConvexHullCollisionChecker.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CubicEquationSolver.hpp
+array
+-
+list
+-
+limits
+-
+
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/DerivativeEvaluator.hpp
+array
+-
 eigen3/Eigen/Core
 -
 eigen3/Eigen/Dense
 -
-MDMAlgorithmClass.hpp
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/MDMAlgorithmClass.hpp
+CubicEquationSolver.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CubicEquationSolver.hpp
+gtest/gtest_prod.h
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/gtest/gtest_prod.h
+CBindingHelper.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CBindingHelper.hpp
 
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/MDMAlgorithmClass.hpp
-eigen3/Eigen/Core
--
-eigen3/Eigen/Dense
--
-
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ObstacleConstraints.cpp
-ObstacleConstraints.hpp
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ObstacleConstraints.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/WaypointConstraints.cpp
+WaypointConstraints.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/WaypointConstraints.hpp
 iostream
 -
 
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ObstacleConstraints.hpp
-eigen3/Eigen/Core
--
-eigen3/Eigen/Dense
--
-ConvexHullCollisionChecker.hpp
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ConvexHullCollisionChecker.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/WaypointConstraints.hpp
+DerivativeEvaluator.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/DerivativeEvaluator.hpp
 CBindingHelper.hpp
 /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CBindingHelper.hpp
-BsplineToMinvo.hpp
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/BsplineToMinvo.hpp
 

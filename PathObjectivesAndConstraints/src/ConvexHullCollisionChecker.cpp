@@ -5,6 +5,21 @@ template<int D>
 ConvexHullCollisionChecker<D>::ConvexHullCollisionChecker(){}
 
 template<int D>
+bool ConvexHullCollisionChecker<D>::checkIfCollides(Eigen::Matrix<float,D,1> &sphere_center, 
+                                                float &sphere_radius, Eigen::MatrixXf &points, int &num_points)
+{
+    float distance_to_point = getDistanceToPoint(sphere_center, points, num_points);
+    if (distance_to_point < sphere_radius + 0.000001)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+template<int D>
 float ConvexHullCollisionChecker<D>::getDistanceToSphere(Eigen::Matrix<float,D,1> &sphere_center, 
                                                 float &sphere_radius, Eigen::MatrixXf &points, int &num_points)
 {

@@ -129,3 +129,38 @@ TEST(ConvexHullCollisionTests, ConservativeColliding3D)
     float tolerance = 0.0000001;
     EXPECT_NEAR(true_distance, distance, tolerance);
 }
+
+
+TEST(ConvexHullCollisionTests, CheckIfCollidesDoes)
+{
+    const int D{2};
+    ConvexHullCollisionChecker<D> checker{};
+    Eigen::Matrix<float,D,1> obstacle_center;
+    obstacle_center << 7, 7;
+    float obstacle_radius = 5; 
+    int num_points = 6;
+    Eigen::MatrixXf points(D, num_points);  
+    points << 8,   4,    13,  10,     8,  14,
+              8,  10,    10,  10,    12,  10;
+    bool collides = checker.checkIfCollides(obstacle_center,
+                 obstacle_radius, points, num_points);
+    float true_collides = true;
+    EXPECT_EQ(true_collides, collides);
+}
+
+TEST(ConvexHullCollisionTests, CheckIfCollidesDoesnt)
+{
+    const int D{2};
+    ConvexHullCollisionChecker<D> checker{};
+    Eigen::Matrix<float,D,1> obstacle_center;
+    obstacle_center << 4, 3;
+    float obstacle_radius = 1; 
+    int num_points = 6;
+    Eigen::MatrixXf points(D, num_points);  
+    points << 8,   4,    13,  10,     8,  14,
+              8,  10,    10,  10,    12,  10;
+    bool collides = checker.checkIfCollides(obstacle_center,
+                 obstacle_radius, points, num_points);
+    float true_collides = false;
+    EXPECT_EQ(true_collides, collides);
+}

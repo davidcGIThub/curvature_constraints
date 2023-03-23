@@ -9,8 +9,8 @@ add_library(${PROJECT_NAME} SHARED
     MDMAlgorithmClass.hpp
     DerivativeEvaluator.cpp 
     DerivativeEvaluator.hpp
-    ThirdOrderCurvatureEvaluator.cpp
-    ThirdOrderCurvatureEvaluator.hpp
+    ThirdOrderCurvatureBounds.cpp
+    ThirdOrderCurvatureBounds.hpp
     WaypointConstraints.cpp
     WaypointConstraints.hpp
     ObjectiveFunctions.cpp
@@ -18,6 +18,8 @@ add_library(${PROJECT_NAME} SHARED
     ConvexHullCollisionChecker.cpp
     ConvexHullCollisionChecker.hpp
     ObstacleConstraints.cpp
-    ObstacleConstraints.hpp)
+    ObstacleConstraints.hpp
+    CurvatureConstraints.cpp
+    CurvatureConstraints.hpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src")

@@ -6,14 +6,6 @@
 
 #IncludeRegexTransform: 
 
-../src/BsplineToMinvo.hpp
-array
--
-eigen3/Eigen/Core
--
-eigen3/Eigen/Dense
--
-
 ../src/CBindingHelper.hpp
 eigen3/Eigen/Core
 -
@@ -22,35 +14,37 @@ eigen3/Eigen/Dense
 gtest/gtest_prod.h
 ../src/gtest/gtest_prod.h
 
-../src/ConvexHullCollisionChecker.hpp
-eigen3/Eigen/Core
+../src/CubicEquationSolver.hpp
+array
 -
-eigen3/Eigen/Dense
+list
 -
-MDMAlgorithmClass.hpp
-../src/MDMAlgorithmClass.hpp
-
-../src/MDMAlgorithmClass.hpp
-eigen3/Eigen/Core
--
-eigen3/Eigen/Dense
+limits
 -
 
-../src/ObstacleConstraints.hpp
+../src/DerivativeEvaluator.hpp
+array
+-
 eigen3/Eigen/Core
 -
 eigen3/Eigen/Dense
 -
-ConvexHullCollisionChecker.hpp
-../src/ConvexHullCollisionChecker.hpp
+CubicEquationSolver.hpp
+../src/CubicEquationSolver.hpp
+gtest/gtest_prod.h
+../src/gtest/gtest_prod.h
 CBindingHelper.hpp
 ../src/CBindingHelper.hpp
-BsplineToMinvo.hpp
-../src/BsplineToMinvo.hpp
 
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestObstacleConstraints.cpp
+../src/WaypointConstraints.hpp
+DerivativeEvaluator.hpp
+../src/DerivativeEvaluator.hpp
+CBindingHelper.hpp
+../src/CBindingHelper.hpp
+
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestWaypointConstraints.cpp
 gtest/gtest.h
 /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/gtest/gtest.h
-ObstacleConstraints.hpp
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/ObstacleConstraints.hpp
+WaypointConstraints.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/WaypointConstraints.hpp
 

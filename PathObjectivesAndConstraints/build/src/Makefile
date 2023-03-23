@@ -233,6 +233,33 @@ CubicEquationSolver.cpp.s:
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/CubicEquationSolver.cpp.s
 .PHONY : CubicEquationSolver.cpp.s
 
+CurvatureConstraints.o: CurvatureConstraints.cpp.o
+
+.PHONY : CurvatureConstraints.o
+
+# target to build an object file
+CurvatureConstraints.cpp.o:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/CurvatureConstraints.cpp.o
+.PHONY : CurvatureConstraints.cpp.o
+
+CurvatureConstraints.i: CurvatureConstraints.cpp.i
+
+.PHONY : CurvatureConstraints.i
+
+# target to preprocess a source file
+CurvatureConstraints.cpp.i:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/CurvatureConstraints.cpp.i
+.PHONY : CurvatureConstraints.cpp.i
+
+CurvatureConstraints.s: CurvatureConstraints.cpp.s
+
+.PHONY : CurvatureConstraints.s
+
+# target to generate assembly for a file
+CurvatureConstraints.cpp.s:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/CurvatureConstraints.cpp.s
+.PHONY : CurvatureConstraints.cpp.s
+
 DerivativeEvaluator.o: DerivativeEvaluator.cpp.o
 
 .PHONY : DerivativeEvaluator.o
@@ -341,32 +368,32 @@ ObstacleConstraints.cpp.s:
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/ObstacleConstraints.cpp.s
 .PHONY : ObstacleConstraints.cpp.s
 
-ThirdOrderCurvatureEvaluator.o: ThirdOrderCurvatureEvaluator.cpp.o
+ThirdOrderCurvatureBounds.o: ThirdOrderCurvatureBounds.cpp.o
 
-.PHONY : ThirdOrderCurvatureEvaluator.o
+.PHONY : ThirdOrderCurvatureBounds.o
 
 # target to build an object file
-ThirdOrderCurvatureEvaluator.cpp.o:
-	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/ThirdOrderCurvatureEvaluator.cpp.o
-.PHONY : ThirdOrderCurvatureEvaluator.cpp.o
+ThirdOrderCurvatureBounds.cpp.o:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/ThirdOrderCurvatureBounds.cpp.o
+.PHONY : ThirdOrderCurvatureBounds.cpp.o
 
-ThirdOrderCurvatureEvaluator.i: ThirdOrderCurvatureEvaluator.cpp.i
+ThirdOrderCurvatureBounds.i: ThirdOrderCurvatureBounds.cpp.i
 
-.PHONY : ThirdOrderCurvatureEvaluator.i
+.PHONY : ThirdOrderCurvatureBounds.i
 
 # target to preprocess a source file
-ThirdOrderCurvatureEvaluator.cpp.i:
-	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/ThirdOrderCurvatureEvaluator.cpp.i
-.PHONY : ThirdOrderCurvatureEvaluator.cpp.i
+ThirdOrderCurvatureBounds.cpp.i:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/ThirdOrderCurvatureBounds.cpp.i
+.PHONY : ThirdOrderCurvatureBounds.cpp.i
 
-ThirdOrderCurvatureEvaluator.s: ThirdOrderCurvatureEvaluator.cpp.s
+ThirdOrderCurvatureBounds.s: ThirdOrderCurvatureBounds.cpp.s
 
-.PHONY : ThirdOrderCurvatureEvaluator.s
+.PHONY : ThirdOrderCurvatureBounds.s
 
 # target to generate assembly for a file
-ThirdOrderCurvatureEvaluator.cpp.s:
-	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/ThirdOrderCurvatureEvaluator.cpp.s
-.PHONY : ThirdOrderCurvatureEvaluator.cpp.s
+ThirdOrderCurvatureBounds.cpp.s:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f src/CMakeFiles/PathObjectivesAndConstraints.dir/build.make src/CMakeFiles/PathObjectivesAndConstraints.dir/ThirdOrderCurvatureBounds.cpp.s
+.PHONY : ThirdOrderCurvatureBounds.cpp.s
 
 WaypointConstraints.o: WaypointConstraints.cpp.o
 
@@ -416,6 +443,9 @@ help:
 	@echo "... CubicEquationSolver.o"
 	@echo "... CubicEquationSolver.i"
 	@echo "... CubicEquationSolver.s"
+	@echo "... CurvatureConstraints.o"
+	@echo "... CurvatureConstraints.i"
+	@echo "... CurvatureConstraints.s"
 	@echo "... DerivativeEvaluator.o"
 	@echo "... DerivativeEvaluator.i"
 	@echo "... DerivativeEvaluator.s"
@@ -428,9 +458,9 @@ help:
 	@echo "... ObstacleConstraints.o"
 	@echo "... ObstacleConstraints.i"
 	@echo "... ObstacleConstraints.s"
-	@echo "... ThirdOrderCurvatureEvaluator.o"
-	@echo "... ThirdOrderCurvatureEvaluator.i"
-	@echo "... ThirdOrderCurvatureEvaluator.s"
+	@echo "... ThirdOrderCurvatureBounds.o"
+	@echo "... ThirdOrderCurvatureBounds.i"
+	@echo "... ThirdOrderCurvatureBounds.s"
 	@echo "... WaypointConstraints.o"
 	@echo "... WaypointConstraints.i"
 	@echo "... WaypointConstraints.s"

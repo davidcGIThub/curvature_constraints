@@ -206,6 +206,33 @@ UnitTestCubicEquationSolver.cpp.s:
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestCubicEquationSolver.cpp.s
 .PHONY : UnitTestCubicEquationSolver.cpp.s
 
+UnitTestCurvatureConstraints.o: UnitTestCurvatureConstraints.cpp.o
+
+.PHONY : UnitTestCurvatureConstraints.o
+
+# target to build an object file
+UnitTestCurvatureConstraints.cpp.o:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestCurvatureConstraints.cpp.o
+.PHONY : UnitTestCurvatureConstraints.cpp.o
+
+UnitTestCurvatureConstraints.i: UnitTestCurvatureConstraints.cpp.i
+
+.PHONY : UnitTestCurvatureConstraints.i
+
+# target to preprocess a source file
+UnitTestCurvatureConstraints.cpp.i:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestCurvatureConstraints.cpp.i
+.PHONY : UnitTestCurvatureConstraints.cpp.i
+
+UnitTestCurvatureConstraints.s: UnitTestCurvatureConstraints.cpp.s
+
+.PHONY : UnitTestCurvatureConstraints.s
+
+# target to generate assembly for a file
+UnitTestCurvatureConstraints.cpp.s:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestCurvatureConstraints.cpp.s
+.PHONY : UnitTestCurvatureConstraints.cpp.s
+
 UnitTestDerivativeEvaluator.o: UnitTestDerivativeEvaluator.cpp.o
 
 .PHONY : UnitTestDerivativeEvaluator.o
@@ -314,32 +341,32 @@ UnitTestObstacleConstraints.cpp.s:
 	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestObstacleConstraints.cpp.s
 .PHONY : UnitTestObstacleConstraints.cpp.s
 
-UnitTestThirdOrderCurvatureEvaluator.o: UnitTestThirdOrderCurvatureEvaluator.cpp.o
+UnitTestThirdOrderCurvatureBounds.o: UnitTestThirdOrderCurvatureBounds.cpp.o
 
-.PHONY : UnitTestThirdOrderCurvatureEvaluator.o
+.PHONY : UnitTestThirdOrderCurvatureBounds.o
 
 # target to build an object file
-UnitTestThirdOrderCurvatureEvaluator.cpp.o:
-	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.o
-.PHONY : UnitTestThirdOrderCurvatureEvaluator.cpp.o
+UnitTestThirdOrderCurvatureBounds.cpp.o:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestThirdOrderCurvatureBounds.cpp.o
+.PHONY : UnitTestThirdOrderCurvatureBounds.cpp.o
 
-UnitTestThirdOrderCurvatureEvaluator.i: UnitTestThirdOrderCurvatureEvaluator.cpp.i
+UnitTestThirdOrderCurvatureBounds.i: UnitTestThirdOrderCurvatureBounds.cpp.i
 
-.PHONY : UnitTestThirdOrderCurvatureEvaluator.i
+.PHONY : UnitTestThirdOrderCurvatureBounds.i
 
 # target to preprocess a source file
-UnitTestThirdOrderCurvatureEvaluator.cpp.i:
-	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.i
-.PHONY : UnitTestThirdOrderCurvatureEvaluator.cpp.i
+UnitTestThirdOrderCurvatureBounds.cpp.i:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestThirdOrderCurvatureBounds.cpp.i
+.PHONY : UnitTestThirdOrderCurvatureBounds.cpp.i
 
-UnitTestThirdOrderCurvatureEvaluator.s: UnitTestThirdOrderCurvatureEvaluator.cpp.s
+UnitTestThirdOrderCurvatureBounds.s: UnitTestThirdOrderCurvatureBounds.cpp.s
 
-.PHONY : UnitTestThirdOrderCurvatureEvaluator.s
+.PHONY : UnitTestThirdOrderCurvatureBounds.s
 
 # target to generate assembly for a file
-UnitTestThirdOrderCurvatureEvaluator.cpp.s:
-	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestThirdOrderCurvatureEvaluator.cpp.s
-.PHONY : UnitTestThirdOrderCurvatureEvaluator.cpp.s
+UnitTestThirdOrderCurvatureBounds.cpp.s:
+	cd /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/build && $(MAKE) -f tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/build.make tests/CMakeFiles/PathObjectivesAndConstraints_UnitTest.dir/UnitTestThirdOrderCurvatureBounds.cpp.s
+.PHONY : UnitTestThirdOrderCurvatureBounds.cpp.s
 
 UnitTestWaypointConstraints.o: UnitTestWaypointConstraints.cpp.o
 
@@ -386,6 +413,9 @@ help:
 	@echo "... UnitTestCubicEquationSolver.o"
 	@echo "... UnitTestCubicEquationSolver.i"
 	@echo "... UnitTestCubicEquationSolver.s"
+	@echo "... UnitTestCurvatureConstraints.o"
+	@echo "... UnitTestCurvatureConstraints.i"
+	@echo "... UnitTestCurvatureConstraints.s"
 	@echo "... UnitTestDerivativeEvaluator.o"
 	@echo "... UnitTestDerivativeEvaluator.i"
 	@echo "... UnitTestDerivativeEvaluator.s"
@@ -398,9 +428,9 @@ help:
 	@echo "... UnitTestObstacleConstraints.o"
 	@echo "... UnitTestObstacleConstraints.i"
 	@echo "... UnitTestObstacleConstraints.s"
-	@echo "... UnitTestThirdOrderCurvatureEvaluator.o"
-	@echo "... UnitTestThirdOrderCurvatureEvaluator.i"
-	@echo "... UnitTestThirdOrderCurvatureEvaluator.s"
+	@echo "... UnitTestThirdOrderCurvatureBounds.o"
+	@echo "... UnitTestThirdOrderCurvatureBounds.i"
+	@echo "... UnitTestThirdOrderCurvatureBounds.s"
 	@echo "... UnitTestWaypointConstraints.o"
 	@echo "... UnitTestWaypointConstraints.i"
 	@echo "... UnitTestWaypointConstraints.s"

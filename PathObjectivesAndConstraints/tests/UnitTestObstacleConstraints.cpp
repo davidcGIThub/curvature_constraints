@@ -115,3 +115,49 @@ TEST(ObstacleConstraintTests, TestMultipleObstacles)
     EXPECT_NEAR(true_distance_2, distances[1], tolerance);
     EXPECT_NEAR(true_distance_3, distances[2], tolerance);
 }
+
+TEST(ObstacleConstraintTests, CheckIfCollides)
+{
+    const int D{2};
+    ObstacleConstraints<D> obst_const{};
+    float sphere_center[] = {4.84435679, 6.42836434};
+    float sphere_radius = 1; 
+    const int num_spline_points = 10;
+    float control_points[] = {7.91705873, 9.88263331, 0.27303466, 7.50604049, 4.61073475, 5.98801717, 1.52432928, 3.8850049, 1.61195392, 8.22471529,
+        5.22947263, 1.33282499, 3.51583204, 8.62435967, 3.03096953, 0.84672315, 0.54028843, 7.24686189, 4.79897482, 5.00498365};
+    bool collides = obst_const.checkIfObstacleCollides(control_points, num_spline_points, sphere_radius, sphere_center);
+    float true_collides = true;
+    EXPECT_EQ(true_collides, collides);
+}
+
+TEST(ObstacleConstraintTests, CheckIfCollidesDoesnt)
+{
+    const int D{2};
+    ObstacleConstraints<D> obst_const{};
+     float sphere_center[] = {5.51107017, 1.05467685};
+    float sphere_radius = 1; 
+    const int num_spline_points = 10;
+    float control_points[] = {2.61021784, 5.11996892, 2.16685915, 2.01382634, 8.37519743, 8.03594715, 2.67299177, 0.73316133, 7.69503321, 6.12743855,
+        1.76549201, 9.58027961, 2.61914916, 9.97791921, 1.69992255, 2.74704919, 8.39148742, 7.41307135, 6.71635575, 3.61696069};
+    bool collides = obst_const.checkIfObstacleCollides(control_points, num_spline_points, sphere_radius, sphere_center);
+    float true_collides = false;
+    EXPECT_EQ(true_collides, collides);
+}
+
+TEST(ObstacleConstraintTests, CheckMultipleObstacles)
+{
+    const int D{2};
+    ObstacleConstraints<D> obst_const{};
+    const int num_spline_points = 10;
+    float control_points[] = {8.33665694, 8.74600799, 0.15411698, 1.03944841, 2.71745767, 5.10167975, 0.49748729, 9.24934927, 2.09060337, 0.3531816,
+        1.40865962, 5.09002261, 8.24619956, 0.06025564, 7.38338304, 6.72558684, 7.26305315, 8.93062143, 2.91758113, 6.65393249};
+    float obstacle_radii[] = {1, 1, 1};
+    int num_obstacles = 3;
+    float obstacle_centers[] = {2.6662532, -1.14261837, 3.31630941, 
+                                6.16021986, 0.02562916, 0.98248971};
+    bool* collisions = obst_const.checkIfObstaclesCollide(control_points, num_spline_points,
+                                          obstacle_radii, obstacle_centers, num_obstacles);
+    EXPECT_EQ(true, collisions[0]);
+    EXPECT_EQ(false, collisions[1]);
+    EXPECT_EQ(false, collisions[2]);
+}

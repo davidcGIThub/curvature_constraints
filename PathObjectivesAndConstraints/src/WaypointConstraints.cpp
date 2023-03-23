@@ -8,7 +8,7 @@ WaypointConstraints<D>::WaypointConstraints()
 }
 
 template<int D>
-float* WaypointConstraints<D>::velocity_at_waypoints(float cont_pts[], int num_cps, float scale_factor, float desired_velocities[])
+float* WaypointConstraints<D>::velocity_at_waypoints_constraints(float cont_pts[], int num_cps, float scale_factor, float desired_velocities[])
 {
     int order = 3;
     float* constraints = new float[D*2];
