@@ -24,19 +24,25 @@ class PathGenerator:
 # when minimizing distance and time need constraint over max velocity
 # when minimizing acceleration, no max velocity constraint needed
 
-    def __init__(self, dimension):
+    def __init__(self, dimension, num_obstacles = 1):
         self._dimension = dimension
+        self._num_obstacles = num_obstacles
         self._order = 3
         self._M = get_M_matrix(self._order)
         self._control_points_per_corridor = 4
         self._num_control_points = 8
         self._objective_func_obj = ObjectiveFunctions(self._dimension)
         self._curvature_const_obj = CurvatureConstraints(self._dimension, self._num_control_points)
-        self._obstacle_const_obj = ObstacleConstraints(self._dimension)
+        self._obstacle_const_obj = ObstacleConstraints(self._dimension, self._num_obstacles)
         self._waypoint_vel_const_obj = WaypointConstraints(self._dimension)
         
-
-    def generate_path(self, waypoints, waypoint_directions, max_curvature):
+    def generate_path(self, waypoints, waypoint_directions, max_curvature, obstacles = None):
+        if(obstacles == None):
+            return self.generate_obstacle_free_path(waypoints, waypoint_directions, max_curvature)
+        else:
+            return self.generate_obstructed_path(waypoints, waypoint_directions, max_curvature, obstacles)
+    
+    def generate_obstacle_free_path(self, waypoints, waypoint_directions, max_curvature):
         # create initial conditions
         self._dimension = np.shape(waypoints)[0]
         initial_control_points = self.__create_initial_control_points(waypoints)
@@ -62,7 +68,38 @@ class PathGenerator:
             options = minimize_options)
         # retrieve data
         optimized_control_points = np.reshape(result.x[0:-1] ,(self._dimension,self._num_control_points))
-        optimized_scale_factor = result.x[-1]
+        return optimized_control_points
+    
+    def generate_obstructed_path(self, waypoints, waypoint_directions, max_curvature, obstacles):
+        # create initial conditions
+        self._dimension = np.shape(waypoints)[0]
+        initial_control_points = self.__create_initial_control_points(waypoints)
+        initial_scale_factor = 1
+        optimization_variables = np.concatenate((initial_control_points.flatten(),[initial_scale_factor]))
+        # define constraints and objective function and constraints
+        waypoint_constraint = self.__create_waypoint_constraint(waypoints)
+        velocity_constraint = self.__create_waypoint_direction_constraint(waypoint_directions)
+        curvature_constraint = self.__create_curvature_constraint(max_curvature)
+        print("obstacles[0]: ", obstacles[0])
+        print("obstacles[1]: ", obstacles[1])
+        obstacle_constraint = self.__create_obstacle_constraint(obstacles[0], obstacles[1])
+        objectiveFunction = self.__minimize_acceleration_objective_function
+        objective_variable_bounds = self.__create_objective_variable_bounds()
+        minimize_options = {'disp': True}#, 'maxiter': self.maxiter, 'ftol': tol}
+        # perform optimization
+        result = minimize(
+            objectiveFunction,
+            x0=optimization_variables,
+            method='SLSQP', 
+            bounds=objective_variable_bounds,
+            constraints=(\
+            curvature_constraint, 
+            velocity_constraint,
+            waypoint_constraint,
+            obstacle_constraint), 
+            options = minimize_options)
+        # retrieve data
+        optimized_control_points = np.reshape(result.x[0:-1] ,(self._dimension,self._num_control_points))
         return optimized_control_points
 
 # bounds over just the scale factor
@@ -78,22 +115,6 @@ class PathGenerator:
             (self._dimension,self._num_control_points))
         scale_factor = variables[-1]
         return self._objective_func_obj.minimize_acceleration_and_time(control_points, scale_factor)
-
-    # def __minimize_acceleration_objective_function(self, variables):
-    #     # for third order splines only
-    #     control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
-    #         (self._dimension,self._num_control_points))
-    #     scale_factor = variables[-1]
-    #     num_intervals = self._num_control_points - self._order
-    #     sum_of_integrals = 0
-    #     for i in range(num_intervals):
-    #         p0 = control_points[:,i]
-    #         p1 = control_points[:,i+1]
-    #         p2 = control_points[:,i+2]
-    #         p3 = control_points[:,i+3]
-    #         sum_of_integrals += np.sum((p0 - 3*p1 + 3*p2 - p3)**2) 
-    #     python_objective = sum_of_integrals + scale_factor
-    #     return python_objective
 
     def __create_initial_control_points(self, waypoints):
         start_waypoint = waypoints[:,0]
@@ -133,38 +154,6 @@ class PathGenerator:
         velocity_vector_constraint = NonlinearConstraint(velocity_constraint_function, lb= lower_bound, ub=upper_bound)
         return velocity_vector_constraint
 
-    # def __create_waypoint_direction_constraint(self, velocities):
-    #     def velocity_constraint_function(variables):
-    #         constraints = np.zeros(self._dimension*2)
-    #         control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
-    #         (self._dimension,self._num_control_points))
-    #         segement_1_control_points = control_points[:,0:self._order+1]
-    #         segement_2_control_points = control_points[:,self._num_control_points-self._order-1:]
-    #         scale_factor = variables[-1]
-    #         T_0 = get_T_derivative_vector(self._order,0,0,1,scale_factor)
-    #         T_f = get_T_derivative_vector(self._order,scale_factor,0,1,scale_factor)
-    #         start_velocity = np.dot(segement_1_control_points,np.dot(self._M,T_0)).flatten()
-    #         end_velocity = np.dot(segement_2_control_points,np.dot(self._M,T_f)).flatten()
-    #         desired_start_velocity = velocities[:,0]
-    #         desired_end_velocity = velocities[:,1]
-    #         constraints[0:self._dimension] = start_velocity - desired_start_velocity
-    #         constraints[self._dimension:] = end_velocity - desired_end_velocity
-    #         return constraints
-    #     lower_bound = 0
-    #     upper_bound = 0
-    #     velocity_vector_constraint = NonlinearConstraint(velocity_constraint_function, lb= lower_bound, ub=upper_bound)
-    #     return velocity_vector_constraint
-
-    # def __create_curvature_constraint(self, max_curvature):
-    #     def curvature_constraint_function(variables):
-    #         control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
-    #         (self._dimension,self._num_control_points))
-    #         return self._curvature_const_obj.get_spline_curvature_constraint(control_points,max_curvature)
-    #     lower_bound = -np.inf
-    #     upper_bound = 0
-    #     curvature_constraint = NonlinearConstraint(curvature_constraint_function , lb = lower_bound, ub = upper_bound)
-    #     return curvature_constraint
-
     def __create_curvature_constraint(self, max_curvature):
         num_intervals = self._num_control_points - self._order
         def curvature_constraint_function(variables):
@@ -175,25 +164,26 @@ class PathGenerator:
         upper_bound = np.zeros(num_intervals)
         curvature_constraint = NonlinearConstraint(curvature_constraint_function , lb = lower_bound, ub = upper_bound)
         return curvature_constraint
-
-    # def __create_curvature_constraint(self, max_curvature):
-    #     def curvature_constraint_function(variables):
-    #         control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
-    #         (self._dimension,self._num_control_points))
-    #         max_curvature_of_spline_intervals = self.__get_max_curvature_of_each_spline_interval(control_points)
-    #         largest_curvature = np.max(max_curvature_of_spline_intervals)
-    #         python_constraint = largest_curvature - max_curvature
-    #         c_constraint = self._curvature_const_obj.get_spline_curvature_constraint(control_points,max_curvature)
-    #         return python_constraint
-    #     lower_bound = -np.inf
-    #     upper_bound = 0
-    #     curvature_constraint = NonlinearConstraint(curvature_constraint_function , lb = lower_bound, ub = upper_bound)
-    #     return curvature_constraint
-        
-    # def __get_max_curvature_of_each_spline_interval(self,control_points):
-    #     num_intervals = self._num_control_points - self._order
-    #     max_curvatures = np.zeros(num_intervals)
-    #     for i in range(num_intervals):
-    #         control_points_per_interval = control_points[:,i:i+self._order+1]
-    #         max_curvatures[i] = find_curvature_using_max_numerator_over_min_denominator(control_points_per_interval,self._order,self._M)
-    #     return  max_curvatures
+    
+    def __create_obstacle_constraint(self, obstacle_centers, obstacle_radii):
+        # num_obstacles = len(obstacle_radii)
+        num_obstacles = self._num_obstacles
+        if num_obstacles == 1:
+            print("one obstacle")
+            def obstacle_constraint_function(variables):
+                control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
+                (self._dimension,self._num_control_points))
+                print("obstacle_radii.item(0): " , obstacle_radii.item(0))
+                print("obstacle_centers: " , obstacle_centers)
+                return self._obstacle_const_obj.getObstacleDistanceToSpline(control_points, \
+                    obstacle_radii.item(0), obstacle_centers)
+        else:
+            def obstacle_constraint_function(variables):
+                control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
+                (self._dimension,self._num_control_points))
+                return self._obstacle_const_obj.getObstacleDistancesToSpline(control_points, \
+                    obstacle_radii, obstacle_centers)
+        lower_bound = np.zeros(num_obstacles) - np.inf
+        upper_bound = np.zeros(num_obstacles)
+        obstacle_constraint = NonlinearConstraint(obstacle_constraint_function , lb = lower_bound, ub = upper_bound)
+        return obstacle_constraint

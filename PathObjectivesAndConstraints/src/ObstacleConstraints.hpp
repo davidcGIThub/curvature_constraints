@@ -40,6 +40,11 @@ extern "C"
     double getObstacleDistanceToSpline_2(ObstacleConstraints<2>* ex, double cont_pts[], int num_control_points,
                                 double obstacle_radius, double obstacle_center[]){return ex->getObstacleDistanceToSpline(cont_pts,
                                 num_control_points,obstacle_radius,obstacle_center);}
+    double* getObstacleDistancesToSpline_2(ObstacleConstraints<2>* ex, double cont_pts[], int num_control_points,
+                                double obstacle_radii[], double obstacle_centers[], unsigned int num_obstacles)
+                                {return ex->getObstacleDistancesToSpline(cont_pts,num_control_points,obstacle_radii,
+                                obstacle_centers, num_obstacles);}
+
     ObstacleConstraints<3>* ObstacleConstraints_3(){return new ObstacleConstraints<3>();}
     bool checkIfObstacleCollides_3(ObstacleConstraints<3>* ex, double cont_pts[], int num_control_points,
                                 double obstacle_radius, double obstacle_center[]){return ex->checkIfObstacleCollides(cont_pts,
@@ -47,6 +52,10 @@ extern "C"
     double getObstacleDistanceToSpline_3(ObstacleConstraints<3>* ex, double cont_pts[], int num_control_points,
                                 double obstacle_radius, double obstacle_center[]){return ex->getObstacleDistanceToSpline(cont_pts,
                                 num_control_points,obstacle_radius,obstacle_center);}
+    double* getObstacleDistancesToSpline_3(ObstacleConstraints<3>* ex, double cont_pts[], int num_control_points,
+                                double obstacle_radii[], double obstacle_centers[], unsigned int num_obstacles)
+                                {return ex->getObstacleDistancesToSpline(cont_pts,num_control_points,obstacle_radii,
+                                obstacle_centers, num_obstacles);}
 }
 
 #endif

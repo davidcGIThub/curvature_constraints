@@ -10,6 +10,9 @@ max_curvature = 1
 order = 3
 waypoints = np.array([[0,0],[0,400],[100,150]])
 dimension = np.shape(waypoints)[0]
+obstacle_radii = np.array([2])
+obstacle_centers = np.array([[3,],[10],[3]])
+obstacles = (obstacle_centers, obstacle_radii)
 
 initial_control_points = None
 
@@ -19,7 +22,7 @@ curvature_method = "roots_numerator_and_denominator"
 
 path_gen = PathGenerator(dimension)
 start_time = time.time()
-control_points = path_gen.generate_path(waypoints, waypoint_directions, max_curvature)
+control_points = path_gen.generate_path(waypoints, waypoint_directions, max_curvature, obstacles)
 end_time = time.time()
 print("computation time:" , end_time - start_time)
 spline_start_time = 0
