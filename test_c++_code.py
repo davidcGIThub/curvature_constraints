@@ -66,4 +66,4 @@ curvature_constraint = curve_const.get_spline_curvature_constraint(control_point
 print("curvature_constraint: " , curvature_constraint)
 
 curvature_constraints = curve_const.get_interval_curvature_constraints(control_points, max_curvature)
-print("curvature_constraints: " , curvature_constraints)
+print("curvature_constraints: " , type(curvature_constraints))

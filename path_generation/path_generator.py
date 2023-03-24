@@ -155,13 +155,24 @@ class PathGenerator:
     #     velocity_vector_constraint = NonlinearConstraint(velocity_constraint_function, lb= lower_bound, ub=upper_bound)
     #     return velocity_vector_constraint
 
+    # def __create_curvature_constraint(self, max_curvature):
+    #     def curvature_constraint_function(variables):
+    #         control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
+    #         (self._dimension,self._num_control_points))
+    #         return self._curvature_const_obj.get_spline_curvature_constraint(control_points,max_curvature)
+    #     lower_bound = -np.inf
+    #     upper_bound = 0
+    #     curvature_constraint = NonlinearConstraint(curvature_constraint_function , lb = lower_bound, ub = upper_bound)
+    #     return curvature_constraint
+
     def __create_curvature_constraint(self, max_curvature):
+        num_intervals = self._num_control_points - self._order
         def curvature_constraint_function(variables):
             control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
             (self._dimension,self._num_control_points))
-            return self._curvature_const_obj.get_spline_curvature_constraint(control_points,max_curvature)
-        lower_bound = -np.inf
-        upper_bound = 0
+            return self._curvature_const_obj.get_interval_curvature_constraints(control_points,max_curvature)
+        lower_bound = np.zeros(num_intervals) - np.inf
+        upper_bound = np.zeros(num_intervals)
         curvature_constraint = NonlinearConstraint(curvature_constraint_function , lb = lower_bound, ub = upper_bound)
         return curvature_constraint
 
