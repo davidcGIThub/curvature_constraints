@@ -8,44 +8,62 @@ libname_str = os.path.join(script_dir)
 libname = pathlib.Path(libname_str)
 lib = ctypes.CDLL(libname / "libPathObjectivesAndConstraints.so")
 
-class ObjectiveFunctions(object):
+class CurvatureConstraints(object):
 
-    def __init__(self, dimension):
+    def __init__(self, dimension, num_control_points):
+        order = 3
+        num_intervals = num_control_points - order
         ND_POINTER_DOUBLE = np.ctypeslib.ndpointer(dtype=np.float64, ndim=1,flags="C")
+        ND_POINTER_C_DOUBLE = np.ctypeslib.ndpointer(dtype=ctypes.c_double, shape=(num_intervals))
         self._dimension = dimension
         if dimension == 2:
-            lib.ObjectiveFunctions_2.argtypes = [ctypes.c_void_p]
-            lib.ObjectiveFunctions_2.restype = ctypes.c_void_p
-            lib.minimize_acceleration_and_time_2.argtypes = [ctypes.c_void_p, ND_POINTER_DOUBLE, ctypes.c_int, 
-                ctypes.c_double]
-            lib.minimize_acceleration_and_time_2.restype = ctypes.c_double
-            self.obj = lib.ObjectiveFunctions_2(0)
+            lib.CurvatureConstraints_2.argtypes = [ctypes.c_void_p]
+            lib.CurvatureConstraints_2.restype = ctypes.c_void_p
+            lib.get_spline_curvature_constraint_2.argtypes = [ctypes.c_void_p, 
+                ND_POINTER_DOUBLE, ctypes.c_int, ctypes.c_double]
+            lib.get_spline_curvature_constraint_2.restype = ctypes.c_double
+            lib.get_interval_curvature_constraints_2.argtypes = [ctypes.c_void_p, 
+                ND_POINTER_DOUBLE, ctypes.c_int, ctypes.c_double]
+            lib.get_interval_curvature_constraints_2.restype = ND_POINTER_C_DOUBLE
+            self.obj = lib.CurvatureConstraints_2(0)
         else: # value == 3
-            lib.ObjectiveFunctions_3.argtypes = [ctypes.c_void_p]
-            lib.ObjectiveFunctions_3.restype = ctypes.c_void_p
-            lib.minimize_acceleration_and_time_3.argtypes = [ctypes.c_void_p, ND_POINTER_DOUBLE, ctypes.c_int, 
-                ctypes.c_double]
-            lib.minimize_acceleration_and_time_3.restype = ctypes.c_double
-            self.obj = lib.ObjectiveFunctions_3(0)
+            lib.CurvatureConstraints_3.argtypes = [ctypes.c_void_p]
+            lib.CurvatureConstraints_3.restype = ctypes.c_void_p
+            lib.get_spline_curvature_constraint_3.argtypes = [ctypes.c_void_p, 
+                ND_POINTER_DOUBLE, ctypes.c_int, ctypes.c_double]
+            lib.get_spline_curvature_constraint_3.restype = ctypes.c_double
+            lib.get_interval_curvature_constraints_3.argtypes = [ctypes.c_void_p, 
+                ND_POINTER_DOUBLE, ctypes.c_int, ctypes.c_double]
+            lib.get_interval_curvature_constraints_3.restype = ND_POINTER_C_DOUBLE
+            self.obj = lib.CurvatureConstraints_3(0)
 
-    def minimize_acceleration_and_time(self, cont_pts, scale_factor):
+    def get_spline_curvature_constraint(self, cont_pts, max_curvature):
         num_cont_pts = np.shape(cont_pts)[1]
         cont_pts_array = cont_pts.flatten().astype('float64')
         if self._dimension == 2:
-            objective = lib.minimize_acceleration_and_time_2(self.obj, cont_pts_array, num_cont_pts, scale_factor)
+            constraint = lib.get_spline_curvature_constraint_2(self.obj, cont_pts_array, num_cont_pts, max_curvature)
         else: # value = 3
-            objective = lib.minimize_acceleration_and_time_3(self.obj, cont_pts_array, num_cont_pts, scale_factor)
-        return objective
+            constraint = lib.get_spline_curvature_constraint_3(self.obj, cont_pts_array, num_cont_pts, max_curvature)
+        return constraint
     
+    def get_interval_curvature_constraints(self, cont_pts, max_curvature):
+        num_cont_pts = np.shape(cont_pts)[1]
+        cont_pts_array = cont_pts.flatten().astype('float64')
+        if self._dimension == 2:
+            constraints = lib.get_interval_curvature_constraints_2(self.obj, cont_pts_array, num_cont_pts, max_curvature)
+        else: # value = 3
+            constraints = lib.get_interval_curvature_constraints_3(self.obj, cont_pts_array, num_cont_pts, max_curvature)
+        return constraints
+    
+control_points = np.array([[4, 1, 4, 5, 6],
+                           [2, 2, 0, 4, 3],
+                           [7, 0, 1, 7, 8]])
+max_curvature = 2
+dimension = 3
+num_control_points = 5
+curve_const = CurvatureConstraints(dimension,num_control_points)
+curvature_constraint = curve_const.get_spline_curvature_constraint(control_points, max_curvature)
+print("curvature_constraint: " , curvature_constraint)
 
-control_points = np.array([[7.91705873, 9.88263331, 0.27303466, 7.50604049, 4.61073475, 5.98801717, 1.52432928, 3.8850049, 1.61195392, 8.22471529],
-                           [5.22947263, 1.33282499, 3.51583204, 8.62435967, 3.03096953, 0.84672315, 0.54028843, 7.24686189, 4.79897482, 5.00498365]])
-control_points = np.array([[2, 3, 2, 7, 8, 5, 6, 2],
-                           [6, 8, 3, 0, 3, 8, 2, 4],
-                           [9, 2, 0, 9, 8, 2, 9, 3]])
-scale_factor = 1
-obj_func = ObjectiveFunctions(3)
-objective = obj_func.minimize_acceleration_and_time(control_points, scale_factor)
-print("objective: " , objective)
-
-
+curvature_constraints = curve_const.get_interval_curvature_constraints(control_points, max_curvature)
+print("curvature_constraints: " , curvature_constraints)

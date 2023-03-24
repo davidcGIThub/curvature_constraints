@@ -8,20 +8,20 @@ ObstacleConstraints<D>::ObstacleConstraints()
 }
 
 template <int D>
-float* ObstacleConstraints<D>::getObstacleDistancesToSpline(float cont_pts[], int num_control_points,
-                                float obstacle_radii[], float obstacle_centers[], unsigned int num_obstacles)
+double* ObstacleConstraints<D>::getObstacleDistancesToSpline(double cont_pts[], int num_control_points,
+                                double obstacle_radii[], double obstacle_centers[], unsigned int num_obstacles)
 {
     const int order = 3;
-    float distance_to_obstacle{0};
-    float* distances_array = new float[num_obstacles];
-    Eigen::MatrixXf control_points(D,num_control_points);
+    double distance_to_obstacle{0};
+    double* distances_array = new double[num_obstacles];
+    Eigen::MatrixXd control_points(D,num_control_points);
     control_points = helper.array_to_eigen(cont_pts, num_control_points);
     for (unsigned int i = 0; i < num_obstacles; i++)
     {
-        float obstacle_radius = obstacle_radii[i];
-        Eigen::Matrix<float,D,1> obstacle_center = getObstacleCenterFromArray(
+        double obstacle_radius = obstacle_radii[i];
+        Eigen::Matrix<double,D,1> obstacle_center = getObstacleCenterFromArray(
                 obstacle_centers, i, num_obstacles);
-        float distance_to_obstacle = collision_checker.getConservativeDistanceToSphere(obstacle_center, obstacle_radius,
+        double distance_to_obstacle = collision_checker.getConservativeDistanceToSphere(obstacle_center, obstacle_radius,
                 control_points, num_control_points); 
         
         if (distance_to_obstacle < 0)
@@ -35,17 +35,17 @@ float* ObstacleConstraints<D>::getObstacleDistancesToSpline(float cont_pts[], in
 }
 
 template <int D>
-float ObstacleConstraints<D>::getObstacleDistanceToSpline(float cont_pts[], int num_control_points,
-                                float obstacle_radius, float obstacle_center[])
+double ObstacleConstraints<D>::getObstacleDistanceToSpline(double cont_pts[], int num_control_points,
+                                double obstacle_radius, double obstacle_center[])
 {
     const int order = 3;
-    Eigen::MatrixXf control_points(D,num_control_points);
+    Eigen::MatrixXd control_points(D,num_control_points);
     control_points = helper.array_to_eigen(cont_pts, num_control_points);
     unsigned int obstacle_index = 0;
     unsigned int num_obstacles = 1;
-    Eigen::Matrix<float,D,1> obstacle_center_ = getObstacleCenterFromArray(obstacle_center, obstacle_index,
+    Eigen::Matrix<double,D,1> obstacle_center_ = getObstacleCenterFromArray(obstacle_center, obstacle_index,
                                                 num_obstacles);
-    float distance_to_obstacle = collision_checker.getConservativeDistanceToSphere(obstacle_center_, obstacle_radius,
+    double distance_to_obstacle = collision_checker.getConservativeDistanceToSphere(obstacle_center_, obstacle_radius,
                 control_points, num_control_points); 
     if (distance_to_obstacle < 0)
     {
@@ -56,20 +56,20 @@ float ObstacleConstraints<D>::getObstacleDistanceToSpline(float cont_pts[], int 
 }
 
 template <int D>
-bool* ObstacleConstraints<D>::checkIfObstaclesCollide(float cont_pts[], int num_control_points,
-        float obstacle_radii[], float obstacle_centers[], unsigned int num_obstacles)
+bool* ObstacleConstraints<D>::checkIfObstaclesCollide(double cont_pts[], int num_control_points,
+        double obstacle_radii[], double obstacle_centers[], unsigned int num_obstacles)
 {
     const int order = 3;
     const int NUM_POINTS = order+1;
     int num_points = NUM_POINTS;
     bool collision = false;
-    Eigen::MatrixXf bspline_points(D,num_control_points);
+    Eigen::MatrixXd bspline_points(D,num_control_points);
     bspline_points = helper.array_to_eigen(cont_pts,num_control_points);
-    Eigen::MatrixXf minvo_points;
-    Eigen::Matrix<float,D,1> obstacle_center;
+    Eigen::MatrixXd minvo_points;
+    Eigen::Matrix<double,D,1> obstacle_center;
     bool* collides = new bool[num_obstacles];
-    Eigen::Matrix<float,D,NUM_POINTS> bspline_point_section;
-    float obstacle_radius;
+    Eigen::Matrix<double,D,NUM_POINTS> bspline_point_section;
+    double obstacle_radius;
     for(unsigned int j = 0; j < num_obstacles; j++)
     {
         obstacle_center = getObstacleCenterFromArray(obstacle_centers, j, num_obstacles);
@@ -92,17 +92,17 @@ bool* ObstacleConstraints<D>::checkIfObstaclesCollide(float cont_pts[], int num_
 }
 
 template <int D>
-bool ObstacleConstraints<D>::checkIfObstacleCollides(float cont_pts[], int num_control_points,
-        float obstacle_radius, float obstacle_center[])
+bool ObstacleConstraints<D>::checkIfObstacleCollides(double cont_pts[], int num_control_points,
+        double obstacle_radius, double obstacle_center[])
 {
     int order = 3;
     int num_points = order+1;
     bool collision = false;
-    Eigen::Matrix<float,D,4> bspline_points;
-    Eigen::MatrixXf minvo_points;
+    Eigen::Matrix<double,D,4> bspline_points;
+    Eigen::MatrixXd minvo_points;
     unsigned int obstacle_index = 0;
     unsigned int num_obstacles = 1;
-    Eigen::Matrix<float,D,1> obstacle_center_ = getObstacleCenterFromArray(obstacle_center, obstacle_index, num_obstacles);
+    Eigen::Matrix<double,D,1> obstacle_center_ = getObstacleCenterFromArray(obstacle_center, obstacle_index, num_obstacles);
     bool collides = false;
     for (unsigned int i = 0; i < num_control_points-order; i++)
     {
@@ -118,19 +118,19 @@ bool ObstacleConstraints<D>::checkIfObstacleCollides(float cont_pts[], int num_c
 }
 
 template <int D>
-float ObstacleConstraints<D>::getDistanceToClosestInterval(Eigen::MatrixXf &control_points, int &num_control_points,
-                                float &obstacle_radius, Eigen::Matrix<float,D,1> &obstacle_center)
+double ObstacleConstraints<D>::getDistanceToClosestInterval(Eigen::MatrixXd &control_points, int &num_control_points,
+                                double &obstacle_radius, Eigen::Matrix<double,D,1> &obstacle_center)
 { 
     const int order = 3;
     const int NUM_POINTS = order+1;
     int num_points = NUM_POINTS;
-    float min_distance{std::numeric_limits<float>::max()};
-    float distance = 0;
+    double min_distance{std::numeric_limits<double>::max()};
+    double distance = 0;
 
     for (unsigned int i = 0; i < num_control_points-order-1; i++)
     {
-        Eigen::Matrix<float, D,NUM_POINTS> bspline_points = control_points.block(0,i,D,order+1);
-        Eigen::MatrixXf minvo_points(D,NUM_POINTS);
+        Eigen::Matrix<double, D,NUM_POINTS> bspline_points = control_points.block(0,i,D,order+1);
+        Eigen::MatrixXd minvo_points(D,NUM_POINTS);
         minvo_points = cp_converter.convert_3rd_order_spline(bspline_points);
         distance = collision_checker.getDistanceToSphere(obstacle_center, obstacle_radius,
                 minvo_points, num_points);
@@ -143,10 +143,10 @@ float ObstacleConstraints<D>::getDistanceToClosestInterval(Eigen::MatrixXf &cont
 }
 
 template <int D>
-Eigen::Matrix<float,D,1> ObstacleConstraints<D>::getObstacleCenterFromArray(float obstacle_centers[], unsigned int &obstacle_num,
+Eigen::Matrix<double,D,1> ObstacleConstraints<D>::getObstacleCenterFromArray(double obstacle_centers[], unsigned int &obstacle_num,
                                                             unsigned int &num_obstacles)
 {
-    Eigen::Matrix<float,D,1> obstacle_center;
+    Eigen::Matrix<double,D,1> obstacle_center;
     if (D == 2)
     {
         obstacle_center << obstacle_centers[obstacle_num], obstacle_centers[obstacle_num+num_obstacles];

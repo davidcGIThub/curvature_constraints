@@ -14,17 +14,25 @@ eigen3/Eigen/Dense
 gtest/gtest_prod.h
 /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/gtest/gtest_prod.h
 
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ObjectiveFunctions.cpp
-ObjectiveFunctions.hpp
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ObjectiveFunctions.hpp
-iostream
--
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CurvatureConstraints.cpp
+CurvatureConstraints.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CurvatureConstraints.hpp
 
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ObjectiveFunctions.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CurvatureConstraints.hpp
+ThirdOrderCurvatureBounds.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ThirdOrderCurvatureBounds.hpp
+CBindingHelper.hpp
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CBindingHelper.hpp
+
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/ThirdOrderCurvatureBounds.hpp
+array
+-
 eigen3/Eigen/Core
 -
 eigen3/Eigen/Dense
 -
+gtest/gtest_prod.h
+/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/gtest/gtest_prod.h
 CBindingHelper.hpp
 /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/src/CBindingHelper.hpp
 

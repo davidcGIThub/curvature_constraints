@@ -11,28 +11,28 @@ lib = ctypes.CDLL(libname / "libPathObjectivesAndConstraints.so")
 class WaypointConstraints(object):
 
     def __init__(self, dimension):
-        ND_POINTER_PY_FLOATS = np.ctypeslib.ndpointer(dtype=np.float32, ndim=1,flags="C")
-        ND_POINTER_C_FLOATS = np.ctypeslib.ndpointer(dtype=ctypes.c_float, shape=(dimension,2))
+        ND_POINTER_DOUBLE = np.ctypeslib.ndpointer(dtype=np.float64, ndim=1,flags="C")
+        ND_POINTER_C_DOUBLE = np.ctypeslib.ndpointer(dtype=ctypes.c_double, shape=(dimension,2))
         self._dimension = dimension
         if dimension == 2:
             lib.WaypointConstraints_2.argtypes = [ctypes.c_void_p]
             lib.WaypointConstraints_2.restype = ctypes.c_void_p
             lib.velocity_at_waypoints_constraints_2.argtypes = [ctypes.c_void_p, 
-                ND_POINTER_PY_FLOATS, ctypes.c_int, ctypes.c_float, ND_POINTER_PY_FLOATS]
-            lib.velocity_at_waypoints_constraints_2.restype = ND_POINTER_C_FLOATS
+                ND_POINTER_DOUBLE, ctypes.c_int, ctypes.c_double, ND_POINTER_DOUBLE]
+            lib.velocity_at_waypoints_constraints_2.restype = ND_POINTER_C_DOUBLE
             self.obj = lib.WaypointConstraints_2(0)
         else: # value == 3
             lib.WaypointConstraints_3.argtypes = [ctypes.c_void_p]
             lib.WaypointConstraints_3.restype = ctypes.c_void_p
             lib.velocity_at_waypoints_constraints_3.argtypes = [ctypes.c_void_p, 
-                ND_POINTER_PY_FLOATS, ctypes.c_int, ctypes.c_float, ND_POINTER_PY_FLOATS]
-            lib.velocity_at_waypoints_constraints_3.restype = ND_POINTER_C_FLOATS
+                ND_POINTER_DOUBLE, ctypes.c_int, ctypes.c_double, ND_POINTER_DOUBLE]
+            lib.velocity_at_waypoints_constraints_3.restype = ND_POINTER_C_DOUBLE
             self.obj = lib.WaypointConstraints_3(0)
 
     def velocity_at_waypoints_constraints(self, cont_pts, scale_factor, desired_velocities):
         num_cont_pts = np.shape(cont_pts)[1]
-        cont_pts_array = cont_pts.flatten().astype('float32')
-        des_vel_array = desired_velocities.flatten().astype('float32')
+        cont_pts_array = cont_pts.flatten().astype('float64')
+        des_vel_array = desired_velocities.flatten().astype('float64')
         if self._dimension == 2:
             objective = lib.velocity_at_waypoints_constraints_2(self.obj, cont_pts_array, num_cont_pts, scale_factor, des_vel_array)
         else: # value = 3

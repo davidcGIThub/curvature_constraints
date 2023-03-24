@@ -11,8 +11,6 @@ template <int D>
 double ObjectiveFunctions<D>::minimize_acceleration_and_time(double cont_pts[], int num_control_points, double scale_factor)
 {
     double acceleration_integral = minimize_acceleration(cont_pts, num_control_points);
-    std::cout << "accel_integ: " << acceleration_integral << std::endl;
-    std::cout << "scale_factor: " << scale_factor << std::endl;
     return acceleration_integral + scale_factor;
 }
 
@@ -39,7 +37,7 @@ double ObjectiveFunctions<D>::minimize_acceleration(double cont_pts[], int &num_
     for (unsigned int i = 0; i<num_intervals; i++)
     {
         // interval_control_points = cbind_help.array_section_to_eigen(cont_pts, num_control_points, i);
-        interval_control_points = array_section_to_eigen(cont_pts, num_control_points, i);
+        interval_control_points = cbind_help.array_section_to_eigen(cont_pts, num_control_points, i);
         p0 = interval_control_points.block(0,0,D,1);
         p1 = interval_control_points.block(0,1,D,1);
         p2 = interval_control_points.block(0,2,D,1);
@@ -75,7 +73,7 @@ double ObjectiveFunctions<D>::minimize_distance(double cont_pts[], int &num_cont
     for (unsigned int i = 0; i<num_intervals; i++)
     {
         // interval_control_points = cbind_help.array_section_to_eigen(cont_pts, num_control_points, i);
-        interval_control_points = array_section_to_eigen(cont_pts, num_control_points, i);
+        interval_control_points = cbind_help.array_section_to_eigen(cont_pts, num_control_points, i);
         p0 = interval_control_points.block(0,0,D,1);
         p1 = interval_control_points.block(0,1,D,1);
         p2 = interval_control_points.block(0,2,D,1);
@@ -92,25 +90,6 @@ double ObjectiveFunctions<D>::minimize_distance(double cont_pts[], int &num_cont
         sum_of_integrals += integral_vector.sum();
     }
     return sum_of_integrals;
-}
-
-
-template<int D>
-Eigen::Matrix<double,D,4> ObjectiveFunctions<D>::array_section_to_eigen(double cont_pts[], int &num_cps, unsigned int &index)
-{
-    Eigen::Matrix<double,D,4> interval_control_points;
-    if (D == 2)
-    {
-        interval_control_points << cont_pts[index], cont_pts[index+1], cont_pts[index+2], cont_pts[index+3],
-            cont_pts[num_cps+index], cont_pts[num_cps+index+1], cont_pts[num_cps+index+2], cont_pts[num_cps+index+3];
-    }
-    else
-    {
-        interval_control_points << cont_pts[index], cont_pts[index+1], cont_pts[index+2], cont_pts[index+3],
-            cont_pts[num_cps+index], cont_pts[num_cps+index+1], cont_pts[num_cps+index+2], cont_pts[num_cps+index+3],
-            cont_pts[2*num_cps+index], cont_pts[2*num_cps+index+1], cont_pts[2*num_cps+index+2], cont_pts[2*num_cps+index+3];
-    }
-    return interval_control_points;
 }
 
 //explicit instantiation

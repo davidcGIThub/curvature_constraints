@@ -15,7 +15,6 @@ class ObjectiveFunctions
         CBindingHelper<D> cbind_help{};
         double minimize_acceleration(double cont_pts[], int &num_control_points);
         double minimize_distance(double cont_pts[], int &num_control_points);
-        Eigen::Matrix<double,D,4> array_section_to_eigen(double cont_pts[], int &num_cps, unsigned int &index);
 };
 
 extern "C"

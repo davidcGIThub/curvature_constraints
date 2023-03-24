@@ -29,4 +29,4 @@ number_data_points = 10000
 spline_data, time_data = bspline.get_spline_data(number_data_points)
 
 bspline.plot_spline(1000)
-
+bspline.plot_curvature(1000)

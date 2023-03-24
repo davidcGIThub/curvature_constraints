@@ -20,14 +20,6 @@ ThirdOrderCurvatureBounds.hpp
 CBindingHelper.hpp
 ../src/CBindingHelper.hpp
 
-../src/ObjectiveFunctions.hpp
-eigen3/Eigen/Core
--
-eigen3/Eigen/Dense
--
-CBindingHelper.hpp
-../src/CBindingHelper.hpp
-
 ../src/ThirdOrderCurvatureBounds.hpp
 array
 -
@@ -45,10 +37,4 @@ gtest/gtest.h
 /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/gtest/gtest.h
 CurvatureConstraints.hpp
 /home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/CurvatureConstraints.hpp
-
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/UnitTestObjectiveFunctions.cpp
-gtest/gtest.h
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/gtest/gtest.h
-ObjectiveFunctions.hpp
-/home/david/Code/curvature_constraints/PathObjectivesAndConstraints/tests/ObjectiveFunctions.hpp
 

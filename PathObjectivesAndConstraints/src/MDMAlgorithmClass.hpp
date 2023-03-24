@@ -9,10 +9,10 @@ class MDMAlgorithmClass
 {
     public:
         MDMAlgorithmClass();
-        float min_norm(Eigen::MatrixXf &points, int &num_points,
-            int &max_iterations, unsigned int &initial_index,float &tolerance);
+        double min_norm(Eigen::MatrixXd &points, int &num_points,
+            int &max_iterations, unsigned int &initial_index,double &tolerance);
     private:
-        int find_max_index(Eigen::VectorXf &matrix, int &length);
-        int find_min_index(Eigen::VectorXf &matrix, int &length);
+        int find_max_index(Eigen::VectorXd &matrix, int &length);
+        int find_min_index(Eigen::VectorXd &matrix, int &length);
 };
 #endif

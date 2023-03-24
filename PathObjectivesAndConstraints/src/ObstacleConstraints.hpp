@@ -11,41 +11,41 @@ class ObstacleConstraints
 {
     public:
         ObstacleConstraints();
-        float* getObstacleDistancesToSpline(float cont_pts[], int num_control_points,
-                                          float obstacle_radii[], float obstacle_centers[],
+        double* getObstacleDistancesToSpline(double cont_pts[], int num_control_points,
+                                          double obstacle_radii[], double obstacle_centers[],
                                           unsigned int num_obstacles);
-        float getObstacleDistanceToSpline(float cont_pts[], int num_control_points,
-                                float obstacle_radius, float obstacle_center[]);
-        bool* checkIfObstaclesCollide(float cont_pts[], int num_control_points,
-                                          float obstacle_radii[], float obstacle_centers[],
+        double getObstacleDistanceToSpline(double cont_pts[], int num_control_points,
+                                double obstacle_radius, double obstacle_center[]);
+        bool* checkIfObstaclesCollide(double cont_pts[], int num_control_points,
+                                          double obstacle_radii[], double obstacle_centers[],
                                           unsigned int num_obstacles);
-        bool checkIfObstacleCollides(float cont_pts[], int num_control_points,
-                                float obstacle_radius, float obstacle_center[]);
+        bool checkIfObstacleCollides(double cont_pts[], int num_control_points,
+                                double obstacle_radius, double obstacle_center[]);
     private:
         ConvexHullCollisionChecker<D> collision_checker{};
         BsplineToMinvo<D> cp_converter{};
         CBindingHelper<D> helper{};
-        float getDistanceToClosestInterval(Eigen::MatrixXf &control_points, int &num_control_points,
-                                float &obstacle_radius, Eigen::Matrix<float,D,1> &obstacle_center);
-        Eigen::Matrix<float,D,1> getObstacleCenterFromArray(float obstacle_centers[], unsigned int &obstacle_num,
+        double getDistanceToClosestInterval(Eigen::MatrixXd &control_points, int &num_control_points,
+                                double &obstacle_radius, Eigen::Matrix<double,D,1> &obstacle_center);
+        Eigen::Matrix<double,D,1> getObstacleCenterFromArray(double obstacle_centers[], unsigned int &obstacle_num,
                                                             unsigned int &num_obstacles);
 };
 
 extern "C"
 {
     ObstacleConstraints<2>* ObstacleConstraints_2(){return new ObstacleConstraints<2>();}
-    bool checkIfObstacleCollides_2(ObstacleConstraints<2>* ex, float cont_pts[], int num_control_points,
-                                float obstacle_radius, float obstacle_center[]){return ex->checkIfObstacleCollides(cont_pts,
+    bool checkIfObstacleCollides_2(ObstacleConstraints<2>* ex, double cont_pts[], int num_control_points,
+                                double obstacle_radius, double obstacle_center[]){return ex->checkIfObstacleCollides(cont_pts,
                                 num_control_points,obstacle_radius,obstacle_center);}
-    float getObstacleDistanceToSpline_2(ObstacleConstraints<2>* ex, float cont_pts[], int num_control_points,
-                                float obstacle_radius, float obstacle_center[]){return ex->getObstacleDistanceToSpline(cont_pts,
+    double getObstacleDistanceToSpline_2(ObstacleConstraints<2>* ex, double cont_pts[], int num_control_points,
+                                double obstacle_radius, double obstacle_center[]){return ex->getObstacleDistanceToSpline(cont_pts,
                                 num_control_points,obstacle_radius,obstacle_center);}
     ObstacleConstraints<3>* ObstacleConstraints_3(){return new ObstacleConstraints<3>();}
-    bool checkIfObstacleCollides_3(ObstacleConstraints<3>* ex, float cont_pts[], int num_control_points,
-                                float obstacle_radius, float obstacle_center[]){return ex->checkIfObstacleCollides(cont_pts,
+    bool checkIfObstacleCollides_3(ObstacleConstraints<3>* ex, double cont_pts[], int num_control_points,
+                                double obstacle_radius, double obstacle_center[]){return ex->checkIfObstacleCollides(cont_pts,
                                 num_control_points,obstacle_radius,obstacle_center);}
-    float getObstacleDistanceToSpline_3(ObstacleConstraints<3>* ex, float cont_pts[], int num_control_points,
-                                float obstacle_radius, float obstacle_center[]){return ex->getObstacleDistanceToSpline(cont_pts,
+    double getObstacleDistanceToSpline_3(ObstacleConstraints<3>* ex, double cont_pts[], int num_control_points,
+                                double obstacle_radius, double obstacle_center[]){return ex->getObstacleDistanceToSpline(cont_pts,
                                 num_control_points,obstacle_radius,obstacle_center);}
 }
 
