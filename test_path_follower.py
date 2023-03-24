@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from bsplinegenerator.bsplines import BsplineEvaluation
-from mavsim_python.planning.spline_path_follower import BsplinePathFollower
+from mavsim_python.planning.spline_path_follower_point import BsplinePathFollower
 
 
 control_points = np.array([[-3,-4,-2,-.5,1,0,2,3.5,3,5,6.5],
@@ -21,7 +21,7 @@ desired_airspeed = 2
 # point = np.array([[2],[6]])
 
 path_follower = BsplinePathFollower(order, path_gain=1, distance_gain=1)
-closest_point, path_vector = path_follower.get_closest_point_and_direction_vector(control_points,point)
+closest_point, path_vector = path_follower.get_closest_point_and_path_vector(control_points,point)
 desired_direction = path_follower.get_desired_direction_vector(closest_point, point, path_vector, desired_airspeed)
 
 print("path_vector: " , path_vector)

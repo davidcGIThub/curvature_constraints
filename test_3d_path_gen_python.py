@@ -20,8 +20,8 @@ curvature_method = "roots_numerator_and_denominator"
 path_gen = PathGenerator(order, dimension, curvature_method)
 start_time = time.time()
 control_points, scale_factor = path_gen.generate_path(waypoints, velocities, max_curvature)
-print("control_points: " , control_points)
 end_time = time.time()
+print("computation time:" , end_time - start_time)
 spline_start_time = 0
 bspline = BsplineEvaluation(control_points, order, spline_start_time, scale_factor, False)
 number_data_points = 10000

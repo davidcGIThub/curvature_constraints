@@ -31,7 +31,6 @@ class PathGenerator:
             self._objective_function_type = "minimize_distance_and_time"
         else:
             self._objective_function_type = "minimize_acceleration"
-        print(self._objective_function_type)
         self._F_composite = get_composite_bspline_to_bezier_conversion_matrix(self._num_control_points, self._order)
 
     def generate_path(self, waypoints, velocities, max_curvature, initial_control_points = None):
