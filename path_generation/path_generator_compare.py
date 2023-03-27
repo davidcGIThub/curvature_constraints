@@ -24,7 +24,7 @@ class PathGenerator:
     def __init__(self, order, dimension, curvature_method):
         self._order = order
         self._dimension = dimension
-        self._num_control_points = 8
+        self._num_control_points = 7
         self._M = get_M_matrix(0, self._order, np.array([]), False)
         self._curvature_method = curvature_method
         if self._curvature_method == "constrain_max_acceleration_and_min_velocity":
@@ -132,10 +132,10 @@ class PathGenerator:
             f =  (p0/2 - p2/2)**2
             integral = np.sum(a/5 + b/4 + c/3 + d/2 + f)
             sum_of_integrals += integral 
-        print("control_points: " , control_points)
-        print("scale_factor: " , scale_factor)
-        print("answer: " , sum_of_integrals + scale_factor )
-        print(" ")
+        # print("control_points: " , control_points)
+        # print("scale_factor: " , scale_factor)
+        # print("answer: " , sum_of_integrals + scale_factor )
+        # print(" ")
         return sum_of_integrals + scale_factor
     
 
@@ -174,10 +174,10 @@ class PathGenerator:
             p2 = control_points[:,i+2]
             p3 = control_points[:,i+3]
             sum_of_integrals += np.sum((p0 - 3*p1 + 3*p2 - p3)**2) 
-        print("control_points: " , control_points)
-        print("scale_factor: " , scale_factor)
-        print("answer: " , sum_of_integrals + scale_factor )
-        print(" ")
+        # print("control_points: " , control_points)
+        # print("scale_factor: " , scale_factor)
+        # print("answer: " , sum_of_integrals + scale_factor )
+        # print(" ")
         return sum_of_integrals + scale_factor
     
     def __minimize_acceleration_and_distance_objective_function(self, variables):
