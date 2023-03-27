@@ -10,7 +10,7 @@ lib = ctypes.CDLL(libname / "libPathObjectivesAndConstraints.so")
 
 class CurvatureConstraints(object):
 
-    def __init__(self, dimension, num_control_points):
+    def __init__(self, dimension):
         self._order = 3
         ND_POINTER_DOUBLE = np.ctypeslib.ndpointer(dtype=np.float64, ndim=1,flags="C")
         nd_pointer_c_double = np.ctypeslib.ndpointer(dtype=ctypes.c_double)
