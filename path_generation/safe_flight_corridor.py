@@ -25,7 +25,6 @@ class SFC_2D:
                             [y_min, y_max, y_max, y_min, y_min]])
         points_rotated = self.rotation @ points_unrotated
         return points_rotated
-
     
 def get2DRotationAndTranslationFromPoints(point_1,point_2):
     # returns rotation transforms x_vector to vector paralell
@@ -49,8 +48,6 @@ def plot_2D_sfcs(sfcs: list):
     if sfcs != None:
         for sfc_index in range(len(sfcs)):
             plot_2D_sfc(sfcs[sfc_index])
-
-
 
 # @dataclass
 # class SFC_3D:
