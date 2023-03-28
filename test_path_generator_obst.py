@@ -49,7 +49,7 @@ z = radius  * np.outer(np.ones(np.size(u)), np.cos(v)) + center[2]
 
 # Plot the surface
 ax.plot_surface(x, y, z)
-# ax.plot(spline_data[0,:],spline_data[1,:],spline_data[2,:])
+ax.plot(spline_data[0,:],spline_data[1,:],spline_data[2,:])
 # Set an equal aspect ratio
 ax.set_aspect('auto')
 

@@ -32,7 +32,7 @@ class PathGenerator:
         self._control_points_per_corridor = 4
         self._num_control_points = 8
         self._objective_func_obj = ObjectiveFunctions(self._dimension)
-        self._curvature_const_obj = CurvatureConstraints(self._dimension, self._num_control_points)
+        self._curvature_const_obj = CurvatureConstraints(self._dimension)
         self._obstacle_const_obj = ObstacleConstraints(self._dimension, self._num_obstacles)
         self._waypoint_vel_const_obj = WaypointConstraints(self._dimension)
         
