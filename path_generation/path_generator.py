@@ -11,7 +11,7 @@ from PathObjectivesAndConstraints.python_wrappers.objective_functions import Obj
 from PathObjectivesAndConstraints.python_wrappers.curvature_constraints import CurvatureConstraints
 from PathObjectivesAndConstraints.python_wrappers.obstacle_constraints import ObstacleConstraints
 from PathObjectivesAndConstraints.python_wrappers.waypoint_velocity_constraints import WaypointConstraints
-from path_generation.safe_flight_corridor import SFC
+from path_generation.safe_flight_corridor import SFC_2D
 from bsplinegenerator.bspline_to_minvo import get_composite_bspline_to_minvo_conversion_matrix
 
 
@@ -173,16 +173,21 @@ class PathGenerator:
         return curvature_constraint
 
     def __create_safe_flight_corridor_constraint(self, sfcs, num_cont_pts):
-        M_comp = get_composite_bspline_to_minvo_conversion_matrix(\
-            num_cont_pts, self._order)
+        # create the rotation matrix.
+        num_corridors = len(sfcs)
         num_minvo_cont_pts = (num_cont_pts - self._order)*(self._order+1)
+        intervals_per_corridor = self.get_intervals_per_corridor(num_corridors)
+        M_rot = self.get_composite_sfc_rotation_matrix(intervals_per_corridor, sfcs, num_minvo_cont_pts)
+        # create the bspline to minvo conversion matrix 
+        M_minvo = get_composite_bspline_to_minvo_conversion_matrix(\
+            num_cont_pts, self._order)
         zero_block = np.zeros((num_minvo_cont_pts,num_cont_pts))
         zero_col = np.zeros((num_minvo_cont_pts, 1))
         if self._dimension == 2:
-            conversion_matrix = np.block([[M_comp, zero_block, zero_col],
-                                        [zero_block, M_comp, zero_col]])
-        num_corridors = len(sfcs)
-        intervals_per_corridor = self.get_intervals_per_corridor(num_corridors)
+            M_minvo = np.block([[M_minvo, zero_block, zero_col],
+                                        [zero_block, M_minvo, zero_col]])
+        conversion_matrix = M_rot @ M_minvo
+        #create bounds
         lower_bounds = np.zeros((self._dimension, num_minvo_cont_pts))
         upper_bounds = np.zeros((self._dimension, num_minvo_cont_pts))
         index = 0
@@ -195,6 +200,34 @@ class PathGenerator:
             index = index+num_points
         safe_corridor_constraints = LinearConstraint(conversion_matrix, lb=lower_bounds.flatten(), ub=upper_bounds.flatten())
         return safe_corridor_constraints
+    
+    def get_composite_sfc_rotation_matrix(self, intervals_per_corridor, sfcs, num_minvo_cont_pts):
+        num_corridors = len(intervals_per_corridor)
+        M_len = num_minvo_cont_pts*self._dimension
+        M_rot = np.zeros((M_len, M_len))
+        num_cont_pts_per_interval = self._order + 1
+        interval_count = 0
+        dim_step = num_minvo_cont_pts
+        for corridor_index in range(num_corridors):
+            rotation = sfcs[corridor_index].rotation.T
+            num_intervals = intervals_per_corridor[corridor_index]
+            for interval_index in range(num_intervals):
+                for cont_pt_index in range(num_cont_pts_per_interval):
+                    index = interval_count*num_cont_pts_per_interval+cont_pt_index
+                    M_rot[index, index] = rotation[0,0]
+                    M_rot[index, index + dim_step] = rotation[0,1]
+                    M_rot[index + dim_step, index] = rotation[1,0]
+                    M_rot[index + dim_step, index + dim_step] = rotation[1,1]
+                    if self._dimension == 3:
+
+                        M_rot[2*dim_step + index, index] = rotation[2,0]
+                        M_rot[2*dim_step + index, index + dim_step] = rotation[2,1]
+                        M_rot[2*dim_step + index, index + 2*dim_step] = rotation[2,2]
+                        M_rot[dim_step + index, index + 2*dim_step] = rotation[1,2]
+                        M_rot[index, index + 2*dim_step] = rotation[0,2]
+                interval_count += 1
+        return M_rot
+
     
     def get_intervals_per_corridor(self, num_corridors):
         if num_corridors == 1:
