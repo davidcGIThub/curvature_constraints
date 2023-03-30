@@ -10,7 +10,7 @@ from path_generation.matrix_evaluation import get_M_matrix
 from PathObjectivesAndConstraints.python_wrappers.objective_functions import ObjectiveFunctions
 from PathObjectivesAndConstraints.python_wrappers.curvature_constraints import CurvatureConstraints
 from PathObjectivesAndConstraints.python_wrappers.obstacle_constraints import ObstacleConstraints
-from PathObjectivesAndConstraints.python_wrappers.waypoint_velocity_constraints import WaypointConstraints
+from PathObjectivesAndConstraints.python_wrappers.waypoint_constraints import WaypointConstraints
 from path_generation.safe_flight_corridor import SFC_2D
 from bsplinegenerator.bspline_to_minvo import get_composite_bspline_to_minvo_conversion_matrix
 import time
@@ -32,83 +32,25 @@ class PathGenerator:
         self._order = 3
         self._M = get_M_matrix(self._order)
         self._control_points_per_corridor = 4
-        # 0 sfc = 5 intervals - 8
-        # 1 sfc = 5 intervals - 8
-        # 2 sfc = 6 intervals - 9 cps
-        # 3 sfc = 8 intervals - 11 cps
-        # 4 sfc = 10 intervals - 13 cps
-        # 5 sfc = 12 intervals - 15 cps
         self._objective_func_obj = ObjectiveFunctions(self._dimension)
         self._curvature_const_obj = CurvatureConstraints(self._dimension)
-        self._waypoint_vel_const_obj = WaypointConstraints(self._dimension)
+        self._waypoint_const_obj = WaypointConstraints(self._dimension)
         
-    def generate_path(self, point_sequence: np.ndarray, waypoint_directions: np.ndarray, max_curvature: np.float64, sfcs: list = None):
-        waypoints = np.concatenate((point_sequence[:,0][:,None], point_sequence[:,-1][:,None]),1)
-        if(sfcs == None):
-            return self.generate_unbounded_path(waypoints, waypoint_directions, max_curvature)
-        else:
-            return self.generate_bounded_path(waypoints, waypoint_directions, max_curvature, sfcs, point_sequence)
-    
-    def generate_unbounded_path(self, waypoints, waypoint_directions, max_curvature):
-        # create initial conditions
-        num_intervals = 5
-        num_cont_pts = self.get_num_control_points(num_intervals)
-        self._dimension = np.shape(waypoints)[0]
-        initial_control_points = self.__create_unbounded_initial_control_points(waypoints, num_cont_pts)
-        initial_scale_factor = 1
-        optimization_variables = np.concatenate((initial_control_points.flatten(),[initial_scale_factor]))
-        # define constraints and objective function and constraints
-        waypoint_constraint = self.__create_waypoint_constraint(waypoints, num_cont_pts)
-        velocity_constraint = self.__create_waypoint_direction_constraint(waypoint_directions, num_cont_pts)
-        curvature_constraint = self.__create_curvature_constraint(max_curvature, num_cont_pts)
-        objectiveFunction = self.__get_objective_function()
-        objective_variable_bounds = self.__create_objective_variable_bounds(num_cont_pts)
-        minimize_options = {'disp': True}#, 'maxiter': self.maxiter, 'ftol': tol}
-        # perform optimization
-        start_time = time.time()
-        result = minimize(
-            objectiveFunction,
-            x0=optimization_variables,
-            args=(num_cont_pts,),
-            method='SLSQP', 
-            bounds=objective_variable_bounds,
-            constraints=(\
-            curvature_constraint, 
-            velocity_constraint,
-            waypoint_constraint), 
-            options = minimize_options)
-        end_time = time.time()
-        print("optimization time: " , end_time - start_time)
-        # retrieve data
-        optimized_control_points = np.reshape(result.x[0:-1] ,(self._dimension,num_cont_pts))
-        return optimized_control_points
-    
-    def generate_bounded_path(self, waypoints, waypoint_directions, max_curvature, sfcs, point_sequence):
-        # create initial conditions
-        intervals_per_corridor = self.get_intervals_per_corridor(len(sfcs),point_sequence)
+    def generate_path(self, point_sequence: np.ndarray, waypoint_directions: np.ndarray = None, 
+                waypoint_curvatures: np.ndarray = None, max_curvature: np.float64 = None,
+                sfcs: list = None):
+        num_sfcs = self.__get_num_sfcs(sfcs)
+        intervals_per_corridor = self.get_intervals_per_corridor(num_sfcs,point_sequence)
         num_intervals = np.sum(intervals_per_corridor)
-        # print("num_intervals: " , num_intervals)
-        # print("intervals_per_corridor: " , intervals_per_corridor)
-        num_cont_pts = self.get_num_control_points(num_intervals)
-        self._dimension = np.shape(waypoints)[0]
-        if len(sfcs) < 2:
-            initial_control_points = self.__create_unbounded_initial_control_points(waypoints, num_cont_pts)
-        else:
-            initial_control_points = self.__create_bounded_initial_control_points(waypoints, num_cont_pts)
-        initial_control_points =  np.array([[5.67279463,  1.61505008,  5.86700503, 13.14225356, 20.40975062, 21.78681669,
-                                             26.55803913, 21.98102679],
-                                            [0.64706652,  3.59680815,  8.96570088,  9.05428412, 14.07129684, 22.41293135,
-                                             20.80257089, 14.37678509]])
+        num_cont_pts = self.__get_num_control_points(num_intervals)
+        constraints = self.__get_constraints(num_cont_pts, intervals_per_corridor, point_sequence, 
+                waypoint_directions, waypoint_curvatures, max_curvature, sfcs)
+        initial_control_points = self.__create_initial_control_points(point_sequence, num_cont_pts)
         initial_scale_factor = 1
         optimization_variables = np.concatenate((initial_control_points.flatten(),[initial_scale_factor]))
-        # define constraints and objective function and constraints
-        waypoint_constraint = self.__create_waypoint_constraint(waypoints, num_cont_pts)
-        velocity_constraint = self.__create_waypoint_direction_constraint(waypoint_directions, num_cont_pts)
-        curvature_constraint = self.__create_curvature_constraint(max_curvature, num_cont_pts)
-        sfc_constraint = self.__create_safe_flight_corridor_constraint(sfcs, num_cont_pts, intervals_per_corridor)
         objectiveFunction = self.__get_objective_function()
         objective_variable_bounds = self.__create_objective_variable_bounds(num_cont_pts)
-        minimize_options = {'disp': True} #, 'maxiter': self.maxiter, 'ftol': tol}
+        minimize_options = {'disp': False} #, 'maxiter': self.maxiter, 'ftol': tol}
         # perform optimization
         start_time = time.time()
         result = minimize(
@@ -117,17 +59,33 @@ class PathGenerator:
             args=(num_cont_pts,),
             method='SLSQP', 
             bounds=objective_variable_bounds,
-            constraints=(\
-            curvature_constraint, 
-            velocity_constraint,
-            waypoint_constraint,
-            sfc_constraint), 
+            constraints=constraints, 
             options = minimize_options)
         end_time = time.time()
         print("optimization time: " , end_time - start_time)
-        # retrieve data
         optimized_control_points = np.reshape(result.x[0:-1] ,(self._dimension,num_cont_pts))
         return optimized_control_points
+        
+    def __get_constraints(self, num_cont_pts: int, intervals_per_corridor: tuple, point_sequence: np.ndarray, 
+            waypoint_directions: np.ndarray, waypoint_curvatures: np.ndarray, max_curvature: np.float64,  
+            sfcs: list):
+        waypoints = np.concatenate((point_sequence[:,0][:,None], point_sequence[:,-1][:,None]),1)
+        waypoint_constraint = self.__create_waypoint_constraint(waypoints, num_cont_pts)
+        constraints = [waypoint_constraint]
+        if waypoint_directions is not None:
+            direction_constraint = self.__create_waypoint_direction_constraint(waypoint_directions, num_cont_pts)
+            constraints.append(direction_constraint)
+        if waypoint_curvatures is not None:
+            waypoint_curvature_constraint = self.__create_waypoint_curvature_constraint(waypoint_curvatures, num_cont_pts)
+            constraints.append(waypoint_curvature_constraint)
+        if max_curvature is not None:
+            curvature_constraint = self.__create_curvature_constraint(max_curvature, num_cont_pts)
+            constraints.append(curvature_constraint)
+        num_sfcs = self.__get_num_sfcs(sfcs)
+        if num_sfcs > 0:
+            sfc_constraint = self.__create_safe_flight_corridor_constraint(sfcs, num_cont_pts, intervals_per_corridor)
+            constraints.append(sfc_constraint)
+        return tuple(constraints)
 
 # bounds over just the scale factor
     def __create_objective_variable_bounds(self, num_cont_pts):
@@ -154,18 +112,6 @@ class PathGenerator:
         scale_factor = variables[-1]
         return self._objective_func_obj.minimize_acceleration_and_time(control_points, scale_factor)
 
-    def __create_unbounded_initial_control_points(self, waypoints, num_cont_pts):
-        start_waypoint = waypoints[:,0]
-        end_waypoint = waypoints[:,1]
-        control_points = np.linspace(start_waypoint,end_waypoint,num_cont_pts).T
-        return control_points
-    
-    def __create_bounded_initial_control_points(self, waypoints, num_cont_pts):
-        start_waypoint = waypoints[:,0]
-        end_waypoint = waypoints[:,1]
-        control_points = np.linspace(start_waypoint,end_waypoint,num_cont_pts).T
-        return control_points
-
     def __create_waypoint_constraint(self, waypoints, num_cont_pts):
         num_waypoints = 2
         m = num_waypoints
@@ -190,13 +136,26 @@ class PathGenerator:
             control_points = np.reshape(variables[0:num_cont_pts*self._dimension], \
             (self._dimension,num_cont_pts))
             scale_factor = variables[-1]
-            constraints = self._waypoint_vel_const_obj.velocity_at_waypoints_constraints(control_points,
-                scale_factor, direction_vectors)
+            normalized_directions = direction_vectors/np.linalg.norm(direction_vectors,2,0)
+            constraints = self._waypoint_const_obj.velocity_at_waypoints_constraints(control_points,
+                scale_factor, normalized_directions)
             return constraints.flatten()
         lower_bound = 0
         upper_bound = 0
         velocity_vector_constraint = NonlinearConstraint(velocity_constraint_function, lb= lower_bound, ub=upper_bound)
         return velocity_vector_constraint
+    
+    def __create_waypoint_curvature_constraint(self, curvatures, num_cont_pts):
+        def waypoint_curvature_constraint_function(variables):
+            control_points = np.reshape(variables[0:num_cont_pts*self._dimension], \
+            (self._dimension,num_cont_pts))
+            scale_factor = variables[-1]
+            constraints = self._waypoint_const_obj.curvature_at_waypoints_constraints(control_points,scale_factor,curvatures)
+            return constraints.flatten()
+        lower_bound = 0
+        upper_bound = 0
+        acceleration_vector_constraint = NonlinearConstraint(waypoint_curvature_constraint_function, lb= lower_bound, ub=upper_bound)
+        return acceleration_vector_constraint
 
     def __create_curvature_constraint(self, max_curvature, num_cont_pts):
         num_intervals = num_cont_pts - self._order
@@ -211,7 +170,7 @@ class PathGenerator:
 
     def __create_safe_flight_corridor_constraint(self, sfcs, num_cont_pts, intervals_per_corridor):
         # create the rotation matrix.
-        num_corridors = len(sfcs)
+        num_corridors = self.__get_num_sfcs(sfcs)
         num_minvo_cont_pts = (num_cont_pts - self._order)*(self._order+1)
         M_rot = self.get_composite_sfc_rotation_matrix(intervals_per_corridor, sfcs, num_minvo_cont_pts)
         # create the bspline to minvo conversion matrix 
@@ -264,35 +223,51 @@ class PathGenerator:
                 interval_count += 1
         return M_rot
 
-    
-    # def get_intervals_per_corridor(self, total_num_corridors, point_sequence):
-    #     distances = np.linalg.norm(point_sequence[:,1:] - point_sequence[:,0:-1],2,0)
-    #     min_distance = np.min(distances)
-    #     intervals_per_corridor = []
-    #     for i in range(total_num_corridors):
-    #         num_corridors = int(np.round(distances[i]/min_distance))
-    #         intervals_per_corridor.append(num_corridors)
-    #     return intervals_per_corridor
+    def get_intervals_per_corridor(self, total_num_corridors, point_sequence):
+        if total_num_corridors < 2:
+            intervals_per_corridor = 5
+        else:
+            distances = np.linalg.norm(point_sequence[:,1:] - point_sequence[:,0:-1],2,0)
+            min_distance = np.min(distances)
+            intervals_per_corridor = []
+            for i in range(total_num_corridors):
+                num_corridors = int(np.round(distances[i]/min_distance))
+                intervals_per_corridor.append(num_corridors)
+        return intervals_per_corridor
+
+    def __create_initial_control_points(self, point_sequence, total_num_cont_pts):
+        num_segments = np.shape(point_sequence)[1] - 1
+        if num_segments < 2:
+            start_point = point_sequence[:,0]
+            end_point = point_sequence[:,1]
+            control_points = np.linspace(start_point,end_point,total_num_cont_pts).T
+        else:
+            print("here")
+            control_points = np.empty(shape=(self._dimension,0))
+            distances = np.linalg.norm(point_sequence[:,1:] - point_sequence[:,0:-1],2,0)
+            total_distance = np.sum(distances)
+            distance_between_cps = total_distance/(total_num_cont_pts-1)
+            remainder_distance = 0
+            for i in range(len(distances)):
+                distance = distances[i] + remainder_distance
+                num_cont_pts = int(np.ceil(distance / distance_between_cps))
+                if i == len(distances) - 1:
+                    num_cont_pts -= 1
+                remainder_distance = distance % distance_between_cps
+                segment_control_points = np.linspace(point_sequence[:,i],point_sequence[:,i+1],
+                                                     num_cont_pts).T
+                control_points = np.concatenate((control_points, segment_control_points),1)
+        # print("num cpts" , total_num_cont_pts)
+        # print(np.shape(control_points))
+        return control_points
         
-    def get_num_control_points(self, num_intervals):
+    def __get_num_control_points(self, num_intervals):
         num_control_points = num_intervals + self._order
-        return num_control_points
-        
+        return int(num_control_points)
     
-    def get_intervals_per_corridor(self, num_corridors, point_sequence):
-        if num_corridors == 1:
-            # 5 intervals
-            return (5)
-        elif num_corridors == 2:
-            # 6 intervals
-            return (3,3)
-        elif num_corridors == 3:
-            # 8 intervals
-            # return (3,2,3)
-            return (1,1,3)
-        elif num_corridors == 4:
-            # 10 intervals
-            return (3,2,2,3)
-        elif num_corridors == 5:
-            # 12 intervals
-            return (3,2,2,2,3)
+    def __get_num_sfcs(self, sfcs):
+        if sfcs == None:
+            return int(0)
+        else:
+            return int(len(sfcs))
+        

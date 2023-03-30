@@ -10,9 +10,17 @@ class WaypointConstraints
         WaypointConstraints();
         double* velocity_at_waypoints_constraints(double cont_pts[], 
             int num_control_points, double scale_factor, double desired_velocities[]);
-        
+
         double* acceleration_at_waypoints_constraints(double cont_pts[], 
             int num_control_points, double scale_factor, double desired_velocities[]);
+
+        double* curvature_at_waypoints_constraints(double cont_pts[], 
+            int num_control_points, double scale_factor, double desired_curvatures[]);
+        
+        double* direction_at_waypoints_constraints(double cont_pts[], 
+            int num_control_points, double scale_factor, double desired_directions[]);
+    private:
+        CBindingHelper<D> cbind_help{};
 };
 
 extern "C"
@@ -22,16 +30,28 @@ extern "C"
             double scale_factor, double desired_velocities[]){return obj->velocity_at_waypoints_constraints(
             cont_pts, num_control_points, scale_factor, desired_velocities);}
     double* acceleration_at_waypoints_constraints_2(WaypointConstraints<2>* obj, double cont_pts[], int num_control_points,
-            double scale_factor, double desired_velocities[]){return obj->acceleration_at_waypoints_constraints(
-            cont_pts, num_control_points, scale_factor, desired_velocities);}
+            double scale_factor, double desired_accelerations[]){return obj->acceleration_at_waypoints_constraints(
+            cont_pts, num_control_points, scale_factor, desired_accelerations);}
+    double* curvature_at_waypoints_constraints_2(WaypointConstraints<2>* obj, double cont_pts[], int num_control_points,
+            double scale_factor, double desired_curvatures[]){return obj->curvature_at_waypoints_constraints(
+            cont_pts, num_control_points, scale_factor, desired_curvatures);}
+    double* direction_at_waypoints_constraints_2(WaypointConstraints<2>* obj, double cont_pts[], int num_control_points,
+            double scale_factor, double desired_directions[]){return obj->direction_at_waypoints_constraints(
+            cont_pts, num_control_points, scale_factor, desired_directions);}
 
     WaypointConstraints<3>* WaypointConstraints_3(){return new WaypointConstraints<3>();}
     double* velocity_at_waypoints_constraints_3(WaypointConstraints<3>* obj, double cont_pts[], int num_control_points,
             double scale_factor, double desired_velocities[]){return obj->velocity_at_waypoints_constraints(
             cont_pts, num_control_points, scale_factor, desired_velocities);}
     double* acceleration_at_waypoints_constraints_3(WaypointConstraints<3>* obj, double cont_pts[], int num_control_points,
-            double scale_factor, double desired_velocities[]){return obj->acceleration_at_waypoints_constraints(
-            cont_pts, num_control_points, scale_factor, desired_velocities);}
+            double scale_factor, double desired_accelerations[]){return obj->acceleration_at_waypoints_constraints(
+            cont_pts, num_control_points, scale_factor, desired_accelerations);}
+    double* curvature_at_waypoints_constraints_3(WaypointConstraints<3>* obj, double cont_pts[], int num_control_points,
+            double scale_factor, double desired_curvatures[]){return obj->curvature_at_waypoints_constraints(
+            cont_pts, num_control_points, scale_factor, desired_curvatures);}
+    double* direction_at_waypoints_constraints_3(WaypointConstraints<3>* obj, double cont_pts[], int num_control_points,
+            double scale_factor, double desired_directions[]){return obj->direction_at_waypoints_constraints(
+            cont_pts, num_control_points, scale_factor, desired_directions);}
 }
 
 #endif

@@ -208,18 +208,7 @@ double ThirdOrderCurvatureBounds<D>::calculate_cross_term_magnitude(double &t, E
     DerivativeEvaluator<D> d_dt_eval{};
     Eigen::Matrix<double,D,1> velocity_vector = d_dt_eval.calculate_velocity_vector(t, control_points, scale_factor);
     Eigen::Matrix<double,D,1> acceleration_vector = d_dt_eval.calculate_acceleration_vector(t, control_points, scale_factor);
-    double cross_term_magnitude;
-    if (D == 2)
-    { 
-        cross_term_magnitude = abs(velocity_vector(0)*acceleration_vector(1) - velocity_vector(1)*acceleration_vector(0));
-    }
-    else
-    {
-        double x = velocity_vector(1)*acceleration_vector(2) - velocity_vector(2)*acceleration_vector(1);
-        double y = velocity_vector(2)*acceleration_vector(0) - velocity_vector(0)*acceleration_vector(2);
-        double z = velocity_vector(0)*acceleration_vector(1) - velocity_vector(1)*acceleration_vector(0);
-        cross_term_magnitude = sqrt(x*x + y*y + z*z);
-    }
+    double cross_term_magnitude = cbind_help.cross_term_magnitude(velocity_vector, acceleration_vector);
     return cross_term_magnitude;
 }
 
