@@ -43,6 +43,7 @@ class PathGenerator:
         # create initial conditions
         min_velocity = 0.5
         max_acceleration = max_curvature*min_velocity**2
+        # max_cross_term_mag = max_curvature*min_velocity**3
         self._dimension = np.shape(waypoints)[0]
         if initial_control_points is None:
             initial_control_points = self.__create_initial_control_points(waypoints)
@@ -53,6 +54,7 @@ class PathGenerator:
         velocity_constraint = self.__create_waypoint_velocity_constraint(velocities)
         min_velocity_constraint = self.__create_min_velocity_constraint(min_velocity)
         max_acceleration_constraint = self.__create_maximum_acceleration_constraint(max_acceleration)
+        # max_cross_term_constraint = self.__create_max_cross_term_constraint(max_cross_term_mag)
         objectiveFunction = self.__get_objective_function()
         objective_variable_bounds = self.__create_objective_variable_bounds()
         minimize_options = {'disp': True}#, 'maxiter': self.maxiter, 'ftol': tol}
@@ -65,6 +67,7 @@ class PathGenerator:
             bounds=objective_variable_bounds,
             constraints=(waypoint_constraint, velocity_constraint, \
                 max_acceleration_constraint, \
+                # max_cross_term_constraint, \
                 min_velocity_constraint), 
             options = minimize_options)
         # retrieve data
@@ -106,12 +109,15 @@ class PathGenerator:
         # return self.__minimize_acceleration_and_distance_objective_function
         # return self.__minimize_acceleration_and_time_objective_function
         # return self.__minimize_acceleration_objective_function
-        # if self._objective_function_type == "minimize_distance_and_time":
-        return self.__minimize_distance_and_time_objective_function
-        #     # return self.__minimize_acceleration_objective_function
-        # elif self._objective_function_type == "minimize_acceleration":
-        #     return self.__minimize_acceleration_objective_function
-        #     # return self.__minimize_distance_objective_function
+        if self._objective_function_type == "minimize_distance_and_time":
+            # return self.__minimize_distance_and_time_objective_function
+            # return self.__minimize_acceleration_objective_function
+            return self.__minimize_control_point_distance
+        elif self._objective_function_type == "minimize_acceleration":
+            # return self.__minimize_distance_and_time_objective_function
+            # return self.__minimize_acceleration_objective_function
+            return self.__minimize_control_point_distance
+            # return self.__minimize_distance_objective_function
 
     def __minimize_distance_and_time_objective_function(self, variables):
         # for third order splines only
@@ -120,6 +126,7 @@ class PathGenerator:
         scale_factor = variables[-1]
         num_intervals = self._num_control_points - self._order
         sum_of_integrals = 0
+        sum_of_integ = 0
         for i in range(num_intervals):
             p0 = control_points[:,i]
             p1 = control_points[:,i+1]
@@ -132,11 +139,21 @@ class PathGenerator:
             f =  (p0/2 - p2/2)**2
             integral = np.sum(a/5 + b/4 + c/3 + d/2 + f)
             sum_of_integrals += integral 
+            p1x = control_points[0,i]
+            p2x = control_points[0,i+1]
+            p3x = control_points[0,i+2]
+            p4x = control_points[0,i+3]
+            p1y = control_points[1,i]
+            p2y = control_points[1,i+1]
+            p3y = control_points[1,i+2]
+            p4y = control_points[1,i+3]
+            integ = ((9*((p1x*(p1x/6 - p2x/2 + p3x/2 - p4x/6))/6 - (p2x*(p1x/6 - p2x/2 + p3x/2 - p4x/6))/2 + (p3x*(p1x/6 - p2x/2 + p3x/2 - p4x/6))/2 - (p4x*(p1x/6 - p2x/2 + p3x/2 - p4x/6))/6 + (p1y*(p1y/6 - p2y/2 + p3y/2 - p4y/6))/6 - (p2y*(p1y/6 - p2y/2 + p3y/2 - p4y/6))/2 + (p3y*(p1y/6 - p2y/2 + p3y/2 - p4y/6))/2 - (p4y*(p1y/6 - p2y/2 + p3y/2 - p4y/6))/6)))/5 + (- (6*((p1x*(p1x/6 - p2x/2 + p3x/2 - p4x/6))/2 - p2x*(p1x/6 - p2x/2 + p3x/2 - p4x/6) + (p3x*(p1x/6 - p2x/2 + p3x/2 - p4x/6))/2 + (p1y*(p1y/6 - p2y/2 + p3y/2 - p4y/6))/2 - p2y*(p1y/6 - p2y/2 + p3y/2 - p4y/6) + (p3y*(p1y/6 - p2y/2 + p3y/2 - p4y/6))/2)) - (6*((p1x*(p1x/2 - p2x + p3x/2))/6 - (p2x*(p1x/2 - p2x + p3x/2))/2 + (p3x*(p1x/2 - p2x + p3x/2))/2 - (p4x*(p1x/2 - p2x + p3x/2))/6 + (p1y*(p1y/2 - p2y + p3y/2))/6 - (p2y*(p1y/2 - p2y + p3y/2))/2 + (p3y*(p1y/2 - p2y + p3y/2))/2 - (p4y*(p1y/2 - p2y + p3y/2))/6)))/4 + ((4*((p1x*(p1x/2 - p2x + p3x/2))/2 - p2x*(p1x/2 - p2x + p3x/2) + (p3x*(p1x/2 - p2x + p3x/2))/2 + (p1y*(p1y/2 - p2y + p3y/2))/2 - p2y*(p1y/2 - p2y + p3y/2) + (p3y*(p1y/2 - p2y + p3y/2))/2)) + (3*((p1x*(p1x/6 - p2x/2 + p3x/2 - p4x/6))/2 - (p3x*(p1x/6 - p2x/2 + p3x/2 - p4x/6))/2 + (p1y*(p1y/6 - p2y/2 + p3y/2 - p4y/6))/2 - (p3y*(p1y/6 - p2y/2 + p3y/2 - p4y/6))/2)) + (3*((p1x*(p1x/2 - p3x/2))/6 - (p2x*(p1x/2 - p3x/2))/2 + (p3x*(p1x/2 - p3x/2))/2 - (p4x*(p1x/2 - p3x/2))/6 + (p1y*(p1y/2 - p3y/2))/6 - (p2y*(p1y/2 - p3y/2))/2 + (p3y*(p1y/2 - p3y/2))/2 - (p4y*(p1y/2 - p3y/2))/6)))/3 + (- (2*((p1x*(p1x/2 - p3x/2))/2 - p2x*(p1x/2 - p3x/2) + (p3x*(p1x/2 - p3x/2))/2 + (p1y*(p1y/2 - p3y/2))/2 - p2y*(p1y/2 - p3y/2) + (p3y*(p1y/2 - p3y/2))/2)) - (2*((p1x*(p1x/2 - p2x + p3x/2))/2 - (p3x*(p1x/2 - p2x + p3x/2))/2 + (p1y*(p1y/2 - p2y + p3y/2))/2 - (p3y*(p1y/2 - p2y + p3y/2))/2)))/2 + ((p1x*(p1x/2 - p3x/2))/2 - (p3x*(p1x/2 - p3x/2))/2 + (p1y*(p1y/2 - p3y/2))/2 - (p3y*(p1y/2 - p3y/2))/2)
+            sum_of_integ += integ
         # print("control_points: " , control_points)
         # print("scale_factor: " , scale_factor)
         # print("answer: " , sum_of_integrals + scale_factor )
         # print(" ")
-        return sum_of_integrals + scale_factor
+        return sum_of_integrals
     
 
     def __create_objective_variable_bounds(self):
@@ -153,13 +170,31 @@ class PathGenerator:
         scale_factor = variables[-1]
         num_intervals = self._num_control_points - self._order
         sum_of_integrals = 0
+        sum_of_integ = 0
         for i in range(num_intervals):
             p0 = control_points[:,i]
             p1 = control_points[:,i+1]
             p2 = control_points[:,i+2]
             p3 = control_points[:,i+3]
-            sum_of_integrals += np.sum((p0 - 3*p1 + 3*p2 - p3)**2) 
-        return sum_of_integrals
+            p1x = control_points[0,i]
+            p2x = control_points[0,i+1]
+            p3x = control_points[0,i+2]
+            p4x = control_points[0,i+3]
+            p1y = control_points[1,i]
+            p2y = control_points[1,i+1]
+            p3y = control_points[1,i+2]
+            p4y = control_points[1,i+3]
+            p1z = 0
+            p2z = 0
+            p3z = 0
+            p4z = 0
+            integ = (36*((p1x*(p1x/6 - p2x/2 + p3x/2 - p4x/6))/6 - (p2x*(p1x/6 - p2x/2 + p3x/2 - p4x/6))/2 + (p3x*(p1x/6 - p2x/2 + p3x/2 - p4x/6))/2 - (p4x*(p1x/6 - p2x/2 + p3x/2 - p4x/6))/6 + (p1y*(p1y/6 - p2y/2 + p3y/2 - p4y/6))/6 - (p2y*(p1y/6 - p2y/2 + p3y/2 - p4y/6))/2 + (p3y*(p1y/6 - p2y/2 + p3y/2 - p4y/6))/2 - (p4y*(p1y/6 - p2y/2 + p3y/2 - p4y/6))/6 + (p1z*(p1z/6 - p2z/2 + p3z/2 - p4z/6))/6 - (p2z*(p1z/6 - p2z/2 + p3z/2 - p4z/6))/2 + (p3z*(p1z/6 - p2z/2 + p3z/2 - p4z/6))/2 - (p4z*(p1z/6 - p2z/2 + p3z/2 - p4z/6))/6))
+            sum_of_integ += integ
+            integral_vector = (-p0 + 3*p1 - 3*p2 + p3)
+            sum_of_integrals += np.sum(integral_vector**2)
+        # print("sum_of_integrals: " , sum_of_integrals)
+        # print("sum_of_integ: ", sum_of_integ)
+        return sum_of_integrals + scale_factor
     
     def __minimize_acceleration_and_time_objective_function(self, variables):
         # for third order splines only
@@ -179,6 +214,15 @@ class PathGenerator:
         # print("answer: " , sum_of_integrals + scale_factor )
         # print(" ")
         return sum_of_integrals + scale_factor
+    
+    def __minimize_control_point_distance(self, variables):
+        # for third order splines only
+        control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
+            (self._dimension,self._num_control_points))
+        scale_factor = variables[-1]
+        distance_vectors = control_points[:,1:] - control_points[:,0:-1]
+        distances_squared = np.sum(distance_vectors**2,0)**2
+        return np.sum(distances_squared)
     
     def __minimize_acceleration_and_distance_objective_function(self, variables):
         # for third order splines only
@@ -314,32 +358,36 @@ class PathGenerator:
                 min_velocity = velocity
         return min_velocity
 
-    def __calculate_velocity_magnitude(self, t,M,control_points,order,scale_factor):
-        dT = get_T_derivative_vector(order,t*scale_factor,0,1,scale_factor)
-        velocity = np.dot(control_points,np.dot(M,dT)).flatten()
-        velocity_magnitude = np.linalg.norm(velocity)
-        return velocity_magnitude
+    def __create_max_cross_term_constraint(self, max_cross_term_mag):
+        def max_cross_term_constraint_function(variables):
+            control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
+            (self._dimension,self._num_control_points))
+            scale_factor = variables[-1]
+            max_cross_term_of_spline = self.__get_max_cross_term_of_spline(control_points,scale_factor)
+            constraint = max_cross_term_of_spline - max_cross_term_mag
+            return constraint
+        lower_bound = -np.inf
+        upper_bound = 0
+        min_velocity_constraint = NonlinearConstraint(max_cross_term_constraint_function, lb = lower_bound, ub = upper_bound)
+        return min_velocity_constraint
+    
+    def __get_max_cross_term_of_spline(self, control_points, scale_factor):
+        max_cross_term_mag = np.inf
+        # print("#### new run #####")
+        for i in range(self._num_control_points-self._order):
+            interval_control_points = control_points[:,i:i+self._order+1]
+            cross_term_mag = self.__find_min_velocity_magnitude(interval_control_points, self._order, self._M, scale_factor)
+            if cross_term_mag > max_cross_term_mag:
+                max_cross_term_mag = cross_term_mag
+        return max_cross_term_mag
 
     def __find_min_velocity_magnitude(self, control_points, order, M, scale_factor):
         P = control_points
         J = np.dot(np.dot(M.T,P.T) , np.dot(P,M))
-        if order == 1:
-            A = 0
-            B = 0
-            C = 0
-            D = 0
-        elif order == 2:
-            A = 0
-            B = 0
-            C = 8*J[0,0]
-            D = 4*J[1,0]
-        elif order == 3:
-            A = 36*J[0,0]
-            B = 12*J[0,1] + 24*J[1,0]
-            C = 8*J[1,1] + 12*J[2,0]
-            D = 4*J[2,1]
-        else:
-            raise Exception("Function only capable of 1-3rd order splines")
+        A = 36*J[0,0]
+        B = 12*J[0,1] + 24*J[1,0]
+        C = 8*J[1,1] + 12*J[2,0]
+        D = 4*J[2,1]
         roots = solver(A,B,C,D)
         times_to_check = np.concatenate((roots,np.array([0,1])))
         min_velocity = np.inf
@@ -350,3 +398,55 @@ class PathGenerator:
                 if velocity < min_velocity:
                     min_velocity = velocity
         return min_velocity
+    
+    def __calculate_velocity_magnitude(self, t,M,control_points,order,scale_factor):
+        dT = get_T_derivative_vector(order,t*scale_factor,0,1,scale_factor)
+        velocity = np.dot(control_points,np.dot(M,dT)).flatten()
+        velocity_magnitude = np.linalg.norm(velocity)
+        return velocity_magnitude
+
+    def __find_max_cross_term(self, control_points, order, M):
+        A,B,C,D = self.__get_cross_coeficients(control_points)
+        roots = solver(A,B,C,D)
+        times_to_check = np.concatenate((roots,np.array([0,1])))
+        max_cross_term = 0
+        for i in range(len(times_to_check)):
+            t = times_to_check[i]
+            if t >= 0 and t <= 1:
+                cross_term = self.__calculate_cross_term_magnitude(t,M,control_points,order)
+                if cross_term > max_cross_term:
+                    max_cross_term = cross_term
+        return max_cross_term
+    
+    def __get_cross_coeficients(self, control_points):
+        p0x = control_points[0,0]
+        p0y = control_points[1,0]
+        p1x = control_points[0,1]
+        p1y = control_points[1,1]
+        p2x = control_points[0,2]
+        p2y = control_points[1,2]
+        p3x = control_points[0,3]
+        p3y = control_points[1,3]
+        c_3 = ((p0y - 2*p1y + p2y)*(p0x - 3*p1x + 3*p2x - p3x) - (p0x - 2*p1x + p2x)*(p0y - 3*p1y + 3*p2y - p3y)) \
+            *((p0x*p1y)/2 - (p1x*p0y)/2 - p0x*p2y + p2x*p0y + (p0x*p3y)/2 + (3*p1x*p2y)/2 - (3*p2x*p1y)/2 - \
+            (p3x*p0y)/2 - p1x*p3y + p3x*p1y + (p2x*p3y)/2 - (p3x*p2y)/2)
+        c_2 = - ((p0y/2 - p2y/2)*(p0x - 3*p1x + 3*p2x - p3x) - (p0x/2 - p2x/2)*(p0y - 3*p1y + 3*p2y - p3y))*\
+            ((p0x*p1y)/2 - (p1x*p0y)/2 - p0x*p2y + p2x*p0y + (p0x*p3y)/2 + (3*p1x*p2y)/2 - (3*p2x*p1y)/2 - \
+            (p3x*p0y)/2 - p1x*p3y + p3x*p1y + (p2x*p3y)/2 - (p3x*p2y)/2) - ((p0y/2 - p2y/2)*(p0x - 3*p1x + 3*p2x - p3x) - (p0x/2 - p2x/2)*\
+            (p0y - 3*p1y + 3*p2y - p3y))*((p0y - 2*p1y + p2y)*(p0x - 3*p1x + 3*p2x - p3x) - (p0x - 2*p1x + p2x)* \
+            (p0y - 3*p1y + 3*p2y - p3y))
+        c_1 = ((p0y/2 - p2y/2)*(p0x - 2*p1x + p2x) - (p0x/2 - p2x/2)*(p0y - 2*p1y + p2y))*((p0y - 2*p1y + p2y)*\
+            (p0x - 3*p1x + 3*p2x - p3x) - (p0x - 2*p1x + p2x)*(p0y - 3*p1y + 3*p2y - p3y)) + \
+            ((p0y/2 - p2y/2)*(p0x - 3*p1x + 3*p2x - p3x) - (p0x/2 - p2x/2)*(p0y - 3*p1y + 3*p2y - p3y))**2
+        c_0 = -((p0y/2 - p2y/2)*(p0x - 2*p1x + p2x) - (p0x/2 - p2x/2)*(p0y - 2*p1y + p2y))*((p0y/2 - p2y/2)* \
+            (p0x - 3*p1x + 3*p2x - p3x) - (p0x/2 - p2x/2)*(p0y - 3*p1y + 3*p2y - p3y))
+        return c_3, c_2, c_1, c_0
+    
+
+    def __calculate_cross_term_magnitude(self,t,M,control_points,order):
+        dT = get_T_derivative_vector(order,t,0,1,1)
+        d2T = get_T_derivative_vector(order,t,0,2,1)
+        velocity = np.dot(control_points,np.dot(M,dT)).flatten()
+        acceleration = np.dot(control_points,np.dot(M,d2T)).flatten()
+        cross_term_magnitude = np.linalg.norm(np.cross(velocity,acceleration))
+        return cross_term_magnitude

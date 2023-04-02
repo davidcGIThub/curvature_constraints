@@ -15,11 +15,11 @@ order = 3
 waypoints = np.array([[0,6],[0,0]])
 dimension = np.shape(waypoints)[0]
 # velocities = np.array([[1,1],[0,0]]) # 0
-# velocities = np.array([[1,0],[0,1]]) # 1
-# velocities = np.array([[0,0],[1,-1]]) # 2
+velocities = np.array([[1,0],[0,1]]) # 1
+velocities = np.array([[0,0],[1,-1]]) # 2
 # velocities = np.array([[-1,-1],[0,0]]) # 3
-velocities = np.array([[0,0],[1,1]]) # 4
-velocities = np.array([[-1,1],[0,0]]) # 5
+# velocities = np.array([[0,0],[1,1]]) # 4
+# velocities = np.array([[-1,1],[0,0]]) # 5
 velocities = velocities/np.linalg.norm(velocities,2,0) # normalize velocities
 
 initial_control_points = None
@@ -40,7 +40,7 @@ max_x = 0
 max_y = 0
 min_x = 0
 min_y = 0
-for i in range(len(curvature_methods)):
+for i in range(len(curvature_methods)-1):
     print(i)
     path_gen = PathGenerator(order, dimension, curvature_methods[i])
     start_time = time.time()
@@ -90,7 +90,7 @@ for i in range(len(curvature_methods)):
     ax[0,i].scatter(waypoints[0,:],waypoints[1,:],color='k', s=8)
 
 
-for i in range(len(curvature_methods)):
+for i in range(len(curvature_methods)-1):
     ax[0,i].set_aspect(abs((max_x-min_x)/(max_y-min_y))*ratio)
     # ax[0,i].set_ylim([-1, 1])
 ax[1,0].set_ylabel("Evaluation Time",weight='bold')
