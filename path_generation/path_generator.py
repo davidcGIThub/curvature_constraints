@@ -206,6 +206,12 @@ class PathGenerator:
         if self._dimension == 2:
             M_minvo = np.block([[M_minvo, zero_block, zero_col],
                                         [zero_block, M_minvo, zero_col]])
+        if self._dimension == 3:
+            M_minvo = np.block([[M_minvo,    zero_block, zero_block, zero_col],
+                                [zero_block, M_minvo   , zero_block, zero_col],
+                                [zero_block, zero_block, M_minvo   , zero_col]])
+        print("M_minvo: " , np.shape(M_minvo))
+        print("M_rot: " , np.shape(M_rot))
         conversion_matrix = M_rot @ M_minvo
         #create bounds
         lower_bounds = np.zeros((self._dimension, num_minvo_cont_pts))
@@ -239,7 +245,6 @@ class PathGenerator:
                     M_rot[index + dim_step, index] = rotation[1,0]
                     M_rot[index + dim_step, index + dim_step] = rotation[1,1]
                     if self._dimension == 3:
-
                         M_rot[2*dim_step + index, index] = rotation[2,0]
                         M_rot[2*dim_step + index, index + dim_step] = rotation[2,1]
                         M_rot[2*dim_step + index, index + 2*dim_step] = rotation[2,2]

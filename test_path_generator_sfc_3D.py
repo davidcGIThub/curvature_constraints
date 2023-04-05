@@ -48,9 +48,10 @@ waypoints = np.concatenate((point_sequence[:,0][:,None], point_sequence[:,-1][:,
 
 # print("sfcs: " , sfcs)
 plt.figure()
-plot_3D_sfcs(sfcs)
-plt.plot(spline_data[0,:], spline_data[1,:])
-plt.scatter(waypoints[0,:],waypoints[1,:])
+ax = plt.axes(projection='3d')
+plot_3D_sfcs(sfcs,ax)
+ax.plot(spline_data[0,:], spline_data[1,:],spline_data[2,:])
+ax.scatter(waypoints[0,:],waypoints[1,:],waypoints[2,:])
 # plt.scatter(minvo_cps[0,:],minvo_cps[1,:])
 plt.show()
 
