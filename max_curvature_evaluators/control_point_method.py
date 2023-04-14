@@ -18,8 +18,8 @@ def get_control_point_curvature_bound(control_points,order,scale_factor=1,method
     control_point_velocities = (control_points[:,1:] - control_points[:,0:-1])/scale_factor
     control_point_accelerations = (control_point_velocities[:,1:]-control_point_velocities[:,0:-1])/scale_factor
     if count_number_of_control_points(control_point_velocities) > 1:
-        # control_point_velocities = convert_to_bezier_control_points(control_point_velocities)
-        control_point_velocities = convert_to_minvo_control_points(control_point_velocities)
+        control_point_velocities = convert_to_bezier_control_points(control_point_velocities)
+        # control_point_velocities = convert_to_minvo_control_points(control_point_velocities)
     if count_number_of_control_points(control_point_accelerations) > 1:
         control_point_accelerations = convert_to_bezier_control_points(control_point_accelerations)
     max_cross_term = get_cross_term_norm_bound(control_points,order,dimension)

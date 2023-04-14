@@ -12,11 +12,11 @@ import time
 ## add function to get path length
 max_curvature = 1.5
 order = 3
-waypoints = np.array([[0,7],[0,0]])
+waypoints = np.array([[0,6],[0,0]])
 dimension = np.shape(waypoints)[0]
 velocities = np.array([[1,1],[0,0]]) # 0
 velocities = np.array([[1,0],[0,1]]) # 1
-# velocities = np.array([[0,0],[1,-1]]) # 2
+velocities = np.array([[0,0],[1,-1]]) # 2
 velocities = np.array([[-1,-1],[0,0]]) # 3
 # velocities = np.array([[0,0],[1,1]]) # 4
 # velocities = np.array([[-1,1],[0,0]]) # 5
@@ -33,9 +33,9 @@ initial_control_points = None
 # curvature_method = "roots_numerator_and_denominator"
 # curvature_method = "control_point_derivatives"
 curvature_method = "constrain_max_acceleration_and_min_velocity"
-curvature_methods = ["roots_of_curvature_derivative", "roots_numerator_and_denominator", "control_point_derivatives_mdm", "control_point_derivatives_rotate", "constrain_max_acceleration_and_min_velocity"]
+curvature_methods = ["roots_of_curvature_derivative", "roots_numerator_and_denominator", "control_point_derivatives_mdm", "constrain_max_acceleration_and_min_velocity"]
 colors = np.array(["r", "c", "m", "y", "b"])
-fig, ax = plt.subplots(3,5)
+fig, ax = plt.subplots(3,4)
 max_x = 0
 max_y = 0
 min_x = 0

@@ -76,14 +76,14 @@ class PathGenerator:
         curvature_constraint = self.__create_curvature_constraint(max_curvature)
         constraints = [waypoint_constraint, waypoint_velocity_constraint,
                                     curvature_constraint]    
-        if self._objective_method == "minimize_cp_distance_v":
-            max_velocity = 1.25
-            max_velocity_constraint = self.__create_maximum_velocity_constraint(max_velocity)
-            constraints.append(max_velocity_constraint)
-        elif self._objective_method == "minimize_jerk_cps^2_and_time":
-            max_velocity = 1.3
-            max_velocity_constraint = self.__create_maximum_velocity_constraint(max_velocity)
-            constraints.append(max_velocity_constraint)
+        # if self._objective_method == "minimize_cp_distance_v":
+        #     max_velocity = 1.25
+        #     max_velocity_constraint = self.__create_maximum_velocity_constraint(max_velocity)
+        #     constraints.append(max_velocity_constraint)
+        # elif self._objective_method == "minimize_jerk_cps^2_and_time":
+        #     max_velocity = 1.3
+        #     max_velocity_constraint = self.__create_maximum_velocity_constraint(max_velocity)
+        #     constraints.append(max_velocity_constraint)
         return tuple(constraints)
     
     def __minimize_jerk_cps(self,variables):
@@ -136,28 +136,7 @@ class PathGenerator:
         distance_vectors = control_points[:,1:] - control_points[:,0:-1]
         distances_squared = np.sqrt(np.sum(distance_vectors**2,0))
         return np.sum(distances_squared)
-    
-    def __minimize_acceleration_and_distance_objective_function(self, variables):
-        # for third order splines only
-        control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
-            (self._dimension,self._num_control_points))
-        scale_factor = variables[-1]
-        num_intervals = self._num_control_points - self._order
-        sum_of_acceleration_integrals = 0
-        sum_of_distance_integrals = 0
-        for i in range(num_intervals):
-            p0 = control_points[:,i]
-            p1 = control_points[:,i+1]
-            p2 = control_points[:,i+2]
-            p3 = control_points[:,i+3]
-            sum_of_acceleration_integrals += np.sum((p0 - 3*p1 + 3*p2 - p3)**2) 
-            a = (p0/2 - (3*p1)/2 + (3*p2)/2 - p3/2)**2
-            b = -2*(p0 - 2*p1 + p2)*(p0/2 - (3*p1)/2 + (3*p2)/2 - p3/2)
-            c = (p0 - 2*p1 + p2)**2 + 2*(p0/2 - p2/2)*(p0/2 - (3*p1)/2 + (3*p2)/2 - p3/2)
-            d = -2*(p0/2 - p2/2)*(p0 - 2*p1 + p2)
-            f =  (p0/2 - p2/2)**2
-            sum_of_distance_integrals += np.sum(a/5 + b/4 + c/3 + d/2 + f)
-        return sum_of_acceleration_integrals + sum_of_distance_integrals
+
 
     def __create_initial_control_points(self, waypoints):
         start_waypoint = waypoints[:,0]

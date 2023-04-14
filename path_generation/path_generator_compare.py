@@ -87,10 +87,10 @@ class PathGenerator:
         # define constraints and objective function and constraints
         waypoint_constraint = self.__create_waypoint_constraint(waypoints)
         waypoint_velocity_constraint = self.__create_waypoint_velocity_constraint(velocities)
-        max_velocity = 1.5
+        max_velocity = 1.2
         max_velocity_constraint = self.__create_maximum_velocity_constraint(max_velocity)
-        max_jerk = 0.1
-        max_jerk_constraint =  self.__create_maximum_jerk_constraint(max_jerk)
+        # max_jerk = 0.1
+        # max_jerk_constraint =  self.__create_maximum_jerk_constraint(max_jerk)
         curvature_constraint = self.__create_curvature_constraint(max_curvature)
         objectiveFunction = self.__get_objective_function()
         objective_variable_bounds = self.__create_objective_variable_bounds()
@@ -113,7 +113,7 @@ class PathGenerator:
         optimized_control_points = np.reshape(result.x[0:-2] ,(self._dimension,self._num_control_points))
         optimized_scale_factor = result.x[-2]
         standard_velocity = result.x[-1]
-        print("scale_factor: " , optimized_scale_factor)
+        # print("scale_factor: " , optimized_scale_factor)
         return optimized_control_points, optimized_scale_factor
 
     def __get_objective_function(self):
@@ -121,29 +121,31 @@ class PathGenerator:
             return self.__minimize_control_point_distance
         elif self._objective_function_type == "minimize_acceleration":
             return self.__minimize_jerk_cps_squared_and_time_objective_function
+            # return self.__minimize_jerk_cps_objective_function
 
   
     def __minimize_control_point_distance(self, variables):
         # for third order splines only
-        control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
-            (self._dimension,self._num_control_points))
-        scale_factor = variables[-1]
+        control_points, scale_factor, default_velocity =  self.__get_control_points_and_scale_factor(variables)
         distance_vectors = control_points[:,1:] - control_points[:,0:-1]
         distances_squared = np.sqrt(np.sum(distance_vectors**2,0))
         return np.sum(distances_squared)
     
     def __minimize_jerk_cps_squared_and_time_objective_function(self, variables):
         # for third order splines only
-        control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
-            (self._dimension,self._num_control_points))
-        scale_factor = variables[-1]
-        control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
-            (self._dimension,self._num_control_points))
-        scale_factor = variables[-1]
+        control_points, scale_factor, default_velocity =  self.__get_control_points_and_scale_factor(variables)
         jerk_cps = control_points[:,3:] - 3*control_points[:,2:-1] + 3*control_points[:,1:-2] - control_points[:,0:-3]
         square_jerk_control_points = np.sum(jerk_cps**2,0)
         jerk_factor = np.sum(square_jerk_control_points)
         return jerk_factor + scale_factor
+    
+    def __minimize_jerk_cps_objective_function(self, variables):
+        # for third order splines only
+        control_points, scale_factor, default_velocity =  self.__get_control_points_and_scale_factor(variables)
+        jerk_cps = control_points[:,3:] - 3*control_points[:,2:-1] + 3*control_points[:,1:-2] - control_points[:,0:-3]
+        norm_jerk_control_points = np.sqrt(np.sum(jerk_cps**2,0))
+        jerk_factor = np.sum(norm_jerk_control_points)
+        return jerk_factor
     
 
     def __create_objective_variable_bounds(self):
@@ -159,26 +161,6 @@ class PathGenerator:
         distance_vectors = control_points[:,1:] - control_points[:,0:-1]
         distances_squared = np.sum(distance_vectors**2,0)**2
         return np.sum(distances_squared)
-    
-    def __minimize_acceleration_and_distance_objective_function(self, variables):
-        # for third order splines only
-        control_points, scale_factor, default_velocity =  self.__get_control_points_and_scale_factor(variables)
-        num_intervals = self._num_control_points - self._order
-        sum_of_acceleration_integrals = 0
-        sum_of_distance_integrals = 0
-        for i in range(num_intervals):
-            p0 = control_points[:,i]
-            p1 = control_points[:,i+1]
-            p2 = control_points[:,i+2]
-            p3 = control_points[:,i+3]
-            sum_of_acceleration_integrals += np.sum((p0 - 3*p1 + 3*p2 - p3)**2) 
-            a = (p0/2 - (3*p1)/2 + (3*p2)/2 - p3/2)**2
-            b = -2*(p0 - 2*p1 + p2)*(p0/2 - (3*p1)/2 + (3*p2)/2 - p3/2)
-            c = (p0 - 2*p1 + p2)**2 + 2*(p0/2 - p2/2)*(p0/2 - (3*p1)/2 + (3*p2)/2 - p3/2)
-            d = -2*(p0/2 - p2/2)*(p0 - 2*p1 + p2)
-            f =  (p0/2 - p2/2)**2
-            sum_of_distance_integrals += np.sum(a/5 + b/4 + c/3 + d/2 + f)
-        return sum_of_acceleration_integrals + sum_of_distance_integrals
 
     def __create_initial_control_points(self, waypoints):
         start_waypoint = waypoints[:,0]
