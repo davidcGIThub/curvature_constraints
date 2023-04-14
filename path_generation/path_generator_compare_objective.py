@@ -134,7 +134,7 @@ class PathGenerator:
             (self._dimension,self._num_control_points))
         scale_factor = variables[-1]
         distance_vectors = control_points[:,1:] - control_points[:,0:-1]
-        distances_squared = np.sqrt(np.sum(distance_vectors**2,0))
+        distances_squared = np.sum(distance_vectors**2,0)
         return np.sum(distances_squared)
 
 

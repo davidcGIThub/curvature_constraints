@@ -16,9 +16,9 @@ waypoints = np.array([[0,6],[0,0]])
 dimension = np.shape(waypoints)[0]
 velocities = np.array([[1,1],[0,0]]) # 0
 velocities = np.array([[1,0],[0,1]]) # 1
-# velocities = np.array([[0,0],[1,-1]]) # 2
-# velocities = np.array([[-1,-1],[0,0]]) # 3
-# velocities = np.array([[0,0],[1,1]]) # 4
+velocities = np.array([[0,0],[1,-1]]) # 2
+velocities = np.array([[-1,-1],[0,0]]) # 3
+velocities = np.array([[0,0],[1,1]]) # 4
 # velocities = np.array([[-1,1],[0,0]]) # 5
 velocities = velocities/np.linalg.norm(velocities,2,0) # normalize velocities
 
