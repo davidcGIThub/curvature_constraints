@@ -12,10 +12,10 @@ import time
 ## add function to get path length
 max_curvature = 1.5
 order = 3
-waypoints = np.array([[0,6],[0,0]])
+waypoints = np.array([[0,7],[0,0]])
 dimension = np.shape(waypoints)[0]
 velocities = np.array([[1,1],[0,0]]) # 0
-# velocities = np.array([[1,0],[0,1]]) # 1
+velocities = np.array([[1,0],[0,1]]) # 1
 # velocities = np.array([[0,0],[1,-1]]) # 2
 velocities = np.array([[-1,-1],[0,0]]) # 3
 # velocities = np.array([[0,0],[1,1]]) # 4
@@ -33,14 +33,14 @@ initial_control_points = None
 # curvature_method = "roots_numerator_and_denominator"
 # curvature_method = "control_point_derivatives"
 curvature_method = "constrain_max_acceleration_and_min_velocity"
-curvature_methods = ["roots_of_curvature_derivative", "roots_numerator_and_denominator", "control_point_derivatives", "constrain_max_acceleration_and_min_velocity"]
-colors = np.array(["r", "c", "m", "y"])
-fig, ax = plt.subplots(3,4)
+curvature_methods = ["roots_of_curvature_derivative", "roots_numerator_and_denominator", "control_point_derivatives_mdm", "control_point_derivatives_rotate", "constrain_max_acceleration_and_min_velocity"]
+colors = np.array(["r", "c", "m", "y", "b"])
+fig, ax = plt.subplots(3,5)
 max_x = 0
 max_y = 0
 min_x = 0
 min_y = 0
-for i in range(1,len(curvature_methods)-1):
+for i in range(0,len(curvature_methods)):
     print(i)
     path_gen = PathGenerator(order, dimension, curvature_methods[i])
     start_time = time.time()
@@ -66,10 +66,12 @@ for i in range(1,len(curvature_methods)-1):
         ax[0,i].set_title("Roots of Curvature \n Derivative")
     elif curvature_methods[i] == "roots_numerator_and_denominator":
         ax[0,i].set_title("Analytical Roots of \n Numerator & Denominator")
-    elif curvature_methods[i] == "control_point_derivatives":
-        ax[0,i].set_title("Control Point \n Derivatives")
+    elif curvature_methods[i] == "control_point_derivatives_mdm":
+        ax[0,i].set_title("Control Point \n Derivatives MDM")
     elif curvature_methods[i] == "constrain_max_acceleration_and_min_velocity":
         ax[0,i].set_title("Max Acceleration \n and Min Velocity")
+    elif curvature_methods[i] == "control_point_derivatives_rotate":
+        ax[0,i].set_title("Control Point \n Derivatives Rotate")
     evaluation_time = end_time - start_time
     path_length = bspline.get_arc_length(number_data_points)
     acceleration_integral = np.sum(acceleration_magnitude_data)*time_data[1]
@@ -90,7 +92,7 @@ for i in range(1,len(curvature_methods)-1):
     ax[0,i].scatter(waypoints[0,:],waypoints[1,:],color='k', s=8)
 
 
-for i in range(1,len(curvature_methods)-1):
+for i in range(0,len(curvature_methods)):
     ax[0,i].set_aspect(abs((max_x-min_x)/(max_y-min_y))*ratio)
     # ax[0,i].set_ylim([-1, 1])
 ax[1,0].set_ylabel("Evaluation Time",weight='bold')

@@ -48,7 +48,8 @@ class PathGenerator:
         if initial_control_points is None:
             initial_control_points = self.__create_initial_control_points(waypoints)
         initial_scale_factor = 1
-        optimization_variables = np.concatenate((initial_control_points.flatten(),[initial_scale_factor]))
+        standard_velocity = 1
+        optimization_variables = np.concatenate((initial_control_points.flatten(),[initial_scale_factor],[standard_velocity]))
         # define constraints and objective function and constraints
         waypoint_constraint = self.__create_waypoint_constraint(waypoints)
         velocity_constraint = self.__create_waypoint_velocity_constraint(velocities)
@@ -71,8 +72,8 @@ class PathGenerator:
                 min_velocity_constraint), 
             options = minimize_options)
         # retrieve data
-        optimized_control_points = np.reshape(result.x[0:-1] ,(self._dimension,self._num_control_points))
-        optimized_scale_factor = result.x[-1]
+        optimized_control_points = np.reshape(result.x[0:-2] ,(self._dimension,self._num_control_points))
+        optimized_scale_factor = result.x[-2]
         return optimized_control_points, optimized_scale_factor
 
     def generate_trajectory_direct(self, waypoints,velocities, max_curvature, initial_control_points = None):
@@ -81,7 +82,8 @@ class PathGenerator:
         if initial_control_points is None:
             initial_control_points = self.__create_initial_control_points(waypoints)
         initial_scale_factor = 1
-        optimization_variables = np.concatenate((initial_control_points.flatten(),[initial_scale_factor]))
+        standard_velocity = 1
+        optimization_variables = np.concatenate((initial_control_points.flatten(),[initial_scale_factor],[standard_velocity]))
         # define constraints and objective function and constraints
         waypoint_constraint = self.__create_waypoint_constraint(waypoints)
         waypoint_velocity_constraint = self.__create_waypoint_velocity_constraint(velocities)
@@ -108,150 +110,59 @@ class PathGenerator:
                 ), 
             options = minimize_options)
         # retrieve data
-        optimized_control_points = np.reshape(result.x[0:-1] ,(self._dimension,self._num_control_points))
-        optimized_scale_factor = result.x[-1]
+        optimized_control_points = np.reshape(result.x[0:-2] ,(self._dimension,self._num_control_points))
+        optimized_scale_factor = result.x[-2]
+        standard_velocity = result.x[-1]
         print("scale_factor: " , optimized_scale_factor)
         return optimized_control_points, optimized_scale_factor
 
     def __get_objective_function(self):
-        # return self.__minimize_acceleration_and_distance_objective_function
-        # return self.__minimize_acceleration_and_time_objective_function
-        # return self.__minimize_acceleration_objective_function
-        # if self._objective_function_type == "minimize_distance_and_time":
-            # return self.__minimize_distance_and_time_objective_function
-            # return self.__minimize_acceleration_objective_function
-            # return self.__minimize_control_point_distance
-        # elif self._objective_function_type == "minimize_acceleration":
-            # return self.__minimize_distance_and_time_objective_function
-            # return self.__minimize_acceleration_objective_function
-            # return self.__minimize_control_point_distance
-            # return self.__minimize_distance_objective_function
-        # return self.__minimize_control_point_distance
-        # return self.__minimize_acceleration_objective_function
-        return self.__minimize_jerk_cps
+        if self._objective_function_type == "minimize_distance_and_time":
+            return self.__minimize_control_point_distance
+        elif self._objective_function_type == "minimize_acceleration":
+            return self.__minimize_jerk_cps_squared_and_time_objective_function
 
-    def __minimize_distance_and_time_objective_function(self, variables):
-        # for third order splines only
-        control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
-            (self._dimension,self._num_control_points))
-        scale_factor = variables[-1]
-        num_intervals = self._num_control_points - self._order
-        sum_of_integrals = 0
-        sum_of_integ = 0
-        for i in range(num_intervals):
-            p0 = control_points[:,i]
-            p1 = control_points[:,i+1]
-            p2 = control_points[:,i+2]
-            p3 = control_points[:,i+3]
-            a = (p0/2 - (3*p1)/2 + (3*p2)/2 - p3/2)**2
-            b = -2*(p0 - 2*p1 + p2)*(p0/2 - (3*p1)/2 + (3*p2)/2 - p3/2)
-            c = (p0 - 2*p1 + p2)**2 + 2*(p0/2 - p2/2)*(p0/2 - (3*p1)/2 + (3*p2)/2 - p3/2)
-            d = -2*(p0/2 - p2/2)*(p0 - 2*p1 + p2)
-            f =  (p0/2 - p2/2)**2
-            integral = np.sum(a/5 + b/4 + c/3 + d/2 + f)
-            sum_of_integrals += integral 
-            p1x = control_points[0,i]
-            p2x = control_points[0,i+1]
-            p3x = control_points[0,i+2]
-            p4x = control_points[0,i+3]
-            p1y = control_points[1,i]
-            p2y = control_points[1,i+1]
-            p3y = control_points[1,i+2]
-            p4y = control_points[1,i+3]
-            integ = ((9*((p1x*(p1x/6 - p2x/2 + p3x/2 - p4x/6))/6 - (p2x*(p1x/6 - p2x/2 + p3x/2 - p4x/6))/2 + (p3x*(p1x/6 - p2x/2 + p3x/2 - p4x/6))/2 - (p4x*(p1x/6 - p2x/2 + p3x/2 - p4x/6))/6 + (p1y*(p1y/6 - p2y/2 + p3y/2 - p4y/6))/6 - (p2y*(p1y/6 - p2y/2 + p3y/2 - p4y/6))/2 + (p3y*(p1y/6 - p2y/2 + p3y/2 - p4y/6))/2 - (p4y*(p1y/6 - p2y/2 + p3y/2 - p4y/6))/6)))/5 + (- (6*((p1x*(p1x/6 - p2x/2 + p3x/2 - p4x/6))/2 - p2x*(p1x/6 - p2x/2 + p3x/2 - p4x/6) + (p3x*(p1x/6 - p2x/2 + p3x/2 - p4x/6))/2 + (p1y*(p1y/6 - p2y/2 + p3y/2 - p4y/6))/2 - p2y*(p1y/6 - p2y/2 + p3y/2 - p4y/6) + (p3y*(p1y/6 - p2y/2 + p3y/2 - p4y/6))/2)) - (6*((p1x*(p1x/2 - p2x + p3x/2))/6 - (p2x*(p1x/2 - p2x + p3x/2))/2 + (p3x*(p1x/2 - p2x + p3x/2))/2 - (p4x*(p1x/2 - p2x + p3x/2))/6 + (p1y*(p1y/2 - p2y + p3y/2))/6 - (p2y*(p1y/2 - p2y + p3y/2))/2 + (p3y*(p1y/2 - p2y + p3y/2))/2 - (p4y*(p1y/2 - p2y + p3y/2))/6)))/4 + ((4*((p1x*(p1x/2 - p2x + p3x/2))/2 - p2x*(p1x/2 - p2x + p3x/2) + (p3x*(p1x/2 - p2x + p3x/2))/2 + (p1y*(p1y/2 - p2y + p3y/2))/2 - p2y*(p1y/2 - p2y + p3y/2) + (p3y*(p1y/2 - p2y + p3y/2))/2)) + (3*((p1x*(p1x/6 - p2x/2 + p3x/2 - p4x/6))/2 - (p3x*(p1x/6 - p2x/2 + p3x/2 - p4x/6))/2 + (p1y*(p1y/6 - p2y/2 + p3y/2 - p4y/6))/2 - (p3y*(p1y/6 - p2y/2 + p3y/2 - p4y/6))/2)) + (3*((p1x*(p1x/2 - p3x/2))/6 - (p2x*(p1x/2 - p3x/2))/2 + (p3x*(p1x/2 - p3x/2))/2 - (p4x*(p1x/2 - p3x/2))/6 + (p1y*(p1y/2 - p3y/2))/6 - (p2y*(p1y/2 - p3y/2))/2 + (p3y*(p1y/2 - p3y/2))/2 - (p4y*(p1y/2 - p3y/2))/6)))/3 + (- (2*((p1x*(p1x/2 - p3x/2))/2 - p2x*(p1x/2 - p3x/2) + (p3x*(p1x/2 - p3x/2))/2 + (p1y*(p1y/2 - p3y/2))/2 - p2y*(p1y/2 - p3y/2) + (p3y*(p1y/2 - p3y/2))/2)) - (2*((p1x*(p1x/2 - p2x + p3x/2))/2 - (p3x*(p1x/2 - p2x + p3x/2))/2 + (p1y*(p1y/2 - p2y + p3y/2))/2 - (p3y*(p1y/2 - p2y + p3y/2))/2)))/2 + ((p1x*(p1x/2 - p3x/2))/2 - (p3x*(p1x/2 - p3x/2))/2 + (p1y*(p1y/2 - p3y/2))/2 - (p3y*(p1y/2 - p3y/2))/2)
-            sum_of_integ += integ
-        # print("control_points: " , control_points)
-        # print("scale_factor: " , scale_factor)
-        # print("answer: " , sum_of_integrals + scale_factor )
-        # print(" ")
-        return sum_of_integrals
-    
-    def __minimize_jerk_cps(self,variables):
-        control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
-            (self._dimension,self._num_control_points))
-        scale_factor = variables[-1]
-        velocity_control_points = (control_points[:,1:] - control_points[:,0:-1]) #/ scale_factor
-        accel_control_points = (velocity_control_points[:,1:] - velocity_control_points[:,0:-1]) #/ scale_factor
-        jerk_control_points = (accel_control_points[:,1:] - accel_control_points[:,0:-1]) #/ scale_factor
-        norm_jerk_control_points = np.linalg.norm(jerk_control_points,2,0)**2
-        objective = np.sum(norm_jerk_control_points)
-        return objective
-    
-
-    def __create_objective_variable_bounds(self):
-        lower_bounds = np.zeros(self._num_control_points*self._dimension + 1) - np.inf
-        upper_bounds = np.zeros(self._num_control_points*self._dimension + 1) + np.inf
-        lower_bounds[self._num_control_points*self._dimension] = 0.00001
-        # upper_bounds[self._num_control_points*self._dimension] = 3
-        return Bounds(lb=lower_bounds, ub = upper_bounds)
-
-
-    def __minimize_acceleration_objective_function(self, variables):
-        # for third order splines only
-        control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
-            (self._dimension,self._num_control_points))
-        scale_factor = variables[-1]
-        num_intervals = self._num_control_points - self._order
-        sum_of_integrals = 0
-        sum_of_integ = 0
-        for i in range(num_intervals):
-            p0 = control_points[:,i]
-            p1 = control_points[:,i+1]
-            p2 = control_points[:,i+2]
-            p3 = control_points[:,i+3]
-            p1x = control_points[0,i]
-            p2x = control_points[0,i+1]
-            p3x = control_points[0,i+2]
-            p4x = control_points[0,i+3]
-            p1y = control_points[1,i]
-            p2y = control_points[1,i+1]
-            p3y = control_points[1,i+2]
-            p4y = control_points[1,i+3]
-            p1z = 0
-            p2z = 0
-            p3z = 0
-            p4z = 0
-            integ = (36*((p1x*(p1x/6 - p2x/2 + p3x/2 - p4x/6))/6 - (p2x*(p1x/6 - p2x/2 + p3x/2 - p4x/6))/2 + (p3x*(p1x/6 - p2x/2 + p3x/2 - p4x/6))/2 - (p4x*(p1x/6 - p2x/2 + p3x/2 - p4x/6))/6 + (p1y*(p1y/6 - p2y/2 + p3y/2 - p4y/6))/6 - (p2y*(p1y/6 - p2y/2 + p3y/2 - p4y/6))/2 + (p3y*(p1y/6 - p2y/2 + p3y/2 - p4y/6))/2 - (p4y*(p1y/6 - p2y/2 + p3y/2 - p4y/6))/6 + (p1z*(p1z/6 - p2z/2 + p3z/2 - p4z/6))/6 - (p2z*(p1z/6 - p2z/2 + p3z/2 - p4z/6))/2 + (p3z*(p1z/6 - p2z/2 + p3z/2 - p4z/6))/2 - (p4z*(p1z/6 - p2z/2 + p3z/2 - p4z/6))/6))
-            sum_of_integ += integ
-            integral_vector = (-p0 + 3*p1 - 3*p2 + p3)
-            sum_of_integrals += np.sum(integral_vector**2)
-        # print("sum_of_integrals: " , sum_of_integrals)
-        # print("sum_of_integ: ", sum_of_integ)
-        return sum_of_integrals + scale_factor
-    
-    def __minimize_acceleration_and_time_objective_function(self, variables):
-        # for third order splines only
-        control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
-            (self._dimension,self._num_control_points))
-        scale_factor = variables[-1]
-        num_intervals = self._num_control_points - self._order
-        sum_of_integrals = 0
-        for i in range(num_intervals):
-            p0 = control_points[:,i]
-            p1 = control_points[:,i+1]
-            p2 = control_points[:,i+2]
-            p3 = control_points[:,i+3]
-            sum_of_integrals += np.sum((p0 - 3*p1 + 3*p2 - p3)**2) 
-        # print("control_points: " , control_points)
-        # print("scale_factor: " , scale_factor)
-        # print("answer: " , sum_of_integrals + scale_factor )
-        # print(" ")
-        return sum_of_integrals + scale_factor
-    
+  
     def __minimize_control_point_distance(self, variables):
         # for third order splines only
         control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
             (self._dimension,self._num_control_points))
         scale_factor = variables[-1]
         distance_vectors = control_points[:,1:] - control_points[:,0:-1]
+        distances_squared = np.sqrt(np.sum(distance_vectors**2,0))
+        return np.sum(distances_squared)
+    
+    def __minimize_jerk_cps_squared_and_time_objective_function(self, variables):
+        # for third order splines only
+        control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
+            (self._dimension,self._num_control_points))
+        scale_factor = variables[-1]
+        control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
+            (self._dimension,self._num_control_points))
+        scale_factor = variables[-1]
+        jerk_cps = control_points[:,3:] - 3*control_points[:,2:-1] + 3*control_points[:,1:-2] - control_points[:,0:-3]
+        square_jerk_control_points = np.sum(jerk_cps**2,0)
+        jerk_factor = np.sum(square_jerk_control_points)
+        return jerk_factor + scale_factor
+    
+
+    def __create_objective_variable_bounds(self):
+        lower_bounds = np.zeros(self._num_control_points*self._dimension + 2) - np.inf
+        upper_bounds = np.zeros(self._num_control_points*self._dimension + 2) + np.inf
+        lower_bounds[self._num_control_points*self._dimension] = 0.00001
+        # upper_bounds[self._num_control_points*self._dimension] = 3
+        return Bounds(lb=lower_bounds, ub = upper_bounds)
+    
+    def __minimize_control_point_distance(self, variables):
+        # for third order splines only
+        control_points, scale_factor, default_velocity =  self.__get_control_points_and_scale_factor(variables)
+        distance_vectors = control_points[:,1:] - control_points[:,0:-1]
         distances_squared = np.sum(distance_vectors**2,0)**2
         return np.sum(distances_squared)
     
     def __minimize_acceleration_and_distance_objective_function(self, variables):
         # for third order splines only
-        control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
-            (self._dimension,self._num_control_points))
-        scale_factor = variables[-1]
+        control_points, scale_factor, default_velocity =  self.__get_control_points_and_scale_factor(variables)
         num_intervals = self._num_control_points - self._order
         sum_of_acceleration_integrals = 0
         sum_of_distance_integrals = 0
@@ -290,24 +201,33 @@ class PathGenerator:
         for i in range(self._dimension):
             constraint_matrix[i*m   ,  i*n        : i*n+k+1] = M_Gamma_0_T
             constraint_matrix[i*m+1 , (i+1)*n-k-1 : (i+1)*n] = M_Gamma_f_T
-        constraint_matrix = np.concatenate((constraint_matrix,np.zeros((m*d,1))),1)
+        constraint_matrix = np.concatenate((constraint_matrix,np.zeros((m*d,1)),np.zeros((m*d,1))),1)
+        # constraint_matrix = np.concatenate((constraint_matrix,np.zeros((m*d,1))),1)
         constraint = LinearConstraint(constraint_matrix, lb=waypoints.flatten(), ub=waypoints.flatten())
         return constraint
+    
+    def __get_control_points_and_scale_factor(self, variables):
+        control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
+            (self._dimension,self._num_control_points))
+        scale_factor = variables[-2]
+        default_velocity = variables[-1]
+        return control_points, scale_factor, default_velocity
 
     def __create_waypoint_velocity_constraint(self, velocities):
         def velocity_constraint_function(variables):
             constraints = np.zeros(self._dimension*2)
-            control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
-            (self._dimension,self._num_control_points))
-            segement_1_control_points = control_points[:,0:self._order+1]
-            segement_2_control_points = control_points[:,self._num_control_points-self._order-1:]
-            scale_factor = variables[-1]
-            T_0 = get_T_derivative_vector(self._order,0,0,1,scale_factor)
-            T_f = get_T_derivative_vector(self._order,scale_factor,0,1,scale_factor)
-            start_velocity = np.dot(segement_1_control_points,np.dot(self._M,T_0)).flatten()
-            end_velocity = np.dot(segement_2_control_points,np.dot(self._M,T_f)).flatten()
+            control_points, scale_factor, default_velocity =  self.__get_control_points_and_scale_factor(variables)
             desired_start_velocity = velocities[:,0]
             desired_end_velocity = velocities[:,1]
+            # segement_1_control_points = control_points[:,0:self._order+1]
+            # segement_2_control_points = control_points[:,self._num_control_points-self._order-1:]
+            # T_0 = get_T_derivative_vector(self._order,0,0,1,scale_factor)
+            # T_f = get_T_derivative_vector(self._order,scale_factor,0,1,scale_factor)
+            # start_velocity = np.dot(segement_1_control_points,np.dot(self._M,T_0)).flatten()
+            # end_velocity = np.dot(segement_2_control_points,np.dot(self._M,T_f)).flatten()
+            start_velocity = (control_points[:,2] - control_points[:,0])/(2*scale_factor)
+            end_velocity = (control_points[:,-1] - control_points[:,-3])/(2*scale_factor)
+            #### end section
             constraints[0:self._dimension] = start_velocity - desired_start_velocity
             constraints[self._dimension:] = end_velocity - desired_end_velocity
             return constraints
@@ -320,9 +240,7 @@ class PathGenerator:
 
     def __create_maximum_acceleration_constraint(self, max_acceleration):
         def maximum_acceleration_constraint_function(variables):
-            control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
-                (self._dimension,self._num_control_points))
-            scale_factor = variables[-1]
+            control_points, scale_factor, default_velocity =  self.__get_control_points_and_scale_factor(variables)
             velocity_control_points = (control_points[:,1:] - control_points[:,0:-1]) / scale_factor
             acceleration_control_points = (velocity_control_points[:,1:] - velocity_control_points[:,0:-1]) / scale_factor
             norm_acceleration_control_points = np.linalg.norm(acceleration_control_points,2,0)
@@ -336,9 +254,7 @@ class PathGenerator:
     
     def __create_maximum_velocity_constraint(self, max_velocity):
         def maximum_velocity_constraint_function(variables):
-            control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
-                (self._dimension,self._num_control_points))
-            scale_factor = variables[-1]
+            control_points, scale_factor, default_velocity =  self.__get_control_points_and_scale_factor(variables)
             velocity_control_points = (control_points[:,1:] - control_points[:,0:-1]) / scale_factor
             norm_velocity_control_points = np.linalg.norm(velocity_control_points,2,0)
             velocity_constraints = norm_velocity_control_points - max_velocity
@@ -351,9 +267,7 @@ class PathGenerator:
     
     def __create_maximum_jerk_constraint(self, max_jerk):
         def maximum_jerk_constraint_function(variables):
-            control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
-                (self._dimension,self._num_control_points))
-            scale_factor = variables[-1]
+            control_points, scale_factor, default_velocity =  self.__get_control_points_and_scale_factor(variables)
             velocity_control_points = (control_points[:,1:] - control_points[:,0:-1]) / scale_factor
             accel_control_points = (velocity_control_points[:,1:] - velocity_control_points[:,0:-1]) / scale_factor
             jerk_control_points = (accel_control_points[:,1:] - accel_control_points[:,0:-1]) / scale_factor
@@ -388,8 +302,7 @@ class PathGenerator:
 
     def __create_curvature_constraint(self, max_curvature):
         def curvature_constraint_function(variables):
-            control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
-            (self._dimension,self._num_control_points))
+            control_points, scale_factor, default_velocity =  self.__get_control_points_and_scale_factor(variables)
             max_curvature_of_spline_intervals = self.__get_max_curvature_of_each_spline_interval(control_points)
             largest_curvature = np.max(max_curvature_of_spline_intervals)
             constraint = largest_curvature - max_curvature
@@ -408,15 +321,15 @@ class PathGenerator:
                 max_curvatures[i] = find_max_curvature_root_finder(control_points_per_interval,self._order,self._M)
             elif self._curvature_method == "roots_numerator_and_denominator":
                 max_curvatures[i] = find_curvature_using_max_numerator_over_min_denominator(control_points_per_interval,self._order,self._M)
-            elif self._curvature_method == "control_point_derivatives":
-                max_curvatures[i] = get_control_point_curvature_bound(control_points_per_interval,self._order)
+            elif self._curvature_method == "control_point_derivatives_mdm":
+                max_curvatures[i] = get_control_point_curvature_bound(control_points_per_interval,self._order,method="mdm")
+            elif self._curvature_method == "control_point_derivatives_rotate":
+                max_curvatures[i] = get_control_point_curvature_bound(control_points_per_interval,self._order,method="rotate")
         return  max_curvatures
 
     def __create_min_velocity_constraint(self, min_velocity):
         def min_velocity_constraint_function(variables):
-            control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
-            (self._dimension,self._num_control_points))
-            scale_factor = variables[-1]
+            control_points, scale_factor, default_velocity =  self.__get_control_points_and_scale_factor(variables)
             min_velocity_of_spline = self.__get_min_velocity_of_spline(control_points,scale_factor)
             constraint = min_velocity - min_velocity_of_spline
             return constraint
@@ -437,9 +350,7 @@ class PathGenerator:
 
     def __create_max_cross_term_constraint(self, max_cross_term_mag):
         def max_cross_term_constraint_function(variables):
-            control_points = np.reshape(variables[0:self._num_control_points*self._dimension], \
-            (self._dimension,self._num_control_points))
-            scale_factor = variables[-1]
+            control_points, scale_factor, default_velocity =  self.__get_control_points_and_scale_factor(variables)
             max_cross_term_of_spline = self.__get_max_cross_term_of_spline(control_points,scale_factor)
             constraint = max_cross_term_of_spline - max_cross_term_mag
             return constraint
