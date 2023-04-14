@@ -87,10 +87,6 @@ class PathGenerator:
         # define constraints and objective function and constraints
         waypoint_constraint = self.__create_waypoint_constraint(waypoints)
         waypoint_velocity_constraint = self.__create_waypoint_velocity_constraint(velocities)
-        max_velocity = 1.2
-        max_velocity_constraint = self.__create_maximum_velocity_constraint(max_velocity)
-        # max_jerk = 0.1
-        # max_jerk_constraint =  self.__create_maximum_jerk_constraint(max_jerk)
         curvature_constraint = self.__create_curvature_constraint(max_curvature)
         objectiveFunction = self.__get_objective_function()
         objective_variable_bounds = self.__create_objective_variable_bounds()
@@ -104,8 +100,6 @@ class PathGenerator:
             bounds=objective_variable_bounds,
             constraints=(waypoint_constraint, 
                          waypoint_velocity_constraint, 
-                         max_velocity_constraint,
-                        #  max_jerk_constraint,
                          curvature_constraint
                 ), 
             options = minimize_options)
@@ -128,7 +122,7 @@ class PathGenerator:
         # for third order splines only
         control_points, scale_factor, default_velocity =  self.__get_control_points_and_scale_factor(variables)
         distance_vectors = control_points[:,1:] - control_points[:,0:-1]
-        distances_squared = np.sqrt(np.sum(distance_vectors**2,0))
+        distances_squared = np.sum(distance_vectors**2,0)
         return np.sum(distances_squared)
     
     def __minimize_jerk_cps_squared_and_time_objective_function(self, variables):
@@ -159,7 +153,7 @@ class PathGenerator:
         # for third order splines only
         control_points, scale_factor, default_velocity =  self.__get_control_points_and_scale_factor(variables)
         distance_vectors = control_points[:,1:] - control_points[:,0:-1]
-        distances_squared = np.sum(distance_vectors**2,0)**2
+        distances_squared = np.sum(distance_vectors**2,0)
         return np.sum(distances_squared)
 
     def __create_initial_control_points(self, waypoints):
