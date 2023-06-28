@@ -13,9 +13,10 @@ from max_curvature_evaluators.control_point_method import get_control_point_curv
 from max_curvature_evaluators.max_numerator_over_min_denominator import find_curvature_using_max_numerator_over_min_denominator
 from max_curvature_evaluators.geometric_max_finder import get_max_curvature
 from max_curvature_evaluators.angle_constrained_max_finder import get_constant, get_curvature_bound
+from path_generation.spline_order_converter import SmoothingSpline
 
 def get_speed_and_accuracy_of_max_curvature_function(order,method,control_points, true_max_curvature):
-    curvature_bound, evaluation_time = get_curvature_bound_and_time(method, control_points,order)
+    curvature_bound, evaluation_time = get_curvature_bound_and_time(method, control_points, order)
     # if method == "discrete_evaluations":
     #     print("method: " , method)
     #     print("curvature bound: " , curvature_bound)
@@ -191,7 +192,13 @@ def get_curvature_bound_and_time(method,control_points,order):
         evaluation_time = time.time() - start_time
     elif method == "geometric":
         start_time = time.time()
-        curvature_bound = get_max_curvature(control_points)
+        if order == 2:
+            second_order_control_points = control_points
+        else:
+            bspline_order_converter = SmoothingSpline(order, dimension=2, resolution=100)
+            second_order_control_points, scale_factor = \
+                bspline_order_converter.generate_new_control_points(control_points,1,order)
+        curvature_bound = get_max_curvature(second_order_control_points, 2)
         evaluation_time = time.time() - start_time
     elif method == "angle_constrained_control_points":
         isBezier = False

@@ -17,7 +17,7 @@ class SmoothingSpline:
         self._resolution = resolution # points spline
         self._order = order
         
-    def generate_new_control_points(self, old_control_points, old_scale_factor, old_order, max_velocity = None):
+    def generate_new_control_points(self, old_control_points, old_scale_factor, old_order):
         num_cont_pts = self.__get_num_control_points(old_control_points, old_order)
         initial_control_points = self.create_initial_control_points(old_control_points, old_order, num_cont_pts)
         scale_factor = self.__get_new_scale_factor(initial_control_points, old_scale_factor, old_control_points, old_order)
@@ -67,7 +67,7 @@ class SmoothingSpline:
 
     def __get_num_control_points(self, old_control_points, old_order):
         old_num_intervals = self.__count_number_of_control_points(old_control_points) - old_order
-        new_num_intervals = int(old_num_intervals*4)
+        new_num_intervals = int(old_num_intervals*2.5)
         new_num_control_points = new_num_intervals + self._order
         return new_num_control_points
     

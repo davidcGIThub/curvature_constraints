@@ -7,8 +7,26 @@ import matplotlib.pyplot as plt
 order = 2
 num_iterations = 100
 isRestricted = False
-methods = np.array(["discrete_evaluations", "maximize_curvature_equation", "roots_of_curvature_derivative", "geometric", "roots_of_curvature_numerator_and_denominator", "control_point_derivatives"]) #, "geometric"])
-colors = np.array(["tab:orange","b", "g", "r", "c", "m"])
+if order == 2:
+    methods = np.array(["discrete_evaluations", "maximize_curvature_equation", "roots_of_curvature_derivative", "geometric", "roots_of_curvature_numerator_and_denominator", "control_point_derivatives"]) #, "geometric"])
+    colors = np.array(["tab:orange","b", "g", "r", "c", "m"])
+    label_list = ['discrete \n evaluations','maximize curvature \n equation' ,
+                    'roots of curvature \n derivative', 'geometric', 'roots of curvature \n numerator & denominator',
+                    'control point \n derivatives']
+    tick_list = [1, 2, 3, 4, 5, 6]
+if order == 3:
+    methods = np.array(["discrete_evaluations", "maximize_curvature_equation", "roots_of_curvature_derivative", "roots_of_curvature_numerator_and_denominator", "control_point_derivatives"]) #, "geometric"])
+    colors = np.array(["tab:orange","b", "g", "c", "m"])
+    label_list = ['discrete \n evaluations','maximize curvature \n equation' ,
+                    'roots of curvature \n derivative', 'roots of curvature \n numerator & denominator',
+                    'control point \n derivatives']
+    tick_list = [1, 2, 3, 4, 5]
+if order >= 4:
+    methods = np.array(["discrete_evaluations", "maximize_curvature_equation", "roots_of_curvature_derivative", "control_point_derivatives"])
+    colors  = np.array(["tab:orange" , "b" , "g" , "m"])
+    label_list = ['discrete \n evaluations' , 'maximize curvature \n equation' , 'roots of curvature \n numerator & denominator', 'control point \n derivatives']
+    tick_list = [1, 2, 3, 4]
+    
 # curvature_methods = ["geometric","roots_numerator_and_denominator", "control_point_derivatives_mdm", "constrain_max_acceleration_and_min_velocity"]
 # colors = np.array(["r", "c", "m", "y"])
 plt.rcParams['font.family'] = 'DeJavu Serif'
@@ -17,11 +35,10 @@ plt.rcParams['font.serif'] = ['Times New Roman']
 control_point_list, max_curvature_list = create_control_point_and_max_curvature_list(order, num_iterations)
 fig = plt.figure()
 ax = fig.add_subplot()
-ax.set_xticks([1,2,3,4,5,6])
-ax.set_xticklabels(['discrete \n evaluations','maximize curvature \n equation', 'geometric' ,\
-                    'roots of curvature \n derivative',  'roots of curvature \n numerator & denominator',
-                    'control point \n derivatives'])
-
+ax.set_xticks(tick_list)
+ax.set_xticklabels(label_list)
+evaluation_time_array = np.zeros(len(methods))
+evaluation_time_std_array = np.zeros(len(methods))
 ax.plot([0,len(methods)],[0,0],color = "gray",label="mean")
 ax.plot([0,len(methods)],[0,0],color = "gray",label="median", linestyle='dotted') 
 for i in range(len(methods)):
@@ -38,6 +55,8 @@ for i in range(len(methods)):
     print("average_time: ", average_time)
     print("std_time: " , std_time)
     print(" ")
+    evaluation_time_array[i] = average_time
+    evaluation_time_std_array[i] = std_time
     j = i + 1
     x_data = np.zeros(len(relative_error_array)) + j
     ax.scatter(x_data, relative_error_array,facecolors='none',edgecolors=color)
@@ -46,7 +65,7 @@ for i in range(len(methods)):
 
 plt.ylabel("Relative Error for Random B-splines", weight='bold')
 plt.xlabel("Methods of Evaluating Curvature Extrema",  weight='bold')
-plt.title("B-Spline Curvature Extrema Error Calculations", weight='bold')
+plt.title( str(order) + "Order B-Spline \n Curvature Extrema Error Calculations", weight='bold')
 plt.yscale("symlog") 
 plt.yscale('symlog' , linthresh=0.00001)
 plt.legend()
@@ -65,7 +84,6 @@ plt.show()
 #     curvature_bound_4, evaluation_time = get_curvature_bound_and_time(method,control_point_list[3],order)
 #     curvature_bound_5, evaluation_time = get_curvature_bound_and_time(method,control_point_list[4],order)
 #     curvature_bound_6, evaluation_time = get_curvature_bound_and_time(method,control_point_list[5],order)
-#     curvature_bound_7, evaluation_time = get_curvature_bound_and_time(method,control_point_list[6],order)
 
 #     fig = plt.figure()
 #     ax = fig.add_subplot()
@@ -100,3 +118,14 @@ plt.show()
 
 
 
+plt.figure()
+for i in range(len(methods)):
+    plt.errorbar(i,evaluation_time_array[i],evaluation_time_std_array[i], fmt='-o',capsize=7,color=colors[i],label=methods[i])
+
+
+plt.xlabel("Methods of Evaluating Curvature Extrema")
+plt.ylabel("Computationa Time")
+plt.title("Time Analysis of Curvature Extrema Evaluation Methods")
+plt.yscale("log") 
+plt.legend()
+plt.show()

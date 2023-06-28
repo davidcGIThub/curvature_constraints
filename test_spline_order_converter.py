@@ -5,7 +5,7 @@ from path_generation.spline_order_converter import SmoothingSpline
 import time
 
 num_data_points_per_interval = 1000
-order = 3
+order = 2
 control_points = np.array([[-3,  -4, -2, -.5, 1  ,   0,  2, 3.5, 3],
                             [.5, 3.5,  6, 5.5, 3.7,   2, -1,   2, 5]])
 dimension = 2
@@ -20,16 +20,15 @@ spline_acceleration_data, time_data = bspline.get_derivative_magnitude_data(num_
 curvature_data, time_data = bspline.get_spline_curvature_data(num_data_points_per_interval)
 ang_rate_data, time_data = bspline.get_angular_rate_data(num_data_points_per_interval)
 centripetal_acceleration_data, time_data = bspline.get_centripetal_acceleration_data(num_data_points_per_interval)
-max_velocity = np.max(spline_velocity_data)
-max_acceleration = np.max(spline_acceleration_data)
 
-new_order = 2
+new_order = 3
 dimension = 2
+smoother = SmoothingSpline(new_order, dimension, 1000)
+
 start_time = time.time()
-smoother = SmoothingSpline(new_order, dimension, 100)
+new_control_points, new_scale_factor = smoother.generate_new_control_points(control_points,scale_factor,order)
 end_time = time.time()
 print("elapsed time: " , end_time - start_time)
-new_control_points, new_scale_factor = smoother.generate_new_control_points(control_points,scale_factor,order, max_velocity = max_velocity)
 
 new_bspline = BsplineEvaluation(new_control_points, new_order, 0, new_scale_factor)
 new_spline_data, new_time_data = new_bspline.get_spline_data(num_data_points_per_interval)
