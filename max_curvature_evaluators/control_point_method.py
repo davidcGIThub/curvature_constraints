@@ -65,14 +65,15 @@ def get_min_velocity_rotation_method(control_point_velocities,rotation_angle):
 def get_cross_term_norm_bound(control_points, order, dimension):
     if order == 2:
         cross_term_norm_bound = get_cross_term_norm_value_from_second_order_spline(control_points)
-    elif order == 3:
-        bez_cross_term_cps = get_cross_term_bezier_control_points_from_third_order_spline(control_points, dimension)
-    elif order == 4:
-        bez_cross_term_cps = get_cross_term_bezier_control_points_from_fourth_order_spline(control_points, dimension)
-    elif order == 5:
-        bez_cross_term_cps = get_cross_term_bezier_control_points_from_fifth_order_spline(control_points, dimension)
-    if dimension == 2:
-        cross_term_norm_bound = np.max(np.abs(bez_cross_term_cps))
     else:
-        cross_term_norm_bound = np.max(np.linalg.norm(bez_cross_term_cps,2,0))
+        if order == 3:
+            bez_cross_term_cps = get_cross_term_bezier_control_points_from_third_order_spline(control_points, dimension)
+        elif order == 4:
+            bez_cross_term_cps = get_cross_term_bezier_control_points_from_fourth_order_spline(control_points, dimension)
+        elif order == 5:
+            bez_cross_term_cps = get_cross_term_bezier_control_points_from_fifth_order_spline(control_points, dimension)
+        if dimension == 2:
+            cross_term_norm_bound = np.max(np.abs(bez_cross_term_cps))
+        else:
+            cross_term_norm_bound = np.max(np.linalg.norm(bez_cross_term_cps,2,0))
     return cross_term_norm_bound

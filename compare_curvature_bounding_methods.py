@@ -4,19 +4,21 @@ from max_curvature_evaluators.helper_files.max_curvature_test_functions import t
     get_curvature_bound_and_time, create_edge_cases
 import matplotlib.pyplot as plt
 
-order = 3
+order = 2
 num_iterations = 100
 isRestricted = False
-methods = np.array(["discrete_evaluations", "maximize_curvature_equation", "roots_of_curvature_derivative", "roots_of_curvature_numerator_and_denominator", "control_point_derivatives"]) #, "geometric"])
-colors = np.array(["b", "g", "r", "c", "m"])
+methods = np.array(["discrete_evaluations", "maximize_curvature_equation", "roots_of_curvature_derivative", "geometric", "roots_of_curvature_numerator_and_denominator", "control_point_derivatives"]) #, "geometric"])
+colors = np.array(["tab:orange","b", "g", "r", "c", "m"])
+# curvature_methods = ["geometric","roots_numerator_and_denominator", "control_point_derivatives_mdm", "constrain_max_acceleration_and_min_velocity"]
+# colors = np.array(["r", "c", "m", "y"])
 plt.rcParams['font.family'] = 'DeJavu Serif'
 plt.rcParams['font.serif'] = ['Times New Roman']
 
 control_point_list, max_curvature_list = create_control_point_and_max_curvature_list(order, num_iterations)
 fig = plt.figure()
 ax = fig.add_subplot()
-ax.set_xticks([1,2,3,4,5])
-ax.set_xticklabels(['discrete \n evaluations','maximize curvature \n equation', \
+ax.set_xticks([1,2,3,4,5,6])
+ax.set_xticklabels(['discrete \n evaluations','maximize curvature \n equation', 'geometric' ,\
                     'roots of curvature \n derivative',  'roots of curvature \n numerator & denominator',
                     'control point \n derivatives'])
 

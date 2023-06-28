@@ -87,7 +87,6 @@ def find_max_acceleration(control_points,order):
     return max_acceleration
 
 def get_cross_coeficients(dimension,control_points):
-
     if dimension == 3:
         p0x = control_points[0,0]
         p0y = control_points[1,0]

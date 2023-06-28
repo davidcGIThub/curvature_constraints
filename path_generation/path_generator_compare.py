@@ -24,7 +24,7 @@ class PathGenerator:
     def __init__(self, order, dimension, curvature_method):
         self._order = order
         self._dimension = dimension
-        self._num_control_points = 7
+        self._num_control_points = 8
         self._M = get_M_matrix(0, self._order, np.array([]), False)
         self._curvature_method = curvature_method
         if self._curvature_method == "constrain_max_acceleration_and_min_velocity":

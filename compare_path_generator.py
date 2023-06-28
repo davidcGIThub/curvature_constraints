@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 from bsplinegenerator.bsplines import BsplineEvaluation
 from path_generation.path_generator_compare import PathGenerator
+from path_generation.path_generator_2nd_order import PathGenerator2nd
 import time
 
 ## try different initial conditions
@@ -16,10 +17,10 @@ waypoints = np.array([[0,6],[0,0]])
 dimension = np.shape(waypoints)[0]
 velocities = np.array([[1,1],[0,0]]) # 0
 velocities = np.array([[1,0],[0,1]]) # 1
-# velocities = np.array([[0,0],[1,-1]]) # 2
+velocities = np.array([[0,0],[1,-1]]) # 2
 # velocities = np.array([[-1,-1],[0,0]]) # 3
 # velocities = np.array([[0,0],[1,1]]) # 4
-# velocities = np.array([[-1,1],[0,0]]) # 5
+velocities = np.array([[-1,1],[0,0]]) # 5
 velocities = velocities/np.linalg.norm(velocities,2,0) # normalize velocities
 
 initial_control_points = None
@@ -34,8 +35,10 @@ initial_control_points = None
 # curvature_method = "control_point_derivatives"
 curvature_method = "constrain_max_acceleration_and_min_velocity"
 # curvature_methods = ["roots_of_curvature_derivative", "roots_numerator_and_denominator", "control_point_derivatives_mdm", "control_point_derivatives_rotate", "constrain_max_acceleration_and_min_velocity"]
-curvature_methods = ["roots_numerator_and_denominator", "control_point_derivatives_mdm", "control_point_derivatives_rotate", "constrain_max_acceleration_and_min_velocity"]
+curvature_methods = ["geometric","roots_numerator_and_denominator", "control_point_derivatives_mdm", "constrain_max_acceleration_and_min_velocity"]
 # curvature_methods = ["roots_numerator_and_denominator", "control_point_derivatives_rotate", "constrain_max_acceleration_and_min_velocity"]
+# curvature_methods = ["roots_numerator_and_denominator","geometric","geometric","geometric"]
+# colors = np.array(["r", "c"])
 num_methods = len(curvature_methods)
 colors = np.array(["r", "c", "m", "y", "b"])
 fig, ax = plt.subplots(3,num_methods)
@@ -45,12 +48,18 @@ min_x = 0
 min_y = 0
 for i in range(0,len(curvature_methods)):
     print(i)
-    path_gen = PathGenerator(order, dimension, curvature_methods[i])
+    if curvature_methods[i] == "geometric":
+        path_gen = PathGenerator2nd(dimension)
+    else:
+        path_gen = PathGenerator(order, dimension, curvature_methods[i])
     start_time = time.time()
     control_points, scale_factor = path_gen.generate_path(waypoints, velocities, max_curvature)
     end_time = time.time()
     spline_start_time = 0
-    bspline = BsplineEvaluation(control_points, order, spline_start_time, scale_factor, False)
+    if curvature_methods[i] == "geometric":
+        bspline = BsplineEvaluation(control_points, 2, spline_start_time, scale_factor, False)
+    else:
+        bspline = BsplineEvaluation(control_points, order, spline_start_time, scale_factor, False)
     number_data_points = 1000000
     spline_data, time_data = bspline.get_spline_data(number_data_points)
     spline_at_knot_points, knot_points = bspline.get_spline_at_knot_points()
@@ -73,8 +82,8 @@ for i in range(0,len(curvature_methods)):
         ax[0,i].set_title("Control Point \n Derivatives MDM")
     elif curvature_methods[i] == "constrain_max_acceleration_and_min_velocity":
         ax[0,i].set_title("Max Acceleration \n and Min Velocity")
-    elif curvature_methods[i] == "control_point_derivatives_rotate":
-        ax[0,i].set_title("Control Point \n Derivatives Rotate")
+    elif curvature_methods[i] == "geometric":
+        ax[0,i].set_title("Geometric")
     evaluation_time = end_time - start_time
     path_length = bspline.get_arc_length(number_data_points)
     acceleration_integral = np.sum(acceleration_magnitude_data)*time_data[1]
@@ -102,10 +111,11 @@ ax[1,0].set_ylabel("Evaluation Time",weight='bold')
 ax[1,1].set_ylabel("Path Length",weight='bold')
 ax[1,2].set_ylabel("Curvature Extrema",weight='bold')
 ax[1,2].plot([-1,4],[max_curvature, max_curvature], color='k')
-ax[1,2].text(-0.5,max_curvature+0.15,"max curvature", backgroundcolor="w")
+ax[1,2].text(-0.5,max_curvature+0.15,"max curvature")
 ax[0,0].set_ylabel("Optimized Paths",weight='bold')
 # ax[1,2].legend()
 ax[1,3].set_ylabel("accel_integral",weight='bold')
+ax[2,0].set_ylabel("Velocity Mag",weight='bold')
 
 fig.supxlabel("Curvature Constraint Methods")
 fig.suptitle("Curvature Contrained Path Optimizations: Case 3", weight='bold')
