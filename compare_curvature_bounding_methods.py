@@ -10,21 +10,23 @@ isRestricted = False
 if order == 2:
     methods = np.array(["discrete_evaluations", "maximize_curvature_equation", "roots_of_curvature_derivative", "geometric", "roots_of_curvature_numerator_and_denominator", "control_point_derivatives"]) #, "geometric"])
     colors = np.array(["tab:orange","b", "g", "r", "c", "m"])
-    label_list = ['discrete \n evaluations','maximize curvature \n equation' ,
-                    'roots of curvature \n derivative', 'geometric', 'roots of curvature \n numerator & denominator',
-                    'control point \n derivatives']
+    label_list = ['discrete evaluations','newton method' ,
+                    'roots of curvature derivative', 'geometric', 'analytical roots',
+                    'control points']
     tick_list = [1, 2, 3, 4, 5, 6]
 if order == 3:
     methods = np.array(["discrete_evaluations", "maximize_curvature_equation", "roots_of_curvature_derivative", "roots_of_curvature_numerator_and_denominator", "control_point_derivatives"]) #, "geometric"])
     colors = np.array(["tab:orange","b", "g", "c", "m"])
-    label_list = ['discrete \n evaluations','maximize curvature \n equation' ,
-                    'roots of curvature \n derivative', 'roots of curvature \n numerator & denominator',
-                    'control point \n derivatives']
+    label_list = ['discrete evaluations','newton method' ,
+                    'roots of curvature derivative', 'analytical roots',
+                    'control points']
     tick_list = [1, 2, 3, 4, 5]
 if order >= 4:
     methods = np.array(["discrete_evaluations", "maximize_curvature_equation", "roots_of_curvature_derivative", "control_point_derivatives"])
     colors  = np.array(["tab:orange" , "b" , "g" , "m"])
-    label_list = ['discrete \n evaluations' , 'maximize curvature \n equation' , 'roots of curvature \n numerator & denominator', 'control point \n derivatives']
+    label_list = ['discrete evaluations','newton method' ,
+                    'roots of curvature derivative',
+                    'control points']
     tick_list = [1, 2, 3, 4]
     
 # curvature_methods = ["geometric","roots_numerator_and_denominator", "control_point_derivatives_mdm", "constrain_max_acceleration_and_min_velocity"]
@@ -33,14 +35,13 @@ plt.rcParams['font.family'] = 'DeJavu Serif'
 plt.rcParams['font.serif'] = ['Times New Roman']
 
 control_point_list, max_curvature_list = create_control_point_and_max_curvature_list(order, num_iterations)
-fig = plt.figure()
-ax = fig.add_subplot()
-ax.set_xticks(tick_list)
-ax.set_xticklabels(label_list)
+fig, (ax1, ax2) = plt.subplots(1, 2,gridspec_kw={'width_ratios': [2, 1]})
+ax1.set_xticks(tick_list)
+# ax.set_xticklabels(label_list)
 evaluation_time_array = np.zeros(len(methods))
 evaluation_time_std_array = np.zeros(len(methods))
-ax.plot([0,len(methods)],[0,0],color = "gray",label="mean")
-ax.plot([0,len(methods)],[0,0],color = "gray",label="median", linestyle='dotted') 
+ax1.plot([0,len(methods)],[0,0],color = "gray",label="mean")
+ax1.plot([0,len(methods)],[0,0],color = "gray",label="median", linestyle='dotted') 
 for i in range(len(methods)):
     method = methods[i]
     color = colors[i]
@@ -59,17 +60,16 @@ for i in range(len(methods)):
     evaluation_time_std_array[i] = std_time
     j = i + 1
     x_data = np.zeros(len(relative_error_array)) + j
-    ax.scatter(x_data, relative_error_array,facecolors='none',edgecolors=color)
-    ax.plot([j-0.25,j,j+0.25],np.array([median,median,median]), color = color, linestyle=":")
-    ax.plot([j-0.25,j,j+0.25],np.array([mean,mean,mean]), color = color)
+    ax1.scatter(x_data, relative_error_array,facecolors='none',edgecolors=color, label=str(i+1) + " " + label_list[i])
+    ax1.plot([j-0.25,j,j+0.25],np.array([median,median,median]), color = color, linestyle=":")
+    ax1.plot([j-0.25,j,j+0.25],np.array([mean,mean,mean]), color = color)
 
-plt.ylabel("Relative Error for Random B-splines", weight='bold')
-plt.xlabel("Methods of Evaluating Curvature Extrema",  weight='bold')
-plt.title( str(order) + "Order B-Spline \n Curvature Extrema Error Calculations", weight='bold')
-plt.yscale("symlog") 
-plt.yscale('symlog' , linthresh=0.00001)
-plt.legend()
-plt.show()
+ax1.set_ylabel("Curvature Error for Random B-splines")
+ax1.set_xlabel("Evaluation Methods")
+ax1.set_title( str(order) + " Order Curvature Error Calculations")
+# ax1.set_yscale("symlog") 
+ax1.set_yscale('symlog' , linthresh=0.00001)
+ax1.legend()
 
 # control_point_list, max_curvature_list = create_edge_cases(order)
 
@@ -118,14 +118,16 @@ plt.show()
 
 
 
-plt.figure()
+
+ax2.set_xticks(tick_list)
 for i in range(len(methods)):
-    plt.errorbar(i,evaluation_time_array[i],evaluation_time_std_array[i], fmt='-o',capsize=7,color=colors[i],label=methods[i])
+    ax2.errorbar(i+1,evaluation_time_array[i],evaluation_time_std_array[i], fmt='-o',capsize=7,color=colors[i],label= str(i) + " " + label_list[i])
 
 
-plt.xlabel("Methods of Evaluating Curvature Extrema")
-plt.ylabel("Computationa Time")
-plt.title("Time Analysis of Curvature Extrema Evaluation Methods")
-plt.yscale("log") 
-plt.legend()
+ax2.set_xlabel("Evaluation Methods")
+ax2.set_ylabel("Computationa Time")
+ax2.set_title("Time Analysis")
+ax2.set_yscale("log") 
+ax2.yaxis.set_label_position("right")
+# ax2.legend()
 plt.show()
